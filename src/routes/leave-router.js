@@ -6,12 +6,14 @@ router.post('/applyLeave', LeaveController.applyLeave);
 
 router.post('/cancelLeave', LeaveController.cancelLeave);
 
-router.post('/blockLeave', LeaveController.blockLeave);
-
-router.post('/deleteLeave', LeaveController.deleteLeave);
-
 router.post('/searchLeave', LeaveController.searchLeave);
 
-router.post('/getLeave', LeaveController.getLeave);
+router.post('/getLeaveTypeList', LeaveController.getLeaveTypeList);
+
+router.post('/getLeaveColorList', LeaveController.getLeaveColorList);
+
+router.post('/getLeaveHolidayColor', LeaveController.getLeaveHolidayColor);
+
+router.post('/getLeaveBalance', LeaveController.getLeaveBalance);
 
 module.exports = router;

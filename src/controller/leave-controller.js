@@ -21,41 +21,34 @@ module.exports = {
             Util.sendError500(req, res, excep);
         }
     },
-    blockLeave: async (req, res, next) => { //softDelete
+    
+    getLeaveTypeList: async (req, res, next) => {
 
         try {
-            leaveService.blockLeave(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    },
-    deleteLeave: async (req, res, next) => { //hardDelete
-
-        try {
-            leaveService.deleteLeave(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    },
-    searchLeave: async (req, res, next) => {
-
-        try {
-            leaveService.searchLeave(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    },
-    getLeave: async (req, res, next) => {
-
-        try {
-            leaveService.getLeave(req, res, next);
+            leaveService.getLeaveTypeList(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);
         }
     },
 
+    getLeaveColorList: async (req, res, next) => {
+
+        try {
+            leaveService.getLeaveColorList(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
+
+    getLeaveBalance: async (req, res, next) => {
+
+        try {
+            leaveService.getLeaveBalance(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
 }

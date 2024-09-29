@@ -24,5 +24,6 @@ module.exports = {
     getHoliday: async (req, res, next) => {
 
         res.json("Get Holiday");  
-    }
+    },
+    
 }

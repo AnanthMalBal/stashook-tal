@@ -1,57 +1,35 @@
 const {Util} = require('../../node_modules/stashook-utils');
 const Message = require('../util/message');
 const timesheetService = require('../service/timesheet-service');
+const projectService = require('../service/project-service');
+const usersDailyLogService = require('../service/userdailylog-service');
 
 module.exports = {
-    addTimesheet: async (req, res, next) => {
+    
+    getProjectList: async (req, res, next) => {
 
         try {
-            timesheetService.addTimesheet(req, res, next);
+            projectService.getProjectList(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);
         }
     },
-    updateTimesheet: async (req, res, next) => {
+    
+    getProcessList: async (req, res, next) => {
 
         try {
-            timesheetService.updateTimesheet(req, res, next);
+            projectService.getProcessList(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);
         }
     },
-    blockTimesheet: async (req, res, next) => { //softDelete
+
+    addUserDailyLog: async (req, res, next) => {
 
         try {
-            timesheetService.blockTimesheet(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    },
-    deleteTimesheet: async (req, res, next) => { //hardDelete
-
-        try {
-            timesheetService.deleteTimesheet(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    },
-    searchTimesheet: async (req, res, next) => {
-
-        try {
-            timesheetService.searchTimesheet(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    },
-    getTimesheet: async (req, res, next) => {
-
-        try {
-            timesheetService.getTimesheet(req, res, next);
+            usersDailyLogService.addUserDailyLog(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);

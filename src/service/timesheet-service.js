@@ -1,7 +1,7 @@
 const {Util, Connection, Helper, Model} = require('stashook-utils');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
-const TimesheetModel = require('../model/Timesheet');
+const TimesheetModel = require('../model/timesheet');
 
 module.exports = {
     addTimesheet: async (req, res, next) => {

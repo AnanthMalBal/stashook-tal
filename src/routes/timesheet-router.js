@@ -2,16 +2,10 @@ var express = require('express');
 var router = express.Router();
 const TimesheetController = require('../controller/timesheet-controller')
 
-router.post('/createTimesheet', TimesheetController.addTimesheet);
+router.post('/getProjectList', TimesheetController.getProjectList);
 
-router.post('/updateTimesheet', TimesheetController.updateTimesheet);
+router.post('/getProcessList', TimesheetController.getProcessList);
 
-router.post('/blockTimesheet', TimesheetController.blockTimesheet);
-
-router.post('/deleteTimesheet', TimesheetController.deleteTimesheet);
-
-router.post('/searchTimesheet', TimesheetController.searchTimesheet);
-
-router.post('/getTimesheet', TimesheetController.getTimesheet);
+router.post('/addUserDailyLog', TimesheetController.addUserDailyLog);
 
 module.exports = router;

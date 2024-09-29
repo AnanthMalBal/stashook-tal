@@ -1,6 +1,6 @@
 {
   "name": "stashook-tal",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -13,6 +13,6 @@
     "morgan": "~1.9.1",
     "mysql2": "^3.11.3",
     "nodemon": "^3.1.4",
-    "stashook-utils": "^1.0.1"
+    "stashook-utils": "^1.0.4"
   }
 }
