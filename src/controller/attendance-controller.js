@@ -17,7 +17,7 @@ module.exports = {
     markAttendance: async (req, res, next) => {
 
         try {
-            res.json(attendanceService.markAttendance(req, res, next));
+            attendanceService.markAttendance(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);

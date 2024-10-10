@@ -6,10 +6,10 @@ module.exports = new class TimesheetModel extends Model {
     super('userstimesheet'); // Table Name
   }
 
-  createData(attendaceId) {
+  createData(attendanceId) {
     return { 
       'timesheetId': Util.primaryId("TS"), 
-      'attendaceId': attendaceId,
+      'attendanceId': attendanceId,
       'status': 'None'
     }
   }

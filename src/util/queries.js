@@ -1,10 +1,12 @@
 module.exports = {
 
-    MarkTime : `SELECT attendanceId, employeeId, DATE_FORMAT(markedTime,'%Y-%m-%d %H:%i:%s') AS markedTime, symbol, SUBSTRING(symbol, 2, 2) AS workingHours FROM usersattendance WHERE employeeId = ? AND attendanceDate LIKE ?`,
+    MarkTime : `SELECT attendanceId, employeeId, DATE_FORMAT(markedTime,'%Y-%m-%d %H:%i:%s') AS markedTime, symbol, SUBSTRING(symbol, 2, 2) AS workingHours FROM usersattendance WHERE employeeId = ? AND attendanceDate = ?`,
     
-    CheckMarkedTime : `SELECT attendanceId FROM usersattendance WHERE employeeId = ? AND attendanceDate LIKE ? `,
+    CheckMarkedTime : `SELECT attendanceId FROM usersattendance WHERE employeeId = ? AND attendanceDate = ? `,
+
+    CheckTimeSheet: `SELECT timesheetId FROM userstimesheet WHERE attendanceId = ? `,
     
-    UpdateAttendanceSymbol : `UPDATE usersattendance SET symbol= ? WHERE attendanceId = ?`,
+    UpdateAttendanceSymbol : `UPDATE usersattendance SET symbol= ?, markedTime = ? WHERE attendanceId = ?`,
     
     LMSColorList : `SELECT * FROM user_lms_color WHERE status = 1 Order By displayOrder ASC`,
     
