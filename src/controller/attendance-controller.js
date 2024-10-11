@@ -1,13 +1,15 @@
-const {Util} = require('stashook-utils');
+const Util = require('stashook-utils');
 const Message = require('../util/message');
 const attendanceService = require('../service/attendance-service');
+const Logger = require('../util/logger');
 
 module.exports = {
-   
+
     getMarkedTime: async (req, res, next) => {
 
         try {
-            attendanceService.getMarkedTime(req, res, next)
+            
+            attendanceService.getMarkedTime(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);
@@ -17,10 +19,12 @@ module.exports = {
     markAttendance: async (req, res, next) => {
 
         try {
+            Logger.info('Testing Info Logger For markAttendance');
             attendanceService.markAttendance(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);
+            Logger.error(excep);
         }
     }
 
