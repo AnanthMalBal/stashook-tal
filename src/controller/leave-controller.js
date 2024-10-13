@@ -1,8 +1,16 @@
 const {Util} = require('stashook-utils');
-const Message = require('../util/message');
 const leaveService = require('../service/leave-service');
 
 module.exports = {
+    searchLeave: async (req, res, next) => {
+
+        try {
+            leaveService.SearchLeave(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
     applyLeave: async (req, res, next) => {
 
         try {

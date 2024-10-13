@@ -6,15 +6,19 @@ module.exports = {
 
     CheckTimeSheet: `SELECT timesheetId FROM userstimesheet WHERE attendanceId = ? `,
     
-    UpdateAttendanceSymbol : `UPDATE usersattendance SET symbol= ?, markedTime = ? WHERE attendanceId = ?`,
+    UpdateAttendanceSymbol : `UPDATE usersattendance SET symbol= ?, markedTime = ?, status = 'Marked' WHERE attendanceId = ? AND lockStatus = 'None' AND status <> 'Approved' ` ,
     
     LMSColorList : `SELECT * FROM user_lms_color WHERE status = 1 Order By displayOrder ASC`,
     
     LeaveTypeList : `SELECT * FROM users_leave_type WHERE status = 1 Order By displayOrder ASC`,
 
-    CancelLeave : `UPDATE usersleavemanagement SET status = 'Cancel', comments = ?, modifiedBy = ?, modifiedDate = ? WHERE leaveId = ?`,
+    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate >= ? AND toDate <= ? `, 
 
-    SearchUserLeaveList : `SELECT *, IF(status="Pending",1,0) AS CancelButton FROM usersleavemanagement WHERE employeeId LIKE ? AND fromDate >= ? AND toDate <= ?`,
+    SearchLeaveWithOutRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate <= ? AND toDate >= ? `, 
+
+    CancelLeave : `UPDATE usersleavemanagement SET status = 'Cancel', comments = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved') AND leaveId = ?`,
+
+    SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId LIKE ? AND fromDate >= ? AND toDate <= ?`,
     
     SP_HolidayColor : `CALL getLMSNew(?,?)`,
     

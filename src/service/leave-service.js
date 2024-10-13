@@ -1,17 +1,59 @@
-const { Util, Connection, Helper, Model } = require('stashook-utils');
+const { Util, Connection, JsonUtil } = require('stashook-utils');
+const LeaveModel = require('../model/leave');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
-const LeaveModel = require('../model/leave');
+const Logger = require('../util/logger');
 
 module.exports = {
+    
+    SearchLeave: async (req, res, next) => {
+
+        const employeeId = (req.isApprover) ? '%%' : Util.withPercent(req.body.employeeId);
+
+        Connection.query(Queries.SearchUserLeave, [employeeId, req.body.fromDate, req.body.toDate], function (error, results) {
+            if (error || results.length === 0) res.json(Message.NO_DATA_FOUND);
+
+            if (results.length > 0) 
+                {
+                    JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
+                    JsonUtil.empty(results);
+                    JsonUtil.mask(results, "leaveId");
+                    //JsonExclude.unmask(results, "leaveId");
+                    console.log(":::::unmaskField:::::" + JsonUtil.unmaskField(results[5]["leaveId"]));
+                    res.json(results);
+                }
+        });
+    },
+
     applyLeave: async (req, res, next) => {
 
-        let results = LeaveModel.create(LeaveModel.createData(req));
-        if(results)
-            res.json(Message.LEAVE_APPLIED_SUCCESSFULLY);
-        else
-            res.json(Message.UNABLE_TO_APPLY_LEAVE);
+        Connection.query(Queries.SearchLeaveWithInRange, [req.body.employeeId, req.body.fromDate, req.body.toDate], function (error, inResults) {
 
+            if (inResults.length === 0) {
+                Connection.query(Queries.SearchLeaveWithOutRange, [req.body.employeeId, req.body.fromDate, req.body.toDate], function (error, outResults) {
+
+                    if (outResults.length === 0) {
+                        LeaveModel.create(LeaveModel.createData(req), "leaveId")
+                            .then(result => {
+                                Logger.info("::Queries::Create::LeaveModel::result: " + JSON.stringify(result));
+                                if (result.affectedRows > 0)
+                                    res.json(Message.LEAVE_APPLIED_SUCCESSFULLY);
+                                else
+                                    res.json(Message.UNABLE_TO_APPLY_LEAVE);
+                            }).catch(error => {
+                                Logger.error("::Queries::Create::LeaveModel::error: " + error);
+                                res.json(Message.UNABLE_TO_APPLY_LEAVE);
+                            });
+                    }
+                    else {
+                        res.json(Message.LEAVE_ALREADY_APPLIED);
+                    }
+                });
+            }
+            else {
+                res.json(Message.LEAVE_ALREADY_APPLIED);
+            }
+        });
     },
 
     cancelLeave: async (req, res, next) => { //softDelete
@@ -23,18 +65,7 @@ module.exports = {
 
         });
     },
-    
-    searchUserLeaveList: async (req, res, next) => {
 
-        const employeeId = (req.isApprover) ? '%%' : Util.withPercent(req.body.employeeId);
-
-        Connection.query(Queries.SearchUserLeaveList, [employeeId, req.body.fromDate, req.body.toDate], function (error, results) {
-            if (error || results.length === 0) res.json(Message.NO_DATA_FOUND);
-
-            if (results.length > 0) res.json(results);
-
-        });
-    },
 
     getLeaveColorList: async (req, res, next) => {
 
@@ -71,6 +102,4 @@ module.exports = {
             res.json(result);
         });
     }
-
-
 }

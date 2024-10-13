@@ -1,5 +1,4 @@
 const Util = require('stashook-utils');
-const Message = require('../util/message');
 const attendanceService = require('../service/attendance-service');
 const Logger = require('../util/logger');
 
@@ -23,8 +22,8 @@ module.exports = {
             attendanceService.markAttendance(req, res, next);
         }
         catch (excep) {
-            Util.sendError500(req, res, excep);
             Logger.error(excep);
+            Util.sendError500(req, res, excep);
         }
     }
 

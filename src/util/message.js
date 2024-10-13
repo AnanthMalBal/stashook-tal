@@ -8,6 +8,7 @@ module.exports = {
     NO_ACTIVE_PROCESS: {type: 'error', message: 'No Timesheet Process available for selected Project.'},
     LEAVE_APPLIED_SUCCESSFULLY: {type: 'success', message: 'Leave Applied Successfully.'},
     UNABLE_TO_APPLY_LEAVE: {type: 'error', message: 'Unable to Apply Leave. Please Contact Admin.'},
+    LEAVE_ALREADY_APPLIED: {type: 'error', message: 'Leave Already Applied For Given Date Range. Please Cancel Previous Leave And Apply Again.'},
     LEAVE_CANCELLED_SUCCESSFULLY: {type: 'success', message: 'Leave has been Cancelled Successfully.'},
     UNABLE_TO_CANCEL_LEAVE: {type: 'error', message: 'Unable to Cancel Leave. Please Contact Admin.'},
     DAILY_LOG_ADDED_SUCCESSFULLY: {type: 'success', message: 'User Daily Log Details Added Successfully.'},
