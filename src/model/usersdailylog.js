@@ -1,4 +1,4 @@
-const {Util, Connection, Helper, Model} = require('stashook-utils');
+const {Model} = require('stashook-utils');
 
 module.exports = new class UsersDailyLogModel extends Model {
 

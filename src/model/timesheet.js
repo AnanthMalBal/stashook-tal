@@ -10,7 +10,8 @@ module.exports = new class TimesheetModel extends Model {
     return { 
       'timesheetId': Util.primaryId("TS"), 
       'attendanceId': attendanceId,
-      'status': 'None'
+      'status': 'None',
+      'lockStatus': 'None'
     }
   }
 

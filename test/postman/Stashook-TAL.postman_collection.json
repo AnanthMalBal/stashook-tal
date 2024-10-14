@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "ba77a6b5-855e-400e-bf03-aeb9c01f83ee",
+		"name": "Stashook-TAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6436539"
+	},
+	"item": [
+		{
+			"name": "Mark-Attendance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\":\"10504\",\r\n    \"symbol\":\"P8\",\r\n    \"mode\":\"WFO\",\r\n    \"markedBy\":\"10504\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/markAttendance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"markAttendance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Apply-Leave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-15\",\r\n    \"toDate\": \"2024-10-20\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/applyLeave",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"applyLeave"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancel-Leave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-15\",\r\n    \"toDate\": \"2024-10-20\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/cancelLeave",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"cancelLeave"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search-Leave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"leaveId\": \"LM1728806416798\",\r\n    \"employeeId\": 10504,\r\n    \"comments\": \"Cancel Leave\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/searchLeave",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"searchLeave"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Leave Type",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"fromDate\": \"2024-10-01\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/getLeaveTypeList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"getLeaveTypeList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Leave Color ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"fromDate\": \"2024-10-01\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/getLeaveColorList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"getLeaveColorList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Project-List",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"fromDate\": \"2024-10-01\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/getProjectList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"getProjectList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Process-List",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"projectId\": \"ProFoc0001\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/getProcessList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"getProcessList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add-Daily-Log",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n      \"projectId\" : \"ProFoc0001\",\r\n      \"processId\" : \"ProcessTraining\",\r\n      \"timesheetId\" : \"TS1728835005174\",\r\n      \"actualTime\" : \"120\",\r\n      \"description\" : \"AWS Process Training\"\r\n    }   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/addUserDailyLog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"addUserDailyLog"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

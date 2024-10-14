@@ -13,6 +13,7 @@ module.exports = new class AttendanceModel extends Model {
       'symbol': req.body.symbol,
       'mode': req.body.mode,
       'status': 'Marked',
+      'lockStatus' : 'None',
       'attendanceDate': Util.getDate('YYYY-MM-DD 00:00:00'),
       'markedTime':Util.getDate()
     }
@@ -22,7 +23,8 @@ module.exports = new class AttendanceModel extends Model {
     return { 
       'attendanceId': attendanceId, 
       'symbol': symbol,
-      'status': 'Marked'
+      'status': 'Marked',
+      'lockStatus' : 'None'
     }
   }
 

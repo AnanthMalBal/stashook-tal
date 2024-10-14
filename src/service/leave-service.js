@@ -15,11 +15,10 @@ module.exports = {
 
             if (results.length > 0) 
                 {
-                    JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
-                    JsonUtil.empty(results);
+                    //JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
+                    //JsonUtil.empty(results);
                     JsonUtil.mask(results, "leaveId");
-                    //JsonExclude.unmask(results, "leaveId");
-                    console.log(":::::unmaskField:::::" + JsonUtil.unmaskField(results[5]["leaveId"]));
+                    console.log(":::::unmaskField:::::" + JsonUtil.unmaskField(results[0]["leaveId"]));
                     res.json(results);
                 }
         });

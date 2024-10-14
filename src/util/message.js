@@ -13,5 +13,5 @@ module.exports = {
     UNABLE_TO_CANCEL_LEAVE: {type: 'error', message: 'Unable to Cancel Leave. Please Contact Admin.'},
     DAILY_LOG_ADDED_SUCCESSFULLY: {type: 'success', message: 'User Daily Log Details Added Successfully.'},
     DAILY_LOG_ADDING_FAILED: {type: 'error', message: 'Unable to User Daily Log Details. Please Contact Admin.'},
-    
+    DAILY_LOG_ALREADY_EXISTS: {type: 'error', message: 'User Daily Log Details For Given Process Already Exists.'},
 }

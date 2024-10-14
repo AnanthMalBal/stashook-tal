@@ -1,6 +1,4 @@
 const {Util} = require('../../node_modules/stashook-utils');
-const Message = require('../util/message');
-const timesheetService = require('../service/timesheet-service');
 const projectService = require('../service/project-service');
 const usersDailyLogService = require('../service/userdailylog-service');
 

@@ -18,22 +18,22 @@ module.exports = {
 
     markAttendance: async (req, res, next) => {
 
-        //Logger.info("::Queries::CheckMarkedTime::: " + Queries.CheckMarkedTime);
+        Logger.info("::Queries::CheckMarkedTime::: " + Queries.CheckMarkedTime);
         Connection.query(Queries.CheckMarkedTime, [req.body.employeeId, Util.getDate('YYYY-MM-DD 00:00:00')], function (error, attResult) {
 
-            // Logger.info(":::CheckMarkedTime::Select::: " + JSON.stringify(attResult));
+            Logger.info(":::CheckMarkedTime::Select::: " + JSON.stringify(attResult));
 
             if (attResult.length > 0) { // Default Flow
 
                 Connection.query(Queries.UpdateAttendanceSymbol, [req.body.symbol, Util.getDate(), attResult[0].attendanceId], function (error, result) {
 
-                    // Logger.info(":::UpdateAttendanceSymbol::: " + JSON.stringify(result));
+                    Logger.info(":::UpdateAttendanceSymbol::: " + JSON.stringify(result));
 
                     if (error || result.affectedRows === 0)
                         res.json(Message.UNABLE_TO_MARK_ATTENDANCE);
                     else
                     {
-                        // Logger.info(":::CheckTimeSheet::Select::: " + Queries.CheckTimeSheet);
+                        Logger.info(":::CheckTimeSheet::Select::: " + Queries.CheckTimeSheet);
                         Connection.query(Queries.CheckTimeSheet, [attResult[0].attendanceId], function (error, timeResult) {
                             
                             // Logger.info(":::CheckTimeSheet::Select::: " + JSON.stringify(timeResult));
