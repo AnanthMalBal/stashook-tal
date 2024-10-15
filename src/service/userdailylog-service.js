@@ -9,10 +9,10 @@ module.exports = {
 
         Connection.query(Queries.CheckUsersDailyLog, [req.body.timesheetId, req.body.processId], function (error, result) {
 
-            Logger.info(":::SelectUsersDailyLog::: " + JSON.stringify(result));
+            Logger.info(":::CheckUsersDailyLog::: " + JSON.stringify(result));
 
-            if (error || result.length === 0) {
-                UsersDailyLogModel.create(UsersDailyLogModel.createData(req), "autoId")
+            if (error || result.length === 0) { // For Select Query use result.length 
+                UsersDailyLogModel.create(UsersDailyLogModel.createData(req))
                     .then(result => {
                         Logger.info("::Queries::Create::UsersDailyLogModel::result: " + JSON.stringify(result));
                         if (result.affectedRows > 0)
@@ -24,8 +24,7 @@ module.exports = {
                         res.json(Message.DAILY_LOG_ADDING_FAILED);
                     });
             }
-            else
-            {
+            else {
                 Logger.error("::Queries::Create::UsersDailyLogModel::error: Already Exists ");
                 res.json(Message.DAILY_LOG_ALREADY_EXISTS);
             }

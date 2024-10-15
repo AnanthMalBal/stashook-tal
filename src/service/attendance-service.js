@@ -23,13 +23,13 @@ module.exports = {
 
             Logger.info(":::CheckMarkedTime::Select::: " + JSON.stringify(attResult));
 
-            if (attResult.length > 0) { // Default Flow
+            if (attResult.length > 0) { // Default Flow // For Select Query use attResult.length 
 
                 Connection.query(Queries.UpdateAttendanceSymbol, [req.body.symbol, Util.getDate(), attResult[0].attendanceId], function (error, result) {
 
                     Logger.info(":::UpdateAttendanceSymbol::: " + JSON.stringify(result));
 
-                    if (error || result.affectedRows === 0)
+                    if (error || result.affectedRows === 0) // For Update Query use result.affectedRows 
                         res.json(Message.UNABLE_TO_MARK_ATTENDANCE);
                     else
                     {
