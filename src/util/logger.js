@@ -14,7 +14,7 @@ const Logger = winston.createLogger({
       align(),
       printf((info) => `${info.timestamp} ${info.level} ${info.message}`)
     ),
-    transports: [new(winston.transports.File)({filename: process.env.LOG_FILE_LOCATION || 'logs/tal.log'})],
+    transports: [new(winston.transports.File)({filename: process.env.LOG_FILE_LOCATION || 'logs/util.log'})],
 })
 module.exports = Logger;
 

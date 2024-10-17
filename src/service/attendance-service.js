@@ -1,9 +1,10 @@
 const { Util, Connection, Helper, Model } = require('stashook-utils');
+const Logger = require('../util/logger');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
 const AttendanceModel = require('../model/attendance');
 const TimesheetModel = require('../model/timesheet');
-const Logger = require('../util/logger');
+
 
 module.exports = {
 
