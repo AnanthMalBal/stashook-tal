@@ -10,10 +10,16 @@
 			"name": "Mark-Attendance",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjoiMTA1MDciLCJ1c2VySWQiOiIxMDUwNyIsInVzZXJOYW1lIjoiUiBUaGFuZ2FtIiwicHJvZHVjZXJJZCI6IlBSRDAwMDAwMSIsInVzZXJUeXBlIjoiRW1wbG95ZWUiLCJyb2xlcyI6WyJRdWFsaXR5QXNzdXJhbmNlIiwiRW1wbG95ZWUiXSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MTQ1NjA4fQ.U9Rz-9B7hLR501pGhvY53ZDF6qzXfQyFg7QjHA90Xfo",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"employeeId\":\"10504\",\r\n    \"symbol\":\"P8\",\r\n    \"mode\":\"WFO\",\r\n    \"markedBy\":\"10504\"\r\n}",
+					"raw": "{\r\n    \"employeeId\":\"10504\",\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\",\r\n    \"markedBy\":\"10504\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,10 +45,16 @@
 			"name": "Apply-Leave",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjoiMTA1MDciLCJ1c2VySWQiOiIxMDUwNyIsInVzZXJOYW1lIjoiUiBUaGFuZ2FtIiwicHJvZHVjZXJJZCI6IlBSRDAwMDAwMSIsInVzZXJUeXBlIjoiRW1wbG95ZWUiLCJyb2xlcyI6WyJRdWFsaXR5QXNzdXJhbmNlIiwiRW1wbG95ZWUiXSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MTQ0MTY1fQ.1m_eW6hfEfO8GRQYXJDZgKAo6n9s1FLh9xsm5PYj6aA",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-15\",\r\n    \"toDate\": \"2024-10-20\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
+					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-16\",\r\n    \"toDate\": \"2024-10-18\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,7 +112,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"leaveId\": \"LM1728806416798\",\r\n    \"employeeId\": 10504,\r\n    \"comments\": \"Cancel Leave\"\r\n}\r\n",
+					"raw": "{\r\n   \"employeeId\": 10504,\r\n   \"fromDate\": \"2024-10-15\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
