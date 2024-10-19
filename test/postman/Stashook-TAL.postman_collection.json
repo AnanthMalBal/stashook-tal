@@ -13,7 +13,7 @@
 				"header": [
 					{
 						"key": "authorization",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjoiMTA1MDciLCJ1c2VySWQiOiIxMDUwNyIsInVzZXJOYW1lIjoiUiBUaGFuZ2FtIiwicHJvZHVjZXJJZCI6IlBSRDAwMDAwMSIsInVzZXJUeXBlIjoiRW1wbG95ZWUiLCJyb2xlcyI6WyJRdWFsaXR5QXNzdXJhbmNlIiwiRW1wbG95ZWUiXSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MTQ1NjA4fQ.U9Rz-9B7hLR501pGhvY53ZDF6qzXfQyFg7QjHA90Xfo",
+						"value": "{{token}}",
 						"type": "text"
 					}
 				],
@@ -48,7 +48,7 @@
 				"header": [
 					{
 						"key": "authorization",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjoiMTA1MDciLCJ1c2VySWQiOiIxMDUwNyIsInVzZXJOYW1lIjoiUiBUaGFuZ2FtIiwicHJvZHVjZXJJZCI6IlBSRDAwMDAwMSIsInVzZXJUeXBlIjoiRW1wbG95ZWUiLCJyb2xlcyI6WyJRdWFsaXR5QXNzdXJhbmNlIiwiRW1wbG95ZWUiXSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNzI5MTQ0MTY1fQ.1m_eW6hfEfO8GRQYXJDZgKAo6n9s1FLh9xsm5PYj6aA",
+						"value": "{{token}}",
 						"type": "text"
 					}
 				],
@@ -80,7 +80,13 @@
 			"name": "Cancel-Leave",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-15\",\r\n    \"toDate\": \"2024-10-20\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
@@ -109,7 +115,13 @@
 			"name": "Search-Leave",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n   \"employeeId\": 10504,\r\n   \"fromDate\": \"2024-10-15\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
@@ -138,7 +150,13 @@
 			"name": "Get-Leave Type",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"fromDate\": \"2024-10-01\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
@@ -167,7 +185,13 @@
 			"name": "Get-Leave Color ",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"fromDate\": \"2024-10-01\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
@@ -196,7 +220,13 @@
 			"name": "Get-Project-List",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"fromDate\": \"2024-10-01\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
@@ -223,9 +253,27 @@
 		},
 		{
 			"name": "Get-Process-List",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"projectId\": \"ProFoc0001\"\r\n}\r\n",
@@ -254,7 +302,13 @@
 			"name": "Add-Daily-Log",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{ \r\n      \"projectId\" : \"ProFoc0001\",\r\n      \"processId\" : \"ProcessTraining\",\r\n      \"timesheetId\" : \"TS1728835005174\",\r\n      \"actualTime\" : \"120\",\r\n      \"description\" : \"AWS Process Training\"\r\n    }   \r\n",
@@ -278,6 +332,50 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const preRequest = {\r",
+					"    method: 'POST',\r",
+					"    url: 'http://localhost:9000/stashook/login',\r",
+					"    header: 'Content-Type: application/json',\r",
+					"    body: {\r",
+					"        mode: 'raw',\r",
+					"        raw: JSON.stringify({\r",
+					"            \"username\":pm.environment.get(\"username\"),\r",
+					"            \"password\":pm.environment.get(\"password\")\r",
+					"        })\r",
+					"    }\r",
+					"};\r",
+					" \r",
+					"// Send the pre-request POST request.\r",
+					"pm.sendRequest(preRequest, (err, response) => {\r",
+					"    if (err) {\r",
+					"        console.error('Error:', err);\r",
+					"    } else {\r",
+					"        //console.log('Pre-request script response:', response.json());\r",
+					"        pm.environment.set(\"token\", response.json().accesstoken);\r",
+					"        //console.log(pm.environment.get(\"accessToken\"));\r",
+					"    }\r",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
