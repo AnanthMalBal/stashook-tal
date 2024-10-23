@@ -18,8 +18,13 @@ module.exports = {
 
     CancelLeave : `UPDATE usersleavemanagement SET status = 'Cancel', comments = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved') AND leaveId = ?`,
 
-    SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId LIKE ? AND fromDate >= ? AND toDate <= ?`,
+    GetReportingEmployeeList : `SELECT employeeId FROM users WHERE reportingTo = ?`,
+
+    SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId = ? AND fromDate >= ? AND toDate <= ?`,
     
+    SearchUserLeaveByAdmin : `SELECT CONCAT(U.userName, '(', U.userId, ')') AS userName, UL.* FROM usersleavemanagement UL JOIN users U ON U.employeeId = UL.employeeId 
+    WHERE UL.employeeId IN (?) AND U.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? AND UL.fromDate >= ? AND UL.toDate <= ? `,
+
     SP_HolidayColor : `CALL getLMSNew(?,?)`,
     
     SP_LeaveBalance : `CALL getLMSLeave(?)`,

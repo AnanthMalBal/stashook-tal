@@ -1,6 +1,6 @@
 module.exports = {
 
-    NO_DATA_FOUND : {type: 'success', data: 'No Data Found.'},
+    NO_DATA_FOUND : {type: 'success', message: 'No Data Found.'},
     ATTENDANCE_MARKED_SUCCESSFULLY: {type: 'success', message: 'Attendance Marked Successfully.'},
     UNABLE_TO_MARK_ATTENDANCE: {type: 'error', message: 'Unable to Mark Attendance. Please Contact Admin.'},
     HOLIDAY_INVALID_DATE: {type: 'error', message: 'Please provide valid Date.'},

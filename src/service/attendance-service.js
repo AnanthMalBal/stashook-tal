@@ -20,7 +20,14 @@ module.exports = {
     markAttendance: async (req, res, next) => {
 
         Logger.info("::Queries::CheckMarkedTime::: " + Queries.CheckMarkedTime);
-        Connection.query(Queries.CheckMarkedTime, [req.body.employeeId, Util.getDate('YYYY-MM-DD 00:00:00')], function (error, attResult) {
+        let employeeId = req.body.employeeId;
+        
+        if(employeeId == null || employeeId == undefined)
+            employeeId = req.sessionUser.employeeId;
+
+        Logger.info("::Marking Attendance For The Employee Id ::: " + employeeId);
+
+        Connection.query(Queries.CheckMarkedTime, [employeeId, Util.getDate('YYYY-MM-DD 00:00:00')], function (error, attResult) {
 
             Logger.info(":::CheckMarkedTime::Select::: " + JSON.stringify(attResult));
 

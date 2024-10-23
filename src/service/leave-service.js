@@ -5,23 +5,36 @@ const Message = require('../util/message');
 const Logger = require('../util/logger');
 
 module.exports = {
-    
+
     SearchLeave: async (req, res, next) => {
 
-        const employeeId = (req.isApprover) ? '%%' : Util.withPercent(req.body.employeeId);
+        let sessionSearchData = [req.sessionUser.employeeId, req.body.fromDate, req.body.toDate];
+        if (req.sessionUser.isAdmin) {
 
-        Connection.query(Queries.SearchUserLeave, [employeeId, req.body.fromDate, req.body.toDate], function (error, results) {
-            if (error || results.length === 0) res.json(Message.NO_DATA_FOUND);
+            Connection.query(Queries.GetReportingEmployeeList, [req.sessionUser.employeeId], function (error, result) {
 
-            if (results.length > 0) 
-                {
-                    //JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
-                    //JsonUtil.empty(results);
-                    JsonUtil.mask(results, "leaveId");
-                    console.log(":::::unmaskField:::::" + JsonUtil.unmaskField(results[0]["leaveId"]));
-                    res.json(results);
+                if (error) setSearchResult(req, res, sessionSearchData); // Default Search SessionUser
+
+                if (result && result.length > 0) {
+                    let employeeIds = [];
+                    result.forEach(element => {
+                        employeeIds.push(element.employeeId);
+                    });
+                    let searchData = [];
+                    searchData.push(employeeIds); // Should Be In Last Since Its Array
+                    searchData.push(req.body.employeeName ? Util.withPercent(req.body.employeeName) : '%%');
+                    searchData.push(req.body.symbol ? Util.withPercent(req.body.symbol) : '%%');
+                    searchData.push(req.body.status ? Util.withPercent(req.body.status) : '%%');
+                    searchData.push(req.body.fromDate);
+                    searchData.push(req.body.toDate);
+
+                    setSearchResult(req, res, searchData);
                 }
-        });
+            });
+        }
+        else {
+            setSearchResult(req, res, sessionSearchData); // Default Search SessionUser
+        }
     },
 
     applyLeave: async (req, res, next) => {
@@ -102,3 +115,22 @@ module.exports = {
         });
     }
 }
+
+const setSearchResult = (req, res, searchData) => {
+    let LEAVE_QUERY = (req.sessionUser.isAdmin) ? Queries.SearchUserLeaveByAdmin : Queries.SearchUserLeave
+
+    Connection.query(LEAVE_QUERY, searchData, function (error, results) {
+
+        if (error || results.length === 0) res.json(Message.NO_DATA_FOUND);
+
+        if (results && results.length > 0) {
+            //JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
+            //JsonUtil.empty(results);
+            JsonUtil.mask(results, "leaveId");
+            console.log(":::::unmaskField:::::" + JsonUtil.unmaskField(results[0]["leaveId"]));
+            res.json(results);
+        }
+    });
+}
+
+
