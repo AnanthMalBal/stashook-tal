@@ -70,10 +70,30 @@ module.exports = {
 
     cancelLeave: async (req, res, next) => { //softDelete
 
-        Connection.query(Queries.CancelLeave, [req.body.comments, req.body.employeeId, Util.getDate(), req.body.leaveId], function (error, results) {
-            if (error || results.affectedRows === 0) res.json(Message.UNABLE_TO_CANCEL_LEAVE);
+        Connection.query(Queries.SearchLeaveById, [req.body.leaveId], function (error, leaveResults) {
+            if (error || leaveResults.affectedRows === 0) res.json(Message.UNABLE_TO_CANCEL_LEAVE);
 
-            if (results.affectedRows > 0) res.json(Message.LEAVE_CANCELLED_SUCCESSFULLY);
+            if (leaveResults.length > 0) {
+                
+                const lvBalance = parseFloat(leaveResults[0].noOfDays) - parseFloat(leaveResults[0].detectedLeave);
+                const status = leaveResults[0].detectedLeave === 0 ? 'Cancel' : 'Partially_Cancel' ; 
+                
+                Connection.query(Queries.UpdateCancelLeave, [status, req.body.comments, req.sessionUser.employeeId, Util.getDate(), req.body.leaveId], function (error, cancelResults) {
+                    if (error || cancelResults.affectedRows === 0) res.json(Message.UNABLE_TO_CANCEL_LEAVE);
+
+                    if (cancelResults.affectedRows > 0) 
+                    {
+                        Connection.query(Queries.UpdateUserLeaveBalance, [lvBalance, leaveResults[0].employeeId], function (error, userResults) {
+                            if (error || userResults.affectedRows === 0) res.json(Message.UNABLE_TO_UPDATE_LEAVE_BALANCE);
+
+                            if(userResults.affectedRows > 0)
+                                res.json(Message.LEAVE_CANCELLED_SUCCESSFULLY);
+                            
+                        });
+                    }
+
+                });
+            }
 
         });
     },

@@ -12,18 +12,22 @@ module.exports = {
     
     LeaveTypeList : `SELECT leaveTypeId, leaveTypeName, maxDays FROM users_leave_type WHERE status = 1 Order By displayOrder ASC`,
 
-    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate >= ? AND toDate <= ? `, 
-
-    SearchLeaveWithOutRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate <= ? AND toDate >= ? `, 
-
-    CancelLeave : `UPDATE usersleavemanagement SET status = 'Cancel', comments = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved') AND leaveId = ?`,
-
-    GetReportingEmployeeList : `SELECT employeeId FROM users WHERE reportingTo = ?`,
+    SearchLeaveById : `SELECT employeeId, noOfDays, detectedLeave FROM usersleavemanagement WHERE leaveId = ?`,
 
     SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId = ? AND fromDate >= ? AND toDate <= ?`,
     
     SearchUserLeaveByAdmin : `SELECT CONCAT(U.userName, '(', U.userId, ')') AS userName, UL.* FROM usersleavemanagement UL JOIN users U ON U.employeeId = UL.employeeId 
     WHERE UL.employeeId IN (?) AND U.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? AND UL.fromDate >= ? AND UL.toDate <= ? `,
+
+    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate >= ? AND toDate <= ? `, 
+
+    SearchLeaveWithOutRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate <= ? AND toDate >= ? `, 
+
+    UpdateCancelLeave : `UPDATE usersleavemanagement SET status = ?, comments = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved') AND leaveId = ?`,
+
+    UpdateUserLeaveBalance : `UPDATE usershrrecords SET approvedLeaveBalance = (approvedLeaveBalance + ?) WHERE employeeId = ? `,
+
+    GetReportingEmployeeList : `SELECT employeeId FROM users WHERE reportingTo = ?`,
 
     SP_HolidayColor : `CALL getLMSNew(?,?)`,
     
