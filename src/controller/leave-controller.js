@@ -1,5 +1,6 @@
 const {Util} = require('stashook-utils');
 const leaveService = require('../service/leave-service');
+const userService = require('../service/user-service');
 
 module.exports = {
     searchLeave: async (req, res, next) => {
@@ -54,6 +55,16 @@ module.exports = {
 
         try {
             leaveService.getLeaveBalance(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
+
+    getOnBehalfUsersList: async (req, res, next) => {
+
+        try {
+            userService.getOnBehalfUsersList(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);

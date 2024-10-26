@@ -27,7 +27,7 @@ module.exports = {
 
     GetUserLeaveBalance : `SELECT approvedLeaveBalance FROM usershrrecords WHERE employeeId = ?`,
 
-    GetReportingEmployeeList : `SELECT employeeId FROM users WHERE reportingTo = ?`,
+    GetReportingEmployeeList : `SELECT employeeId, CONCAT(userName,' (', userId, ')') AS userName FROM users WHERE reportingTo = ?`,
 
     SP_HolidayColor : `CALL getLMSNew(?,?)`,
     

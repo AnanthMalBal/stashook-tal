@@ -13,6 +13,8 @@ module.exports = {
 
             Connection.query(Queries.GetReportingEmployeeList, [req.sessionUser.employeeId], function (error, result) {
 
+                Logger.info("::Queries::GetReportingEmployeeList::result: " + JSON.stringify(result));
+
                 if (error) setSearchResult(req, res, sessionSearchData); // Default Search SessionUser
 
                 if (result && result.length > 0) {
@@ -126,28 +128,28 @@ module.exports = {
 
     getLeaveTypeList: async (req, res, next) => {
 
-        Connection.query(Queries.LeaveTypeList, function (error, result) {
-            if (error) res.json({});
-            Logger.info("::Queries::LeaveTypeList::: " + JSON.stringify(result));
-            res.json(result);
+        Connection.query(Queries.LeaveTypeList, function (error, results) {
+            if (error || results.length === 0) res.json({});
+            Logger.info("::Queries::LeaveTypeList::: " + JSON.stringify(results));
+            res.json(results);
         });
     },
 
     getLeaveHolidayColor: async (req, res, next) => {
 
-        Connection.query(Queries.SP_HolidayColor, [req.body.cDate, req.body.employeeId], function (error, result) {
-            if (error) res.json(Message.HOLIDAY_INVALID_DATE);
-            Logger.info("::Queries::getLeaveHolidayColor::: " + JSON.stringify(result));
-            res.json(result);
+        Connection.query(Queries.SP_HolidayColor, [req.body.cDate, req.body.employeeId], function (error, results) {
+            if (error || results.length === 0) res.json(Message.HOLIDAY_INVALID_DATE);
+            Logger.info("::Queries::getLeaveHolidayColor::: " + JSON.stringify(results));
+            res.json(results);
         });
     },
 
     getLeaveBalance: async (req, res, next) => {
 
-        Connection.query(Queries.SP_LeaveBalance, [req.body.employeeId], function (error, result) {
-            if (error) res.json(Message.HOLIDAY_INVALID_DATE);
-            Logger.info("::Queries::getLeaveBalance::: " + JSON.stringify(result));
-            res.json(result);
+        Connection.query(Queries.SP_LeaveBalance, [req.body.employeeId], function (error, results) {
+            if (error || results.length === 0) res.json(Message.HOLIDAY_INVALID_DATE);
+            Logger.info("::Queries::getLeaveBalance::: " + JSON.stringify(results));
+            res.json(results);
         });
     }
 }

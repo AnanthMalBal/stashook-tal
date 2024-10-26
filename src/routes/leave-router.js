@@ -15,4 +15,6 @@ router.post('/getLeaveColorList', AuthToken.validateToken, LeaveController.getLe
 
 router.post('/getLeaveBalance', AuthToken.validateToken, LeaveController.getLeaveBalance);
 
+router.post('/getOnBehalfUsersList', AuthToken.validateToken, LeaveController.getOnBehalfUsersList);
+
 module.exports = router;

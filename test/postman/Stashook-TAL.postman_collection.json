@@ -377,6 +377,44 @@
 			"response": []
 		},
 		{
+			"name": "Get On Behalf Users List",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9100/stashook/getOnBehalfUsersList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"getOnBehalfUsersList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add-Daily-Log",
 			"request": {
 				"method": "POST",
