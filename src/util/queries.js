@@ -42,6 +42,12 @@ module.exports = {
     
     ProjectProcessList : `SELECT TP.processId, TP.processName, TP.billType, CAST(TP.billable AS UNSIGNED) AS billable, TP.entryType, TP.minutes FROM timesheetprocess TP
     JOIN timesheetprocessproject TPP ON TPP.processId = TP.processId WHERE TP.status = 1 AND TPP.projectId = ? ORDER BY TP.displayOrder ASC`,
+
+    TimesheetByDateRange : `SELECT UT.timesheetId, UT.attendanceId, DATE_FORMAT(UA.attendanceDate, '%Y-%m-%d') AS attendanceDate, 
+    CONCAT(U.userName, ' (', U.UserId, ')' ) AS approvedBy, UT.hoursBillable, UT.hoursNBNP, UT.hoursNBP, UT.hoursOTApproved, 
+    CAST(UT.hoursOTLocked AS UNSIGNED) hoursOTLocked, UT.markedTime, UT.approvedTime, UT.status, UT.comments FROM  userstimesheet UT 
+     JOIN usersattendance UA ON UT.attendanceId = UA.attendanceId 
+     JOIN users U ON UA.employeeId = U.employeeId 
+     WHERE UA.employeeId = ? AND UA.attendanceDate IN ( ? ) `,
     
-    ProcessList : `SELECT TP.processId, TP.processName, TP.billType, CAST(TP.billable AS UNSIGNED) AS billable, TP.entryType, TP.minutes FROM timesheetprocess TP, timesheetprocessproject TPP WHERE TP.projectId = TPP.projectId AND TP.status = 1 AND TPP.projectId = ? ORDER BY displayOrder ASC`,
 }

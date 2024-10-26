@@ -20,7 +20,7 @@ module.exports = {
 
         try {
             Logger.info('Testing Info Logger For markAttendance');
-            console.log ("::req.sessionUser:: " + JSON.stringify(req.sessionUser)); 	
+                        
             attendanceService.markAttendance(req, res, next);
         }
         catch (excep) {

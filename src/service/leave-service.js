@@ -85,7 +85,7 @@ module.exports = {
     cancelLeave: async (req, res, next) => { //softDelete
 
         let leaveId = JsonUtil.unmaskField(req.body.leaveId);
-        console.log(req.body.leaveId + " >>>>>leaveId>>>unmaskField>>> "  + leaveId);
+
         Connection.query(Queries.SearchLeaveById, [leaveId], function (error, lvResults) {
 
             Logger.info("::Queries::SearchLeaveById::: " + JSON.stringify(lvResults));

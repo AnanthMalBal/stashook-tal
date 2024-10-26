@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var commonRouter = require('./src/routes/common-router');
 var timesheetRouter = require('./src/routes/timesheet-router');
 var attendanceRouter = require('./src/routes/attendance-router');
 var leaveRouter = require('./src/routes/leave-router');
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const CONTEXT_PATH = '/stashook';
 
+app.use(CONTEXT_PATH, commonRouter);
 app.use(CONTEXT_PATH, timesheetRouter);
 app.use(CONTEXT_PATH, attendanceRouter);
 app.use(CONTEXT_PATH, leaveRouter);

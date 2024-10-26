@@ -19,7 +19,7 @@ module.exports = new class LeaveModel extends Model {
       'fromDate': req.body.fromDate,
       'toDate': req.body.toDate,
       'activeToDate': req.body.toDate,
-      'leaveDates': '{' + this.getDateRange(req.body.fromDate, req.body.toDate) + '}',
+      'leaveDates': '{' + Util.getDateRange(req.body.fromDate, req.body.toDate) + '}',
       'reason': req.body.reason,
       'status': 'Pending',
       'createdBy': req.sessionUser.employeeId,
@@ -32,7 +32,7 @@ module.exports = new class LeaveModel extends Model {
   getLeaveDatesOnCancel(lvResults) {
 
     if (parseInt(lvResults[0].detectedLeave) === 0) {
-      return this.getDateRange(moment(lvResults[0].fromDate).format('YYYY-MM-DD'), moment(lvResults[0].toDate).format('YYYY-MM-DD'));
+      return Util.getDateRange(moment(lvResults[0].fromDate).format('YYYY-MM-DD'), moment(lvResults[0].toDate).format('YYYY-MM-DD'));
     }
     else {
       let tmpDate = lvResults[0].fromDate;
@@ -57,18 +57,6 @@ module.exports = new class LeaveModel extends Model {
     const diffTime = Math.abs(toDate - fromDate);
     const noOfDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
     return noOfDays;
-  }
-
-  getDateRange(fromDate, toDate) {
-    if (moment(fromDate, 'YYYY-MM-DD').isSame(moment(toDate, 'YYYY-MM-DD'), 'day'))
-      return [toDate];
-    let tmpDate = fromDate;
-    const dates = [tmpDate];
-    do {
-      tmpDate = moment(tmpDate).add(1, 'day');
-      dates.push(tmpDate.format('YYYY-MM-DD'));
-    } while (moment(tmpDate).isBefore(toDate));
-    return dates;
   }
 
 }

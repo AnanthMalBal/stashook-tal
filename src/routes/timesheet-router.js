@@ -4,13 +4,8 @@ const {AuthToken} = require('stashook-utils');
 const TimesheetController = require('../controller/timesheet-controller');
 
 
-router.post('/getProjectList', AuthToken.validateToken, TimesheetController.getProjectList);
+router.post('/getTimesheetByDateRange', AuthToken.validateToken, TimesheetController.getTimesheetByDateRange);
 
-router.post('/getProcessList', AuthToken.validateToken, TimesheetController.getProcessList);
-
-router.post('/addUserDailyLog', AuthToken.validateToken, TimesheetController.addUserDailyLog);
-
-router.post('/getUserDailyLog', AuthToken.validateToken, TimesheetController.getUserDailyLog);
-
+router.post('/updateTimesheet', AuthToken.validateToken, TimesheetController.updateTimesheet);
 
 module.exports = router;

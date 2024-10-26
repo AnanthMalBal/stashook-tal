@@ -1,47 +1,26 @@
 const {Util} = require('../../node_modules/stashook-utils');
-const projectService = require('../service/project-service');
-const usersDailyLogService = require('../service/userdailylog-service');
+const timesheetService = require('../service/timesheet-service');
 
 module.exports = {
     
-    getProjectList: async (req, res, next) => {
+    getTimesheetByDateRange: async (req, res, next) => {
 
         try {
-            projectService.getProjectList(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    },
-    
-    getProcessList: async (req, res, next) => {
-
-        try {
-            projectService.getProcessList(req, res, next);
+            timesheetService.getTimesheetByDateRange(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);
         }
     },
 
-    addUserDailyLog: async (req, res, next) => {
+    updateTimesheet: async (req, res, next) => {
 
         try {
-            usersDailyLogService.addUserDailyLog(req, res, next);
+            timesheetService.updateTimesheet(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);
         }
     },
-
-    getUserDailyLog: async (req, res, next) => {
-
-        try {
-            usersDailyLogService.getUserDailyLog(req, res, next);
-        }
-        catch (excep) {
-            Util.sendError500(req, res, excep);
-        }
-    }
 
 }
