@@ -21,7 +21,7 @@ module.exports = {
                         employeeIds.push(element.employeeId);
                     });
                     let searchData = [];
-                    searchData.push(employeeIds); // Should Be In Last Since Its Array
+                    searchData.push(employeeIds);
                     searchData.push(req.body.employeeName ? Util.withPercent(req.body.employeeName) : '%%');
                     searchData.push(req.body.symbol ? Util.withPercent(req.body.symbol) : '%%');
                     searchData.push(req.body.status ? Util.withPercent(req.body.status) : '%%');
@@ -39,26 +39,38 @@ module.exports = {
 
     applyLeave: async (req, res, next) => {
 
-        Connection.query(Queries.SearchLeaveWithInRange, [req.body.employeeId, req.body.fromDate, req.body.toDate], function (error, inResults) {
+        let employeeId = (req.body.employeeId) ? req.body.employeeId : req.sessionUser.employeeId; //By Default Session User
 
-            if (inResults.length === 0) {
-                Connection.query(Queries.SearchLeaveWithOutRange, [req.body.employeeId, req.body.fromDate, req.body.toDate], function (error, outResults) {
+        Connection.query(Queries.SearchLeaveWithInRange, createSearchRangeData(req, employeeId), function (error, outResults) {
+            Logger.info("::Queries::SearchLeaveWithInRange::outResults: " + JSON.stringify(outResults));
 
-                    if (outResults.length === 0) {
+            if (outResults.length === 0) {
+
+                let lvDetect = parseFloat(LeaveModel.getNoOfLeaveDays(req)) * -1;
+
+                Connection.query(Queries.UpdateUserLeaveBalance, [lvDetect, employeeId], function (error, userResults) {
+                    
+                    Logger.info("::Queries::UpdateUserLeaveBalance::userResults: " +  JSON.stringify(userResults)) ;
+
+                    if (error || userResults.affectedRows === 0) res.json(Message.UNABLE_TO_UPDATE_LEAVE_BALANCE);
+
+                    if (userResults.affectedRows > 0) {
+
                         LeaveModel.create(LeaveModel.createData(req), "leaveId")
                             .then(result => {
+
                                 Logger.info("::Queries::Create::LeaveModel::result: " + JSON.stringify(result));
-                                if (result.affectedRows > 0)
+
+                                if (result && result.affectedRows > 0)
                                     res.json(Message.LEAVE_APPLIED_SUCCESSFULLY);
                                 else
                                     res.json(Message.UNABLE_TO_APPLY_LEAVE);
+
                             }).catch(error => {
                                 Logger.error("::Queries::Create::LeaveModel::error: " + error);
                                 res.json(Message.UNABLE_TO_APPLY_LEAVE);
                             });
-                    }
-                    else {
-                        res.json(Message.LEAVE_ALREADY_APPLIED);
+
                     }
                 });
             }
@@ -70,25 +82,29 @@ module.exports = {
 
     cancelLeave: async (req, res, next) => { //softDelete
 
-        Connection.query(Queries.SearchLeaveById, [req.body.leaveId], function (error, leaveResults) {
-            if (error || leaveResults.affectedRows === 0) res.json(Message.UNABLE_TO_CANCEL_LEAVE);
+        let leaveId = JsonUtil.unmaskField(req.body.leaveId);
+        console.log(req.body.leaveId + " >>>>>leaveId>>>unmaskField>>> "  + leaveId);
+        Connection.query(Queries.SearchLeaveById, [leaveId], function (error, lvResults) {
 
-            if (leaveResults.length > 0) {
-                
-                const lvBalance = parseFloat(leaveResults[0].noOfDays) - parseFloat(leaveResults[0].detectedLeave);
-                const status = leaveResults[0].detectedLeave === 0 ? 'Cancel' : 'Partially_Cancel' ; 
-                
-                Connection.query(Queries.UpdateCancelLeave, [status, req.body.comments, req.sessionUser.employeeId, Util.getDate(), req.body.leaveId], function (error, cancelResults) {
+            Logger.info("::Queries::SearchLeaveById::: " + JSON.stringify(lvResults));
+
+            if (error || lvResults.length === 0) res.json(Message.UNABLE_TO_CANCEL_LEAVE);
+
+            if (lvResults.length > 0) {
+
+                const lvBalance = parseFloat(lvResults[0].noOfDays) - parseFloat(lvResults[0].detectedLeave);
+
+                Connection.query(Queries.UpdateCancelLeave, createCancelLeaveData(req, lvResults), function (error, cancelResults) {
+
                     if (error || cancelResults.affectedRows === 0) res.json(Message.UNABLE_TO_CANCEL_LEAVE);
 
-                    if (cancelResults.affectedRows > 0) 
-                    {
-                        Connection.query(Queries.UpdateUserLeaveBalance, [lvBalance, leaveResults[0].employeeId], function (error, userResults) {
+                    if (cancelResults.affectedRows > 0) {
+                        Connection.query(Queries.UpdateUserLeaveBalance, [lvBalance, lvResults[0].employeeId], function (error, userResults) {
                             if (error || userResults.affectedRows === 0) res.json(Message.UNABLE_TO_UPDATE_LEAVE_BALANCE);
 
-                            if(userResults.affectedRows > 0)
+                            if (userResults.affectedRows > 0)
                                 res.json(Message.LEAVE_CANCELLED_SUCCESSFULLY);
-                            
+
                         });
                     }
 
@@ -103,7 +119,7 @@ module.exports = {
 
         Connection.query(Queries.LMSColorList, function (error, result) {
             if (error) res.json({});
-            console.log("::Queries::LMSColorList::: " + JSON.stringify(result));
+            Logger.info("::Queries::LMSColorList::: " + JSON.stringify(result));
             res.json(result);
         });
     },
@@ -112,7 +128,7 @@ module.exports = {
 
         Connection.query(Queries.LeaveTypeList, function (error, result) {
             if (error) res.json({});
-            console.log("::Queries::LeaveTypeList::: " + JSON.stringify(result));
+            Logger.info("::Queries::LeaveTypeList::: " + JSON.stringify(result));
             res.json(result);
         });
     },
@@ -121,7 +137,7 @@ module.exports = {
 
         Connection.query(Queries.SP_HolidayColor, [req.body.cDate, req.body.employeeId], function (error, result) {
             if (error) res.json(Message.HOLIDAY_INVALID_DATE);
-            console.log("::Queries::getLeaveHolidayColor::: " + JSON.stringify(result));
+            Logger.info("::Queries::getLeaveHolidayColor::: " + JSON.stringify(result));
             res.json(result);
         });
     },
@@ -130,7 +146,7 @@ module.exports = {
 
         Connection.query(Queries.SP_LeaveBalance, [req.body.employeeId], function (error, result) {
             if (error) res.json(Message.HOLIDAY_INVALID_DATE);
-            console.log("::Queries::getLeaveBalance::: " + JSON.stringify(result));
+            Logger.info("::Queries::getLeaveBalance::: " + JSON.stringify(result));
             res.json(result);
         });
     }
@@ -147,10 +163,41 @@ const setSearchResult = (req, res, searchData) => {
             //JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
             //JsonUtil.empty(results);
             JsonUtil.mask(results, "leaveId");
-            console.log(":::::unmaskField:::::" + JsonUtil.unmaskField(results[0]["leaveId"]));
+            Logger.info(":::::unmaskField:::::" + JsonUtil.unmaskField(results[0]["leaveId"]));
             res.json(results);
         }
     });
 }
 
+
+function createCancelLeaveData(req, lvResults) {
+    
+    const status = lvResults[0].detectedLeave === 0 ? 'Cancel' : 'Partially_Cancel';
+
+    let cancelData = [];
+    let leaveDates = LeaveModel.getLeaveDatesOnCancel(lvResults);
+
+    cancelData.push(status);
+    cancelData.push(req.body.comments);
+    cancelData.push('{' +  leaveDates + '}');
+    cancelData.push(leaveDates[leaveDates.length-1]);
+    cancelData.push(req.sessionUser.employeeId);
+    cancelData.push(Util.getDate());
+    cancelData.push(JsonUtil.unmaskField(req.body.leaveId));
+
+    Logger.info(":::Masked Leave Id:: " + req.body.leaveId + " Queries::cancelData::: " + JSON.stringify(cancelData));
+
+    return cancelData;
+}
+
+function createSearchRangeData(req, employeeId) {
+
+    let searchData = [];
+    searchData.push(employeeId);
+    searchData.push(req.body.fromDate);
+    searchData.push(req.body.toDate);
+    searchData.push(Util.withPercent(req.body.fromDate));
+    searchData.push(Util.withPercent(req.body.toDate));
+    return searchData;
+}
 

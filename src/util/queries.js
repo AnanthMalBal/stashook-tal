@@ -12,20 +12,20 @@ module.exports = {
     
     LeaveTypeList : `SELECT leaveTypeId, leaveTypeName, maxDays FROM users_leave_type WHERE status = 1 Order By displayOrder ASC`,
 
-    SearchLeaveById : `SELECT employeeId, noOfDays, detectedLeave FROM usersleavemanagement WHERE leaveId = ?`,
+    SearchLeaveById : `SELECT employeeId, noOfDays, detectedLeave, fromDate, toDate FROM usersleavemanagement WHERE leaveId = ?`,
 
-    SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId = ? AND fromDate >= ? AND toDate <= ?`,
+    SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId = ? AND fromDate >= ? AND activeToDate <= ?`,
     
     SearchUserLeaveByAdmin : `SELECT CONCAT(U.userName, '(', U.userId, ')') AS userName, UL.* FROM usersleavemanagement UL JOIN users U ON U.employeeId = UL.employeeId 
-    WHERE UL.employeeId IN (?) AND U.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? AND UL.fromDate >= ? AND UL.toDate <= ? `,
+    WHERE UL.employeeId IN (?) AND U.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? AND UL.fromDate >= ? AND UL.activeToDate <= ? `,
 
-    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate >= ? AND toDate <= ? `, 
+    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved', 'Partially_Availed', 'Partially_Cancel') AND employeeId = ? AND (fromDate >= ? AND activeToDate <= ? OR leaveDates LIKE ? OR leaveDates LIKE ?)`, // () Is Mandatory
 
-    SearchLeaveWithOutRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved') AND employeeId = ? AND fromDate <= ? AND toDate >= ? `, 
-
-    UpdateCancelLeave : `UPDATE usersleavemanagement SET status = ?, comments = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved') AND leaveId = ?`,
+    UpdateCancelLeave : `UPDATE usersleavemanagement SET status = ?, comments = ?, leaveDates = ?, activeToDate = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved', 'Partially_Availed') AND leaveId = ?`,
 
     UpdateUserLeaveBalance : `UPDATE usershrrecords SET approvedLeaveBalance = (approvedLeaveBalance + ?) WHERE employeeId = ? `,
+
+    GetUserLeaveBalance : `SELECT approvedLeaveBalance FROM usershrrecords WHERE employeeId = ?`,
 
     GetReportingEmployeeList : `SELECT employeeId FROM users WHERE reportingTo = ?`,
 

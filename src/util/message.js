@@ -11,7 +11,7 @@ module.exports = {
     LEAVE_ALREADY_APPLIED: {type: 'error', message: 'Leave Already Applied For Given Date Range. Please Cancel Previous Leave And Apply Again.'},
     LEAVE_CANCELLED_SUCCESSFULLY: {type: 'success', message: 'Leave has been Cancelled Successfully.'},
     UNABLE_TO_CANCEL_LEAVE: {type: 'error', message: 'Unable to Cancel Leave. Please Contact Admin.'},
-    UNABLE_TO_UPDATE_LEAVE_BALANCE: {type: 'error', message: 'Unable to Update User Leave Balance. Please Contact Admin.'},
+    UNABLE_TO_UPDATE_LEAVE_BALANCE: {type: 'error', message: 'Leave Cancelled. But Unable to Revert User\'s Leave Balance. Please Contact Admin.'},
     DAILY_LOG_ADDED_SUCCESSFULLY: {type: 'success', message: 'User Daily Log Details Added Successfully.'},
     DAILY_LOG_ADDING_FAILED: {type: 'error', message: 'Unable to User Daily Log Details. Please Contact Admin.'},
     DAILY_LOG_ALREADY_EXISTS: {type: 'error', message: 'User Daily Log Details For Given Process Already Exists.'},

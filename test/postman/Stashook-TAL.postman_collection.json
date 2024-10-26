@@ -124,7 +124,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-15\",\r\n    \"toDate\": \"2024-10-20\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
+					"raw": "{\r\n    \"leaveId\": \"Leave\",\r\n    \"comments\": \"No Needed\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
