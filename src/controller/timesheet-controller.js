@@ -32,6 +32,16 @@ module.exports = {
         catch (excep) {
             Util.sendError500(req, res, excep);
         }
+    },
+
+    getUserDailyLog: async (req, res, next) => {
+
+        try {
+            usersDailyLogService.getUserDailyLog(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
     }
 
 }

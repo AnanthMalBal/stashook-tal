@@ -33,7 +33,10 @@ module.exports = {
     
     SP_LeaveBalance : `CALL getLMSLeave(?)`,
 
-    CheckUsersDailyLog: `Select * FROM usersdailylog WHERE timesheetId = ? AND processId = ?` ,
+    SelectUsersDailyLog: `SELECT TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL JOIN timesheetprocess TP ON TP.processId = UL.processId 
+    WHERE UL.timesheetId = ?`,
+
+    CheckUsersDailyLog: `SELECT * FROM usersdailylog WHERE timesheetId = ? AND processId = ?` ,
     
     ProjectList : `SELECT projectId, projectName FROM operational_resource_project WHERE status = 1 ORDER BY displayOrder ASC`,
     

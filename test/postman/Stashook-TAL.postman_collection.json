@@ -7,6 +7,74 @@
 	},
 	"item": [
 		{
+			"name": "Mask",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9100/stashook?mask=TS1729781450822",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook"
+					],
+					"query": [
+						{
+							"key": "mask",
+							"value": "TS1729781450822"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UnMask",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9100/stashook?unmask=TSbxczsbcbaazxz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook"
+					],
+					"query": [
+						{
+							"key": "unmask",
+							"value": "TSbxczsbcbaazxz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Mark-Attendance",
 			"request": {
 				"method": "POST",
@@ -89,7 +157,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"employeeId\": 10504,\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-16\",\r\n    \"toDate\": \"2024-10-18\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
+					"raw": "{\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -124,7 +192,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"leaveId\": \"Leave\",\r\n    \"comments\": \"No Needed\"\r\n}\r\n",
+					"raw": "{\r\n    \"leaveId\": \"LMbxczzcqbpazcb\",\r\n    \"comments\": \"No Needed at present\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -159,7 +227,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n   \"fromDate\": \"2024-10-15\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
+					"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -444,6 +512,41 @@
 					"path": [
 						"stashook",
 						"addUserDailyLog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Daily-Log",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n      \"timesheetId\" : \"TSbxczxybqraycc\"\r\n}   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/getUserDailyLog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"getUserDailyLog"
 					]
 				}
 			},

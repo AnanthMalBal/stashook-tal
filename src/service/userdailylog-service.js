@@ -1,4 +1,4 @@
-const { Connection } = require('stashook-utils');
+const { JsonUtil, Connection } = require('stashook-utils');
 const Logger = require('../util/logger');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
@@ -27,6 +27,20 @@ module.exports = {
             else {
                 Logger.error("::Queries::Create::UsersDailyLogModel::error: Already Exists ");
                 res.json(Message.DAILY_LOG_ALREADY_EXISTS);
+            }
+        });
+    },
+
+    getUserDailyLog: async (req, res, next) => {
+
+        Connection.query(Queries.SelectUsersDailyLog, [JsonUtil.unmaskField(req.body.timesheetId)], function (error, result) {
+
+            Logger.info(":::SelectUsersDailyLog::: " + JSON.stringify(result));
+
+            if (error || result.length === 0) res.json({});
+            else {
+                Logger.error("::Queries::SelectUsersDailyLog::error: Already Exists ");
+                res.json(result);
             }
         });
     }

@@ -10,4 +10,7 @@ router.post('/getProcessList', AuthToken.validateToken, TimesheetController.getP
 
 router.post('/addUserDailyLog', AuthToken.validateToken, TimesheetController.addUserDailyLog);
 
+router.post('/getUserDailyLog', AuthToken.validateToken, TimesheetController.getUserDailyLog);
+
+
 module.exports = router;
