@@ -8,9 +8,4 @@ router.post('/getProjectList', AuthToken.validateToken, CommonController.getProj
 
 router.post('/getProcessList', AuthToken.validateToken, CommonController.getProcessList);
 
-router.post('/addUserDailyLog', AuthToken.validateToken, CommonController.addUserDailyLog);
-
-router.post('/getUserDailyLog', AuthToken.validateToken, CommonController.getUserDailyLog);
-
-
 module.exports = router;

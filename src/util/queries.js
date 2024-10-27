@@ -37,6 +37,8 @@ module.exports = {
     WHERE UL.timesheetId = ?`,
 
     CheckUsersDailyLog: `SELECT * FROM usersdailylog WHERE timesheetId = ? AND processId = ?` ,
+
+    DeleteUserDailyLog: `DELETE FROM usersdailylog WHERE autoId = ?`,
     
     ProjectList : `SELECT projectId, projectName FROM operational_resource_project WHERE status = 1 ORDER BY displayOrder ASC`,
     
@@ -49,5 +51,10 @@ module.exports = {
      JOIN usersattendance UA ON UT.attendanceId = UA.attendanceId 
      JOIN users U ON UA.employeeId = U.employeeId 
      WHERE UA.employeeId = ? AND UA.attendanceDate IN ( ? ) `,
-    
+
+    UpdateTimesheet : `UPDATE userstimesheet SET hoursBillable = ? , hoursNBNP = ?, hoursNBP = ?, markedTime = ?, status = 'Pending' 
+    WHERE status IN ('None', 'Pending', 'ReferBack') AND lockStatus = 'None' AND timesheetId = ?`,
+
+    ApproveTimesheet : `UPDATE userstimesheet SET approvedTime = ?, status = ?, comments = ? WHERE status IN ('Pending', 'Approved', 'ReferBack') AND 
+    lockStatus <> 'PayRoll' AND timesheetId = ?`,
 }

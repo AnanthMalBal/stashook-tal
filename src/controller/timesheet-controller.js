@@ -23,4 +23,14 @@ module.exports = {
         }
     },
 
+    approveTimesheet: async (req, res, next) => {
+
+        try {
+            timesheetService.approveTimesheet(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
+
 }

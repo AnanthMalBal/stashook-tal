@@ -445,7 +445,7 @@
 			"response": []
 		},
 		{
-			"name": "Get On Behalf Users List",
+			"name": "Get-On-Behalf-Users-List",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -547,6 +547,185 @@
 					"path": [
 						"stashook",
 						"getUserDailyLog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete-Daily-Log",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n      \"autoId\" : \"13\"\r\n}   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/deleteUserDailyLog",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"deleteUserDailyLog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get-Timesheet-By-Date-Range",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/searchLeave",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"searchLeave"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Search-Leave",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/searchLeave",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"searchLeave"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": "",
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Update-Timesheet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"hoursBillable\" : \"120\",\r\n      \"hoursNBNP\" : \"100\",\r\n      \"hoursNBP\" : \"70\"\r\n    }   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/updateTimesheet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"updateTimesheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve-ReferBack-Timesheet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"hoursBillable\" : \"125\",\r\n      \"hoursNBNP\" : \"125\",\r\n      \"hoursNBP\" : \"90\"\r\n    }   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/updateTimesheet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"updateTimesheet"
 					]
 				}
 			},

@@ -9,6 +9,7 @@ var timesheetRouter = require('./src/routes/timesheet-router');
 var attendanceRouter = require('./src/routes/attendance-router');
 var leaveRouter = require('./src/routes/leave-router');
 var utilRouter = require('./src/routes/util-router');
+var dailyLogRouter = require('./src/routes/userdailylog-router');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(CONTEXT_PATH, timesheetRouter);
 app.use(CONTEXT_PATH, attendanceRouter);
 app.use(CONTEXT_PATH, leaveRouter);
 app.use(CONTEXT_PATH, utilRouter);
+app.use(CONTEXT_PATH, dailyLogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

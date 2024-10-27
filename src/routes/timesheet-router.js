@@ -8,4 +8,6 @@ router.post('/getTimesheetByDateRange', AuthToken.validateToken, TimesheetContro
 
 router.post('/updateTimesheet', AuthToken.validateToken, TimesheetController.updateTimesheet);
 
+router.post('/approveTimesheet', AuthToken.validateToken, TimesheetController.approveTimesheet);
+
 module.exports = router;

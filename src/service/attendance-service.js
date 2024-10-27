@@ -21,8 +21,8 @@ module.exports = {
 
         Logger.info("::Queries::CheckMarkedTime::: " + Queries.CheckMarkedTime);
         let employeeId = req.body.employeeId;
-        
-        if(employeeId == null || employeeId == undefined)
+
+        if (employeeId == null || employeeId == undefined)
             employeeId = req.sessionUser.employeeId;
 
         Logger.info("::Marking Attendance For The Employee Id ::: " + employeeId);
@@ -39,24 +39,19 @@ module.exports = {
 
                     if (error || result.affectedRows === 0) // For Update Query use result.affectedRows 
                         res.json(Message.UNABLE_TO_MARK_ATTENDANCE);
-                    else
-                    {
+                    else {
                         Logger.info(":::CheckTimeSheet::Select::: " + Queries.CheckTimeSheet);
                         Connection.query(Queries.CheckTimeSheet, [attResult[0].attendanceId], function (error, timeResult) {
-                            
+
                             // Logger.info(":::CheckTimeSheet::Select::: " + JSON.stringify(timeResult));
 
                             if (error || timeResult.length === 0)
-                            {
                                 createTimesheetEntry(attResult[0].attendanceId, res);
-                            }   
                             else
-                            {
                                 res.json(Message.ATTENDANCE_MARKED_SUCCESSFULLY);
-                            }
 
                         });
-                    }   
+                    }
 
                 });
             }
@@ -64,7 +59,7 @@ module.exports = {
 
                 AttendanceModel.create(AttendanceModel.createData(req), "attendanceId")
                     .then(result => {
-                        
+
                         // Logger.info("::Queries::Create::AttendanceModel::result: " + JSON.stringify(result));
 
                         createTimesheetEntry(result.insertId, res);

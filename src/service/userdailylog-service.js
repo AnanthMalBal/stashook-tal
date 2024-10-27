@@ -39,8 +39,25 @@ module.exports = {
 
             if (error || result.length === 0) res.json({});
             else {
-                Logger.error("::Queries::SelectUsersDailyLog::error: Already Exists ");
+                Logger.info("::Queries::SelectUsersDailyLog::: Exists ");
                 res.json(result);
+            }
+        });
+    },
+
+    deleteUserDailyLog: async (req, res, next) => {
+
+        Connection.query(Queries.DeleteUserDailyLog, [req.body.autoId], function (error, result) {
+
+            Logger.info(":::DeleteUserDailyLog::: " + JSON.stringify(result));
+
+            if (error || result.affectedRows === 0) res.json(Message.DAILY_LOG_UNABLE_TO_DELETE_ENTRY);
+            else {
+
+                if (result.affectedRows > 0) {
+                    Logger.info("::Queries::DeleteUserDailyLog:::Deleted Successfully");
+                    res.json(Message.DAILY_LOG_DELETED_SUCCESSFULLY);
+                }
             }
         });
     }
