@@ -32,12 +32,45 @@ module.exports = {
 
         let process = req.body.status === 'Approved';
 
-        Connection.query(Queries.ApproveTimesheet, approveTimesheetData(req), function (error, results) {
+        Connection.query(Queries.ApproveTimesheet, approveTimesheetData(req, false), function (error, tsResults) {
 
-            if (error || results.affectedRows === 0)
-                res.json(process ? Message.TIMESHEET_APPROVE_FAILED :  Message.TIMESHEET_REFERBACK_FAILED);
-            else
-                res.json(process ? Message.TIMESHEET_APPROVED_SUCCESSFULLY :  Message.TIMESHEET_REFERBACK_SUCCESSFULLY);
+            if (error || tsResults.affectedRows === 0)
+                res.json(process ? Message.TIMESHEET_APPROVE_FAILED : Message.TIMESHEET_REFERBACK_FAILED);
+            else {
+                if (tsResults.affectedRows > 0) {
+
+                    Connection.query(Queries.ApproveAttendance, approveAttendanceData(req, false), function (error, attResults) {
+
+                        if (error || attResults.affectedRows === 0)
+                            res.json(Message.TIMESHEET_ATTENDANCE_APPROVE_FAILED); // On Success of Timesheet & But Failed Attendance 
+                        else
+                            res.json(process ? Message.TIMESHEET_APPROVED_SUCCESSFULLY: Message.TIMESHEET_REFERBACK_SUCCESSFULLY); // On Success of Both Timesheet & Attendance 
+                    });
+                }
+            }
+        });
+    },
+
+    approveLockedTimesheet: async (req, res, next) => {
+
+        let process = req.body.status === 'Approved';
+
+        Connection.query(Queries.SpecialApproveLockedTimesheet, approveTimesheetData(req, true), function (error, tsResults) {
+
+            if (error || tsResults.affectedRows === 0)
+                res.json(process ? Message.TIMESHEET_APPROVE_FAILED : Message.TIMESHEET_REFERBACK_FAILED);
+            else {
+                if (tsResults.affectedRows > 0) {
+
+                    Connection.query(Queries.SpecialApproveLockedAttendance, approveAttendanceData(req, true), function (error, attResults) {
+
+                        if (error || attResults.affectedRows === 0)
+                            res.json(Message.TIMESHEET_ATTENDANCE_APPROVE_FAILED); // On Success of Timesheet & But Failed Attendance 
+                        else
+                            res.json(process ? Message.TIMESHEET_APPROVED_SUCCESSFULLY: Message.TIMESHEET_REFERBACK_SUCCESSFULLY); // On Success of Both Timesheet & Attendance 
+                    });
+                }
+            }
         });
     },
 }
@@ -47,12 +80,30 @@ function createTimesheetSearchData(req) {
     return [req.sessionUser.employeeId, Util.getDateRange(req.body.fromDate, req.body.toDate)];
 }
 
-function approveTimesheetData(req) {
+
+function approveAttendanceData(req, isSpecial = false) {
+
+    let special = isSpecial ? 'Special Approval : ' : '';
 
     let approvalData = [];
-    approvalData.push(Util.getDate());
-    approvalData.push(req.body.status);
-    approvalData.push(req.body.comments ? req.body.comments : req.body.status );
+    approvalData.push(Util.getDate()); //ApprovedTime
+    approvalData.push(req.body.status); //ApproveStatus
+    approvalData.push(special + (req.body.comments ? req.body.comments : req.body.status)); //Approval Comments
+    approvalData.push(req.sessionUser.employeeId);
+    approvalData.push(JsonUtil.unmaskField(req.body.attendanceId));
+
+    return approvalData;
+}
+
+function approveTimesheetData(req, isSpecial = false) {
+
+    let special = isSpecial ? 'Special Approval : ' : '';
+
+    let approvalData = [];
+    approvalData.push(Util.getDate()); //ApprovedTime
+    approvalData.push(req.body.status); //ApproveStatus
+    approvalData.push(special + (req.body.comments ? req.body.comments : req.body.status)); //Approval Comments
+    approvalData.push(req.sessionUser.employeeId);
     approvalData.push(JsonUtil.unmaskField(req.body.timesheetId));
 
     return approvalData;

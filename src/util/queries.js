@@ -6,7 +6,7 @@ module.exports = {
 
     CheckTimeSheet: `SELECT timesheetId FROM userstimesheet WHERE attendanceId = ? `,
     
-    UpdateAttendanceSymbol : `UPDATE usersattendance SET symbol= ?, markedTime = ?, status = 'Marked', lockStatus = 'None' WHERE attendanceId = ? AND (lockStatus = 'None' OR lockStatus IS NULL) AND status <> 'Approved' ` ,
+    UpdateAttendanceSymbol : `UPDATE usersattendance SET symbol= ?, markedTime = ?, markedBy = ?, status = 'Marked', lockStatus = 'None' WHERE attendanceId = ? AND (lockStatus = 'None' OR lockStatus IS NULL) AND status <> 'Approved' ` ,
     
     LMSColorList : `SELECT colorId, colorName, description FROM users_lms_color WHERE status = 1 Order By displayOrder ASC`,
     
@@ -55,6 +55,13 @@ module.exports = {
     UpdateTimesheet : `UPDATE userstimesheet SET hoursBillable = ? , hoursNBNP = ?, hoursNBP = ?, markedTime = ?, status = 'Pending' 
     WHERE status IN ('None', 'Pending', 'ReferBack') AND lockStatus = 'None' AND timesheetId = ?`,
 
-    ApproveTimesheet : `UPDATE userstimesheet SET approvedTime = ?, status = ?, comments = ? WHERE status IN ('Pending', 'Approved', 'ReferBack') AND 
-    lockStatus <> 'PayRoll' AND timesheetId = ?`,
+    ApproveTimesheet : `UPDATE userstimesheet SET approvedTime = ?, status = ?, comments = ?, approvedBy = ? WHERE status IN ('Pending', 'Approved', 'ReferBack') AND 
+    lockStatus = 'None' AND timesheetId = ?`,
+
+    ApproveAttendance : `UPDATE usersattendance SET approvedTime = ?, approvalStatus = ?, comments = ?, approvedBy = ? WHERE (lockStatus = 'None' OR lockStatus IS NULL) AND 
+    attendanceId = ? ` ,
+
+    SpecialApproveLockedTimesheet : `UPDATE userstimesheet SET approvedTime = ?, status = ?, comments = ?, approvedBy = ? WHERE lockStatus = 'Locked' AND timesheetId = ?`,
+
+    SpecialApproveLockedAttendance : `UPDATE usersattendance SET approvedTime = ?, approvalStatus = ?, comments = ?, approvedBy = ? WHERE lockStatus = 'Locked' AND attendanceId = ?` ,
 }

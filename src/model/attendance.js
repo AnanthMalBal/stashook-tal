@@ -6,10 +6,10 @@ module.exports = new class AttendanceModel extends Model {
     super('usersattendance');// Table Name
   }
 
-  createData(req) {
+  createData(req, employeeId) {
     return { 
       'attendanceId': Util.primaryId("AT"), 
-      'employeeId': req.body.employeeId, 
+      'employeeId': employeeId, 
       'symbol': req.body.symbol,
       'mode': req.body.mode,
       'status': 'Marked',

@@ -21,7 +21,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:9100/stashook?mask=TS1729781450822",
+					"raw": "http://localhost:9100/stashook?mask=AT1729952637566",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -33,7 +33,7 @@
 					"query": [
 						{
 							"key": "mask",
-							"value": "TS1729781450822"
+							"value": "AT1729952637566"
 						}
 					]
 				}
@@ -55,7 +55,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:9100/stashook?unmask=TSbxczsbcbaazxz",
+					"raw": "http://localhost:9100/stashook?unmask=TSbxczxybqraycc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -67,7 +67,7 @@
 					"query": [
 						{
 							"key": "unmask",
-							"value": "TSbxczsbcbaazxz"
+							"value": "TSbxczxybqraycc"
 						}
 					]
 				}
@@ -87,7 +87,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"employeeId\":\"10504\",\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\",\r\n    \"markedBy\":\"10504\"\r\n}",
+					"raw": "{\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -600,7 +600,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\"\r\n}\r\n",
+					"raw": "{\r\n    \"fromDate\": \"2024-10-13\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -608,7 +608,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9100/stashook/searchLeave",
+					"raw": "http://localhost:9100/stashook/getTimesheetByDateRange",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -616,7 +616,7 @@
 					"port": "9100",
 					"path": [
 						"stashook",
-						"searchLeave"
+						"getTimesheetByDateRange"
 					]
 				}
 			},
@@ -634,7 +634,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\"\r\n}\r\n",
+							"raw": "{\r\n   \"status\": \"Availed\",\r\n   \"fromDate\": \"2024-10-01\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -654,10 +654,41 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": "",
-					"header": "",
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "45"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2d-3ikT7hw8gDdfSKZ7ixqllCyCywM\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 23 Oct 2024 08:01:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
 					"cookie": [],
-					"body": ""
+					"body": "{\n    \"type\": \"success\",\n    \"message\": \"No Data Found.\"\n}"
 				}
 			]
 		},
@@ -709,7 +740,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"hoursBillable\" : \"125\",\r\n      \"hoursNBNP\" : \"125\",\r\n      \"hoursNBP\" : \"90\"\r\n    }   \r\n",
+					"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"attendanceId\" : \"ATbxczzrcspxrss\",\r\n      \"status\" : \"ReferBack\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -717,7 +748,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9100/stashook/updateTimesheet",
+					"raw": "http://localhost:9100/stashook/approveTimesheet",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -725,7 +756,42 @@
 					"port": "9100",
 					"path": [
 						"stashook",
-						"updateTimesheet"
+						"approveTimesheet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Special-Locked-Approve-ReferBack-Timesheet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"attendanceId\" : \"ATbxczzrcspxrss\",\r\n      \"status\" : \"Approved\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9100/stashook/approveLockedTimesheet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9100",
+					"path": [
+						"stashook",
+						"approveLockedTimesheet"
 					]
 				}
 			},

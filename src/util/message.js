@@ -20,7 +20,8 @@ module.exports = {
     TIMESHEET_UPDATED_SUCCESSFULLY:{type: 'success', message: 'User Timesheet Updated Successfully.'},
     TIMESHEET_UPDATE_FAILED:{type: 'error', message: 'Unable to Update User Timesheet. Please Contact Admin.'},
     TIMESHEET_APPROVED_SUCCESSFULLY:{type: 'success', message: 'User Timesheet Approved Successfully.'},
+    TIMESHEET_ATTENDANCE_APPROVE_FAILED:{type: 'warning', message: 'User Timesheet Approved; But Attendance Approval Failed. Please Contact Admin.'},
     TIMESHEET_APPROVE_FAILED:{type: 'error', message: 'Unable to Approve User\'s Timesheet. Please Contact Admin.'},
-    TIMESHEET_REFERBACK_SUCCESSFULLY:{type: 'success', message: 'User Timesheet Refered Back Successfully.'},
-    TIMESHEET_REFERBACK_FAILED:{type: 'error', message: 'Unable to Refered Back User\'s Timesheet. Please Contact Admin.'},
+    TIMESHEET_REFERBACK_SUCCESSFULLY:{type: 'success', message: 'User Timesheet Refer Backed Successfully.'},
+    TIMESHEET_REFERBACK_FAILED:{type: 'error', message: 'Unable to Refer Backed User\'s Timesheet. Please Contact Admin.'},
 }

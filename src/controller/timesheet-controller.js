@@ -32,5 +32,14 @@ module.exports = {
             Util.sendError500(req, res, excep);
         }
     },
+    approveLockedTimesheet: async (req, res, next) => {
+
+        try {
+            timesheetService.approveLockedTimesheet(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
 
 }

@@ -10,4 +10,6 @@ router.post('/updateTimesheet', AuthToken.validateToken, TimesheetController.upd
 
 router.post('/approveTimesheet', AuthToken.validateToken, TimesheetController.approveTimesheet);
 
+router.post('/approveLockedTimesheet', AuthToken.validateToken, TimesheetController.approveLockedTimesheet);
+
 module.exports = router;
