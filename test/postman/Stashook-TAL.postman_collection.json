@@ -8,249 +8,83 @@
 	"item": [
 		{
 			"name": "Mask",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:9100/stashook?mask=AT1729952637566",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook"
-					],
-					"query": [
-						{
-							"key": "mask",
-							"value": "AT1729952637566"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UnMask",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:9100/stashook?unmask=TSbxczxybqraycc",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook"
-					],
-					"query": [
-						{
-							"key": "unmask",
-							"value": "TSbxczxybqraycc"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Mark-Attendance",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/markAttendance",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"markAttendance"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Mark-Attendance OnBehalf",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"employeeId\":\"10507\",\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/markAttendance",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"markAttendance"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Apply-Leave",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/applyLeave",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"applyLeave"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Cancel-Leave",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"leaveId\": \"LMbxczzcqbpazcb\",\r\n    \"comments\": \"No Needed at present\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/cancelLeave",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"cancelLeave"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Search-Leave",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/searchLeave",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"searchLeave"
-					]
-				}
-			},
-			"response": [
+			"item": [
 				{
-					"name": "Search-Leave",
-					"originalRequest": {
+					"name": "Mask",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9100/stashook?mask=1730292902351",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook"
+							],
+							"query": [
+								{
+									"key": "mask",
+									"value": "1730292902351"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UnMask",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9100/stashook?unmask=TSbxczxybqraycc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook"
+							],
+							"query": [
+								{
+									"key": "unmask",
+									"value": "TSbxczxybqraycc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attendance",
+			"item": [
+				{
+					"name": "Mark-Attendance",
+					"request": {
 						"method": "POST",
 						"header": [
 							{
@@ -261,7 +95,152 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"status\": \"Availed\",\r\n   \"fromDate\": \"2024-10-01\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
+							"raw": "{\r\n    \"symbol\":\"P8\",\r\n    \"mode\":\"WFO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/markAttendance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"markAttendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark-Attendance OnBehalf",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employeeId\":\"10507\",\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/markAttendance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"markAttendance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leave",
+			"item": [
+				{
+					"name": "Apply-Leave",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/applyLeave",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"applyLeave"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel-Leave",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"leaveId\": \"LMbxczzcqbpazcb\",\r\n    \"comments\": \"No Needed at present\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/cancelLeave",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"cancelLeave"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search-Leave",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"Leave\",\r\n   \"status\": \"Pending\",\r\n    \"fromDate\": \"2024-10-22\",\r\n    \"toDate\": \"2024-10-26\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -281,95 +260,742 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
+					"response": [
 						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "45"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"2d-3ikT7hw8gDdfSKZ7ixqllCyCywM\""
-						},
-						{
-							"key": "Date",
-							"value": "Wed, 23 Oct 2024 08:01:28 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
+							"name": "Search-Leave",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"status\": \"Availed\",\r\n   \"fromDate\": \"2024-10-01\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9100/stashook/searchLeave",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9100",
+									"path": [
+										"stashook",
+										"searchLeave"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-3ikT7hw8gDdfSKZ7ixqllCyCywM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 08:01:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"success\",\n    \"message\": \"No Data Found.\"\n}"
 						}
-					],
-					"cookie": [],
-					"body": "{\n    \"type\": \"success\",\n    \"message\": \"No Data Found.\"\n}"
+					]
+				},
+				{
+					"name": "Get-Leave Type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9100/stashook/getLeaveTypeList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"getLeaveTypeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Leave Color ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9100/stashook/getLeaveColorList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"getLeaveColorList"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "Get-Leave Type",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:9100/stashook/getLeaveTypeList",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"getLeaveTypeList"
+			"name": "Timesheet",
+			"item": [
+				{
+					"name": "Get-Timesheet-By-Date-Range",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromDate\": \"2024-10-13\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/getTimesheetByDateRange",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"getTimesheetByDateRange"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search-Leave",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"status\": \"Availed\",\r\n   \"fromDate\": \"2024-10-01\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9100/stashook/searchLeave",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9100",
+									"path": [
+										"stashook",
+										"searchLeave"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-3ikT7hw8gDdfSKZ7ixqllCyCywM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 08:01:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"success\",\n    \"message\": \"No Data Found.\"\n}"
+						}
 					]
+				},
+				{
+					"name": "Update-Timesheet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"hoursBillable\" : \"120\",\r\n      \"hoursNBNP\" : \"100\",\r\n      \"hoursNBP\" : \"70\"\r\n    }   \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/updateTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"updateTimesheet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve-ReferBack-Timesheet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"attendanceId\" : \"ATbxczzrcspxrss\",\r\n      \"status\" : \"ReferBack\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/approveTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"approveTimesheet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Special-Locked-Approve-ReferBack-Timesheet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"attendanceId\" : \"ATbxczzrcspxrss\",\r\n      \"status\" : \"Approved\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/approveLockedTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"approveLockedTimesheet"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Get-Leave Color ",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:9100/stashook/getLeaveColorList",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"getLeaveColorList"
+			"name": "Holidays",
+			"item": [
+				{
+					"name": "Search-Holiday",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"searchTerm\":\"PON\",\r\n    \"startDate\": \"2024-01-14\",\r\n    \"endDate\": \"2024-01-17\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/searchHoliday",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"searchHoliday"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search-Leave",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"status\": \"Availed\",\r\n   \"fromDate\": \"2024-10-01\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9100/stashook/searchLeave",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9100",
+									"path": [
+										"stashook",
+										"searchLeave"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-3ikT7hw8gDdfSKZ7ixqllCyCywM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 08:01:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"success\",\n    \"message\": \"No Data Found.\"\n}"
+						}
 					]
+				},
+				{
+					"name": "Add-Holidays",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \r\n      \"holiday\": \"Election\", \r\n      \"country\": \"Asia/Kolkata\",\r\n      \"startDate\": \"01-07-2025\",\r\n      \"endDate\": \"01-07-2025\",\r\n      \"year\": \"2025\",\r\n      \"symbol\": \"Holiday\",\r\n      \"zoneArea\": \"Chennai\"\r\n }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/addHoliday",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"addHoliday"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add-Holidays-Excel-Upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "excelFile",
+									"type": "file",
+									"src": "/C:/Users/Ananth/Desktop/HolidayTemplate.xlsx"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/uploadHolidays",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"uploadHolidays"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Holidays",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \r\n      \"autoId\" : \"bxpacyyqcsayr\",\r\n      \"holiday\": \"Parliment Election\", \r\n      \"country\": \"Asia/Kolkata\",\r\n      \"startDate\": \"11-08-2025\",\r\n      \"endDate\": \"11-08-2025\",\r\n      \"year\": \"2025\",\r\n      \"symbol\": \"Holiday\",\r\n      \"zoneArea\": \"Hyderabad\"\r\n }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/updateHoliday",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"updateHoliday"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Block-Holiday",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \r\n      \"autoId\" : \"bxpacyyqcsayr\",\r\n      \"status\": 1\r\n }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/blockHoliday",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"blockHoliday"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Holiday",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \r\n      \"autoId\" : \"bxpaczczacprb\"\r\n }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/deleteHoliday",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"deleteHoliday"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "DailyLog",
+			"item": [
+				{
+					"name": "Add-Daily-Log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n      \"projectId\" : \"ProFoc0001\",\r\n      \"processId\" : \"ProcessTraining\",\r\n      \"timesheetId\" : \"TS1728835005174\",\r\n      \"actualTime\" : \"120\",\r\n      \"description\" : \"AWS Process Training\"\r\n    }   \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/addUserDailyLog",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"addUserDailyLog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Daily-Log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n      \"timesheetId\" : \"TSbxczxybqraycc\"\r\n}   \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/getUserDailyLog",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"getUserDailyLog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Daily-Log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n      \"autoId\" : \"13\"\r\n}   \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/deleteUserDailyLog",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"deleteUserDailyLog"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Get-Project-List",
@@ -477,321 +1103,6 @@
 					"path": [
 						"stashook",
 						"getOnBehalfUsersList"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add-Daily-Log",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n      \"projectId\" : \"ProFoc0001\",\r\n      \"processId\" : \"ProcessTraining\",\r\n      \"timesheetId\" : \"TS1728835005174\",\r\n      \"actualTime\" : \"120\",\r\n      \"description\" : \"AWS Process Training\"\r\n    }   \r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/addUserDailyLog",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"addUserDailyLog"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get-Daily-Log",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n      \"timesheetId\" : \"TSbxczxybqraycc\"\r\n}   \r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/getUserDailyLog",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"getUserDailyLog"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete-Daily-Log",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n      \"autoId\" : \"13\"\r\n}   \r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/deleteUserDailyLog",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"deleteUserDailyLog"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get-Timesheet-By-Date-Range",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"fromDate\": \"2024-10-13\",\r\n    \"toDate\": \"2024-10-20\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/getTimesheetByDateRange",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"getTimesheetByDateRange"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Search-Leave",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"status\": \"Availed\",\r\n   \"fromDate\": \"2024-10-01\",\r\n   \"toDate\": \"2024-11-28\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9100/stashook/searchLeave",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9100",
-							"path": [
-								"stashook",
-								"searchLeave"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "45"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"2d-3ikT7hw8gDdfSKZ7ixqllCyCywM\""
-						},
-						{
-							"key": "Date",
-							"value": "Wed, 23 Oct 2024 08:01:28 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"type\": \"success\",\n    \"message\": \"No Data Found.\"\n}"
-				}
-			]
-		},
-		{
-			"name": "Update-Timesheet",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"hoursBillable\" : \"120\",\r\n      \"hoursNBNP\" : \"100\",\r\n      \"hoursNBP\" : \"70\"\r\n    }   \r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/updateTimesheet",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"updateTimesheet"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Approve-ReferBack-Timesheet",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"attendanceId\" : \"ATbxczzrcspxrss\",\r\n      \"status\" : \"ReferBack\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/approveTimesheet",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"approveTimesheet"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Special-Locked-Approve-ReferBack-Timesheet",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"attendanceId\" : \"ATbxczzrcspxrss\",\r\n      \"status\" : \"Approved\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9100/stashook/approveLockedTimesheet",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"approveLockedTimesheet"
 					]
 				}
 			},

@@ -1,5 +1,5 @@
 const {Util} = require('stashook-utils');
-const Message = require('../util/message');
+
 const holidayService = require('../service/holiday-service');
 
 module.exports = {
@@ -7,6 +7,15 @@ module.exports = {
 
         try {
             holidayService.addHoliday(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
+    uploadHolidays: async (req, res, next) => {
+
+        try {
+            holidayService.uploadHolidays(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);

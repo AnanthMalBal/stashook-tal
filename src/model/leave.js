@@ -1,5 +1,9 @@
-const { Util, Connection, Helper, Model } = require('../../node_modules/stashook-utils');
+const { Util, Model } = require('../../node_modules/stashook-utils');
 const moment = require('moment');
+moment.createFromInputFallback = function (config) {
+  // unreliable string magic, or
+  config._d = new Date(config._i);
+};
 
 module.exports = new class LeaveModel extends Model {
 

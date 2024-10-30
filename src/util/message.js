@@ -24,4 +24,12 @@ module.exports = {
     TIMESHEET_APPROVE_FAILED:{type: 'error', message: 'Unable to Approve User\'s Timesheet. Please Contact Admin.'},
     TIMESHEET_REFERBACK_SUCCESSFULLY:{type: 'success', message: 'User Timesheet Refer Backed Successfully.'},
     TIMESHEET_REFERBACK_FAILED:{type: 'error', message: 'Unable to Refer Backed User\'s Timesheet. Please Contact Admin.'},
+    HOLIDAY_ADDED_SUCCESSFULLY: {type: 'success', message: 'Holiday(s) Added Successfully.'},
+    UNABLE_TO_ADD_HOLIDAY: {type: 'error', message: 'Unable to Add Holiday. Please Contact Admin.'},
+    HOLIDAY_UPDATED_SUCCESSFULLY: {type: 'success', message: 'Holiday(s) Updated Successfully.'},
+    UNABLE_TO_UPDATE_HOLIDAY: {type: 'error', message: 'Unable to Update Holiday. Please Contact Admin.'},
+    HOLIDAY_DELETED_SUCCESSFULLY: {type: 'success', message: 'Holiday(s) Deleted Successfully.'},
+    UNABLE_TO_DELETE_HOLIDAY: {type: 'error', message: 'Unable to Delete Holiday. Please Contact Admin.'},
+    HOLIDAY_BLOCKED_SUCCESSFULLY: {type: 'success', message: 'Holiday(s) has been Blocked/UnBlocked Successfully.'},
+    UNABLE_TO_BLOCK_HOLIDAY: {type: 'error', message: 'Unable to Block/UnBlock Holiday. Please Contact Admin.'},
 }
