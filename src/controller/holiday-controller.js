@@ -12,6 +12,20 @@ module.exports = {
             Util.sendError500(req, res, excep);
         }
     },
+
+    downloadHolidayTemplate: async (req, res, next) => {
+
+        try {
+            res.setHeader('Content-disposition', 'attachment; filename=HolidayTemplate.xlsx');
+            res.setHeader('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+            res.download(process.env.HOLIDAY_TEMPLATE); // Set disposition and send it.
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
+    
     uploadHolidays: async (req, res, next) => {
 
         try {

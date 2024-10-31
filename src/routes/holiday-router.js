@@ -17,6 +17,8 @@ const upload = multer({ storage: storage });
 
 router.post('/addHoliday', AuthToken.validateToken, HolidaysController.addHoliday);
 
+router.get('/downloadHolidayTemplate', HolidaysController.downloadHolidayTemplate);
+
 router.post('/uploadHolidays', AuthToken.validateToken, upload.single('excelFile'), HolidaysController.uploadHolidays);
 
 router.post('/updateHoliday', AuthToken.validateToken, HolidaysController.updateHoliday);
