@@ -1,4 +1,4 @@
-const { JsonUtil, Util, Model } = require('../../node_modules/stashook-utils');
+const { JsonUtil, Util, Model } = require('stashook-utils');
 const moment = require('moment');
 
 module.exports = new class HolidayModel extends Model {

@@ -1,4 +1,4 @@
-const { Util, Model } = require('../../node_modules/stashook-utils');
+const { Util, Model } = require('stashook-utils');
 const moment = require('moment');
 moment.createFromInputFallback = function (config) {
   // unreliable string magic, or

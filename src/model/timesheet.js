@@ -1,4 +1,4 @@
-const { Util, JsonUtil, Model } = require('../../node_modules/stashook-utils');
+const { Util, JsonUtil, Model } = require('stashook-utils');
 
 module.exports = new class TimesheetModel extends Model {
 
