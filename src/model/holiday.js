@@ -34,8 +34,6 @@ module.exports = new class HolidayModel extends Model {
 
     searchData.push(startDate);
     searchData.push(endDate);
-    searchData.push(this.getOffset(req));
-    searchData.push(req.body.perPage);
     
     return searchData;
   }

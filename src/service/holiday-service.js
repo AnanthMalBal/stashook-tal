@@ -46,7 +46,6 @@ module.exports = {
 
         Connection.query(Queries.UpdateHoliday, HolidayModel.updateData(req), function (error, results) {
 
-            console.log(":::::error:::::: " + error);
             if (error || results === undefined || results.affectedRows === 0) res.json(Message.UNABLE_TO_UPDATE_HOLIDAY);
             else {
                 if (results.affectedRows > 0) 
@@ -94,10 +93,21 @@ module.exports = {
             }
         });
     },
+
+    getHoliday: async (req, res, next) => {
+
+        Connection.query(Queries.GetHolidayById, function (error, result) {
+            if (error) res.json(Message.NO_ACTIVE_PROJECTS);
+            res.json(result);
+        });
+    },
+    
     searchHoliday: async (req, res, next) => {
 
-        Connection.query(Queries.SearchHoliday, HolidayModel.searchData(req), function (error, results) {
-            if (error) res.json(Message.NO_DATA_FOUND);
+        let cThis = this;
+
+        Connection.query(HolidayModel.SearchWithLimit(req, Queries.SearchHoliday), HolidayModel.searchData(req), function (error, results) {
+            if (error) HolidayModel.searchResults(req, res, []);
             else {
                 JsonUtil.mask(results, "autoId");
                 JsonUtil.bitToInt(results, "status");
@@ -105,18 +115,10 @@ module.exports = {
                 JsonUtil.dates(results, "endDate", 'DD-MM-YYYY');
                 JsonUtil.dates(results, "createdDate", 'DD-MMM-YYYY HH:mm:ss');
                 JsonUtil.dates(results, "modifiedDate", 'DD-MMM-YYYY HH:mm:ss');
-                res.json(results);
+                HolidayModel.searchResults(req, res, results);
             }
         });
     },
 
-    getHoliday: async (req, res, next) => {
-
-        Connection.query(Queries.GetHolidayById, function (error, result) {
-            if (error) res.json(Message.NO_ACTIVE_PROJECTS);
-            //console.log("::Queries::getProjectList::: " + JSON.stringify(result));
-            res.json(result);
-        });
-    },
 
 }

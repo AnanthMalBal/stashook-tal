@@ -84,6 +84,6 @@ module.exports = {
     LEFT JOIN users U2 on U2.employeeId = HC.modifiedBy 
     LEFT JOIN users U3 on U3.employeeId = HC.approvedBy 
     WHERE ( HC.holiday LIKE ? OR HC.country LIKE ? OR HC.symbol LIKE ? OR HC.zoneArea LIKE ? ) AND 
-    HC.startDate >= ? AND HC.endDate <= ? LIMIT ?, ?`,
+    HC.startDate >= ? AND HC.endDate <= ?`,
 
 }
