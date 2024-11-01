@@ -1,9 +1,18 @@
-const {Util, Connection, Helper, Model} = require('../../node_modules/stashook-utils');
+const {Util, Model} = require('../../node_modules/stashook-utils');
 
 module.exports = new class AttendanceModel extends Model {
 
   constructor() {
     super('usersattendance');// Table Name
+  }
+
+  markData(symbol, attendanceId) {
+    return { 
+      'attendanceId': attendanceId, 
+      'symbol': symbol,
+      'status': 'Marked',
+      'lockStatus' : 'None'
+    }
   }
 
   createData(req, employeeId) {
@@ -18,14 +27,18 @@ module.exports = new class AttendanceModel extends Model {
       'markedTime':Util.getDate()
     }
   }
+  
+attendanceUpdateData(req, result) {
 
-  markData(symbol, attendanceId) {
-    return { 
-      'attendanceId': attendanceId, 
-      'symbol': symbol,
-      'status': 'Marked',
-      'lockStatus' : 'None'
-    }
-  }
+  let updateData = [];
+  updateData.push(req.body.symbol);
+  updateData.push(Util.getDate());
+  updateData.push(req.sessionUser.employeeId);
+  updateData.push(result[0].attendanceId);
+
+  return updateData;
+}
+
+
 
 }

@@ -101,13 +101,17 @@ module.exports = {
             res.json(result);
         });
     },
-    
+
     searchHoliday: async (req, res, next) => {
 
         let cThis = this;
 
         Connection.query(HolidayModel.SearchWithLimit(req, Queries.SearchHoliday), HolidayModel.searchData(req), function (error, results) {
-            if (error) HolidayModel.searchResults(req, res, []);
+            if (error || results === undefined || results.length === 0) { 
+                Logger.error("HolidayModel is Error :: " + error);
+                Logger.error("HolidayModel is Results Undefined :: " + (results === undefined));
+                HolidayModel.searchResults(req, res, []);
+            }
             else {
                 JsonUtil.mask(results, "autoId");
                 JsonUtil.bitToInt(results, "status");

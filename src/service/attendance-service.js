@@ -1,4 +1,4 @@
-const { Util, Connection, Helper, Model } = require('stashook-utils');
+const { Util, Connection} = require('stashook-utils');
 const Logger = require('../util/logger');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
@@ -33,7 +33,7 @@ module.exports = {
 
             if (attResult.length > 0) { // Default Flow // For Select Query use attResult.length 
 
-                Connection.query(Queries.UpdateAttendanceSymbol, attendanceUpdateData(req, attResult), function (error, result) {
+                Connection.query(Queries.UpdateAttendanceSymbol, AttendanceModel.attendanceUpdateData(req, attResult), function (error, result) {
 
                     Logger.info(":::UpdateAttendanceSymbol::: " + JSON.stringify(result));
 
@@ -56,7 +56,7 @@ module.exports = {
                 });
             }
             else {
-                
+
                 AttendanceModel.create(AttendanceModel.createData(req, employeeId), "attendanceId")
                     .then(result => {
 
@@ -71,17 +71,6 @@ module.exports = {
             }
         });
     }
-}
-
-function attendanceUpdateData(req, attResult) {
-
-    let updateData = [];
-    updateData.push(req.body.symbol);
-    updateData.push(Util.getDate());
-    updateData.push(req.sessionUser.employeeId);
-    updateData.push(attResult[0].attendanceId);
-
-    return updateData;
 }
 
 function createTimesheetEntry(attendanceId, res) {

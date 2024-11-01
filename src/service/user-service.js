@@ -6,7 +6,9 @@ module.exports = {
 
     getOnBehalfUsersList : async (req, res, next) => {
         Connection.query(Queries.GetReportingEmployeeList, [req.sessionUser.employeeId], function (error, results) {
-            if (error || results.length === 0) res.json({});
+            if (error || results === undefined || results.length === 0) {
+                res.json({});
+            }
             else
             {
                 Logger.info("::GetReportingEmployeeList:: " + JSON.stringify(results))

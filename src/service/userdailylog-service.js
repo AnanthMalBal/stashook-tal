@@ -7,7 +7,7 @@ const UsersDailyLogModel = require('../model/usersdailylog');
 module.exports = {
     addUserDailyLog: async (req, res, next) => {
 
-        Connection.query(Queries.CheckUsersDailyLog, [req.body.timesheetId, req.body.processId], function (error, result) {
+        Connection.query(Queries.CheckUsersDailyLog, [JsonUtil.unmaskField(req.body.timesheetId), req.body.processId], function (error, result) {
 
             Logger.info(":::CheckUsersDailyLog::: " + JSON.stringify(result));
 
@@ -33,21 +33,19 @@ module.exports = {
 
     getUserDailyLog: async (req, res, next) => {
 
-        Connection.query(Queries.SelectUsersDailyLog, [JsonUtil.unmaskField(req.body.timesheetId)], function (error, result) {
+        Connection.query(Queries.GetUsersDailyLog, [JsonUtil.unmaskField(req.body.timesheetId)], function (error, result) {
 
-            Logger.info(":::SelectUsersDailyLog::: " + JSON.stringify(result));
+            Logger.info(":::GetUsersDailyLog::: " + JSON.stringify(result));
 
-            if (error || result.length === 0) res.json({});
-            else {
-                Logger.info("::Queries::SelectUsersDailyLog::: Exists ");
-                res.json(result);
-            }
+            if (error || result === undefined) res.json({});
+            else res.json(result);
+
         });
     },
 
     deleteUserDailyLog: async (req, res, next) => {
 
-        Connection.query(Queries.DeleteUserDailyLog, [req.body.autoId], function (error, result) {
+        Connection.query(Queries.DeleteUserDailyLog, [JsonUtil.unmaskField(req.body.autoId)], function (error, result) {
 
             Logger.info(":::DeleteUserDailyLog::: " + JSON.stringify(result));
 

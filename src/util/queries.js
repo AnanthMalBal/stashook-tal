@@ -8,18 +8,21 @@ module.exports = {
     
     UpdateAttendanceSymbol : `UPDATE usersattendance SET symbol= ?, markedTime = ?, markedBy = ?, status = 'Marked', lockStatus = 'None' WHERE attendanceId = ? AND (lockStatus = 'None' OR lockStatus IS NULL) AND status <> 'Approved' ` ,
     
-    LMSColorList : `SELECT colorId, colorName, description FROM users_lms_color WHERE status = 1 Order By displayOrder ASC`,
+    GetLMSColorList : `SELECT colorId, colorName, description FROM users_lms_color WHERE status = 1 Order By displayOrder ASC`,
     
-    LeaveTypeList : `SELECT leaveTypeId, leaveTypeName, maxDays FROM users_leave_type WHERE status = 1 Order By displayOrder ASC`,
+    GetLeaveTypeList : `SELECT leaveTypeId, leaveTypeName, maxDays FROM users_leave_type WHERE status = 1 Order By displayOrder ASC`,
 
-    SearchLeaveById : `SELECT employeeId, noOfDays, detectedLeave, fromDate, toDate FROM usersleavemanagement WHERE leaveId = ?`,
+    GetLeaveById : `SELECT employeeId, noOfDays, detectedLeave, fromDate, toDate FROM usersleavemanagement WHERE leaveId = ?`,
 
     SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId = ? AND fromDate >= ? AND activeToDate <= ?`,
     
-    SearchUserLeaveByAdmin : `SELECT CONCAT(U.userName, '(', U.userId, ')') AS userName, UL.* FROM usersleavemanagement UL JOIN users U ON U.employeeId = UL.employeeId 
-    WHERE UL.employeeId IN (?) AND U.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? AND UL.fromDate >= ? AND UL.activeToDate <= ? `,
+    SearchUserLeaveByAdmin : `SELECT CONCAT(U.userName, '(', U.userId, ')') AS userName, UL.* FROM usersleavemanagement UL 
+    LEFT JOIN users U ON U.employeeId = UL.employeeId WHERE 
+    UL.employeeId IN (?) AND U.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? 
+    AND UL.fromDate >= ? AND UL.activeToDate <= ? `,
 
-    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved', 'Partially_Availed', 'Partially_Cancel') AND employeeId = ? AND (fromDate >= ? AND activeToDate <= ? OR leaveDates LIKE ? OR leaveDates LIKE ?)`, // () Is Mandatory
+    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved', 'Partially_Availed', 'Partially_Cancel')
+     AND employeeId = ? AND (fromDate >= ? AND activeToDate <= ? OR leaveDates LIKE ? OR leaveDates LIKE ?)`, // () Is Mandatory
 
     UpdateCancelLeave : `UPDATE usersleavemanagement SET status = ?, comments = ?, leaveDates = ?, activeToDate = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved', 'Partially_Availed') AND leaveId = ?`,
 
@@ -33,7 +36,7 @@ module.exports = {
     
     SP_LeaveBalance : `CALL getLMSLeave(?)`,
 
-    SelectUsersDailyLog: `SELECT TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL JOIN timesheetprocess TP ON TP.processId = UL.processId 
+    GetUsersDailyLog: `SELECT TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL JOIN timesheetprocess TP ON TP.processId = UL.processId 
     WHERE UL.timesheetId = ?`,
 
     CheckUsersDailyLog: `SELECT * FROM usersdailylog WHERE timesheetId = ? AND processId = ?` ,
@@ -45,7 +48,7 @@ module.exports = {
     ProjectProcessList : `SELECT TP.processId, TP.processName, TP.billType, CAST(TP.billable AS UNSIGNED) AS billable, TP.entryType, TP.minutes FROM timesheetprocess TP
     JOIN timesheetprocessproject TPP ON TPP.processId = TP.processId WHERE TP.status = 1 AND TPP.projectId = ? ORDER BY TP.displayOrder ASC`,
 
-    TimesheetByDateRange : `SELECT UT.timesheetId, UT.attendanceId, DATE_FORMAT(UA.attendanceDate, '%Y-%m-%d') AS attendanceDate, 
+    GetTimesheetByDateRange : `SELECT UT.timesheetId, UT.attendanceId, DATE_FORMAT(UA.attendanceDate, '%Y-%m-%d') AS attendanceDate, 
     CONCAT(U.userName, ' (', U.UserId, ')' ) AS approvedBy, UT.hoursBillable, UT.hoursNBNP, UT.hoursNBP, UT.hoursOTApproved, 
     CAST(UT.hoursOTLocked AS UNSIGNED) hoursOTLocked, UT.markedTime, UT.approvedTime, UT.status, UT.comments FROM  userstimesheet UT 
      JOIN usersattendance UA ON UT.attendanceId = UA.attendanceId 

@@ -13,9 +13,9 @@ module.exports = {
 
             Connection.query(Queries.GetReportingEmployeeList, [req.sessionUser.employeeId], function (error, result) {
 
-                Logger.info("::Queries::GetReportingEmployeeList::result: " + JSON.stringify(result));
+                //Logger.info("::Queries::GetReportingEmployeeList::result: " + JSON.stringify(result));
 
-                if (error) setSearchResult(req, res, sessionSearchData); // Default Search SessionUser
+                if (error) setSearchLeaveResult(req, res, sessionSearchData); // Default Search SessionUser
 
                 if (result && result.length > 0) {
                     let employeeIds = [];
@@ -30,12 +30,12 @@ module.exports = {
                     searchData.push(req.body.fromDate);
                     searchData.push(req.body.toDate);
 
-                    setSearchResult(req, res, searchData);
+                    setSearchLeaveResult(req, res, searchData);
                 }
             });
         }
         else {
-            setSearchResult(req, res, sessionSearchData); // Default Search SessionUser
+            setSearchLeaveResult(req, res, sessionSearchData); // Default Search SessionUser
         }
     },
 
@@ -86,7 +86,7 @@ module.exports = {
 
         let leaveId = JsonUtil.unmaskField(req.body.leaveId);
 
-        Connection.query(Queries.SearchLeaveById, [leaveId], function (error, lvResults) {
+        Connection.query(Queries.GetLeaveById, [leaveId], function (error, lvResults) {
 
             Logger.info("::Queries::SearchLeaveById::: " + JSON.stringify(lvResults));
 
@@ -119,18 +119,18 @@ module.exports = {
 
     getLeaveColorList: async (req, res, next) => {
 
-        Connection.query(Queries.LMSColorList, function (error, result) {
+        Connection.query(Queries.GetLMSColorList, function (error, result) {
             if (error) res.json({});
-            Logger.info("::Queries::LMSColorList::: " + JSON.stringify(result));
+            Logger.info("::Queries::GetLMSColorList::: " + JSON.stringify(result));
             res.json(result);
         });
     },
 
     getLeaveTypeList: async (req, res, next) => {
 
-        Connection.query(Queries.LeaveTypeList, function (error, results) {
+        Connection.query(Queries.GetLeaveTypeList, function (error, results) {
             if (error || results.length === 0) res.json({});
-            Logger.info("::Queries::LeaveTypeList::: " + JSON.stringify(results));
+            Logger.info("::Queries::GetLeaveTypeList::: " + JSON.stringify(results));
             res.json(results);
         });
     },
@@ -154,19 +154,21 @@ module.exports = {
     }
 }
 
-const setSearchResult = (req, res, searchData) => {
+const setSearchLeaveResult = (req, res, searchData) => {
     let LEAVE_QUERY = (req.sessionUser.isAdmin) ? Queries.SearchUserLeaveByAdmin : Queries.SearchUserLeave
 
-    Connection.query(LEAVE_QUERY, searchData, function (error, results) {
+    Connection.query(LeaveModel.SearchWithLimit(req, LEAVE_QUERY), searchData, function (error, results) {
 
-        if (error || results.length === 0) res.json(Message.NO_DATA_FOUND);
-
-        if (results && results.length > 0) {
+        if (error || results === undefined || results.length === 0) { 
+            Logger.error("LeaveModel is Error :: " + error);
+            Logger.error("LeaveModel is Results Undefined :: " + (results === undefined));
+            LeaveModel.searchResults(req, res, []);
+        }
+        else {
             //JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
             //JsonUtil.empty(results);
             JsonUtil.mask(results, "leaveId");
-            Logger.info(":::::unmaskField:::::" + JsonUtil.unmaskField(results[0]["leaveId"]));
-            res.json(results);
+            LeaveModel.searchResults(req, res, results);
         }
     });
 }
