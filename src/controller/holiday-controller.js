@@ -62,6 +62,15 @@ module.exports = {
             Util.sendError500(req, res, excep);
         }
     },
+    approveHoliday: async (req, res, next) => { //hardDelete
+
+        try {
+            holidayService.approveHoliday(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
     searchHoliday: async (req, res, next) => {
 
         try {

@@ -24,7 +24,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:9100/stashook?mask=1730292902351",
+							"raw": "http://localhost:9100/stashook?mask=1730444508142",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -36,7 +36,7 @@
 							"query": [
 								{
 									"key": "mask",
-									"value": "1730292902351"
+									"value": "1730444508142"
 								}
 							]
 						}
@@ -793,7 +793,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " { \r\n      \"autoId\" : \"bxpacyyqcsayr\",\r\n      \"holiday\": \"Parliment Election\", \r\n      \"country\": \"Asia/Kolkata\",\r\n      \"startDate\": \"11-08-2025\",\r\n      \"endDate\": \"11-08-2025\",\r\n      \"year\": \"2025\",\r\n      \"symbol\": \"Holiday\",\r\n      \"zoneArea\": \"Hyderabad\"\r\n }\r\n",
+							"raw": " { \r\n      \"autoId\" : \"bxpaqqacscrba\",\r\n      \"holiday\": \"Parliment Election\", \r\n      \"country\": \"Asia/Kolkata\",\r\n      \"startDate\": \"11-08-2025\",\r\n      \"endDate\": \"11-08-2025\",\r\n      \"year\": \"2025\",\r\n      \"symbol\": \"Holiday\",\r\n      \"zoneArea\": \"Hyderabad\"\r\n }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -866,7 +866,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " { \r\n      \"autoId\" : \"bxpacyyqcsayr\",\r\n      \"status\": 1\r\n }\r\n",
+							"raw": " { \r\n      \"autoId\" : \"bxpaqqqraybqc\",\r\n      \"status\": 1\r\n }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -883,6 +883,41 @@
 							"path": [
 								"stashook",
 								"blockHoliday"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve-Holidays",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " { \r\n      \"approvalStatus\": \"Approved\",\r\n      \"comments\": \"Approved/ReferBack\"\r\n }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/approveHoliday",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"approveHoliday"
 							]
 						}
 					},

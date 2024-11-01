@@ -51,12 +51,38 @@ module.exports = new class HolidayModel extends Model {
       'year': req.body.year,
       'symbol': req.body.symbol,
       'zoneArea': req.body.zoneArea,
+      'approvalStatus':'Review',
       'createdBy': req.sessionUser.employeeId,
       'createdDate': Util.getDate(),
       'modifiedBy': req.sessionUser.employeeId,
       'modifiedDate': Util.getDate(),
-      'status': 1
+      'status': 0
     }
+  }
+
+  blockData(req)
+  {
+    let blkData = [];
+    blkData.push('Review');
+    blkData.push(req.sessionUser.employeeId);
+    blkData.push(Util.getDate());
+    blkData.push(req.body.status); //Will Be Set On Approval
+    blkData.push(JsonUtil.unmaskField(req.body.autoId));
+    console.log(JSON.stringify(blkData));
+
+    return blkData;
+  }
+
+  approveData(req)
+  {
+    let appData = [];
+    appData.push(req.body.comments);
+    appData.push(req.body.approvalStatus);// Mandatory
+    appData.push(req.sessionUser.employeeId);
+    appData.push(Util.getDate());
+    appData.push(req.body.approvalStatus === 'Approved' ? 1 : 0 ); // Mandatory
+
+    return appData;
   }
 
   updateData(req) {
@@ -69,15 +95,17 @@ module.exports = new class HolidayModel extends Model {
     updData.push(req.body.year);
     updData.push(req.body.symbol);
     updData.push(req.body.zoneArea);
-    updData.push(req.sessionUser.employeeId);
-    updData.push(Util.getDate());
+    updData.push('Review');// Mandatory
+    updData.push(req.sessionUser.employeeId); //ModifiedBy
+    updData.push(Util.getDate());//ModifiedDate
+    updData.push(0);// Mandatory For Approval
     updData.push(JsonUtil.unmaskField(req.body.autoId));
 
     return updData;
   }
 
   createBulkData(req, data) {
-    let cols = ['autoId', 'holiday', 'country', 'startDate', 'endDate', 'year', 'symbol', 'zoneArea', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', 'status'];
+    let cols = ['autoId', 'holiday', 'country', 'startDate', 'endDate', 'year', 'symbol', 'zoneArea', 'approvalStatus', 'comments', 'createdBy', 'createdDate', 'modifiedBy', 'modifiedDate', 'status'];
     let insData = [];
     let values = [];
     let primaryId = Util.primaryId('');
@@ -94,11 +122,13 @@ module.exports = new class HolidayModel extends Model {
       insData.push(elt["Year"]);
       insData.push(elt["Holiday Type"]);
       insData.push(elt["Zone"]);
+      insData.push('Review');
+      insData.push(req.uploadFileName);
       insData.push(req.sessionUser.employeeId);
       insData.push(Util.getDate());
       insData.push(req.sessionUser.employeeId);
       insData.push(Util.getDate());
-      insData.push(1);
+      insData.push(0);
 
       values.push(insData);
 

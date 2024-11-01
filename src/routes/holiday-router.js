@@ -3,13 +3,22 @@ var router = express.Router();
 const { AuthToken } = require('stashook-utils');
 const HolidaysController = require('../controller/holiday-controller')
 const multer = require('multer');
+const moment = require('moment');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, process.env.HOLIDAY_UPLOAD_LOCATION); // Specify the directory where you want to store the files
     },
+
     filename: function (req, file, cb) {
-        cb(null, file.originalname); // Use the original file name
+
+        let fName = file.originalname ;
+        if(fName.indexOf(".xlsx") > 0)
+        {
+            fName = fName.substring(0, fName.indexOf(".xlsx")) + '_' + moment(Date.now()).format("DDMMYYYYHHmmss") + '.xlsx';
+        }
+        req.uploadFileName = fName;
+        cb(null, fName); // Use the original file name
     }
 });
 
@@ -26,6 +35,8 @@ router.post('/updateHoliday', AuthToken.validateToken, HolidaysController.update
 router.post('/blockHoliday', AuthToken.validateToken, HolidaysController.blockHoliday);
 
 router.post('/deleteHoliday', AuthToken.validateToken, HolidaysController.deleteHoliday);
+
+router.post('/approveHoliday', AuthToken.validateToken, HolidaysController.approveHoliday);
 
 router.post('/searchHoliday', AuthToken.validateToken, HolidaysController.searchHoliday);
 

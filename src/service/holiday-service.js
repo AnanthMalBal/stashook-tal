@@ -58,7 +58,8 @@ module.exports = {
 
     blockHoliday: async (req, res, next) => { //softDelete
 
-        Connection.query(Queries.UpdateBlockHoliday, [req.body.status, JsonUtil.unmaskField(req.body.autoId)], function (error, results) {
+        Connection.query(Queries.UpdateBlockHoliday, HolidayModel.blockData(req), function (error, results) {
+
             if (error || results === undefined || results.affectedRows === 0) res.json(Message.UNABLE_TO_BLOCK_HOLIDAY);
             else {
                 if (results.affectedRows > 0) 
@@ -71,6 +72,7 @@ module.exports = {
     deleteHoliday: async (req, res, next) => { //softDelete
 
         Connection.query(Queries.DeleteHoliday, [JsonUtil.unmaskField(req.body.autoId)], function (error, results) {
+
             if (error || results === undefined || results.affectedRows === 0) res.json(Message.UNABLE_TO_DELETE_HOLIDAY);
             else {
                 if (results.affectedRows > 0) 
@@ -79,9 +81,22 @@ module.exports = {
             }
         });
     },
+
+    approveHoliday: async (req, res, next) => { //approveHoliday
+
+        Connection.query(Queries.UpdateApproveHoliday, HolidayModel.approveData(req), function (error, results) {
+
+            if (error || results === undefined || results.affectedRows === 0) res.json(Message.UNABLE_TO_APPROVE_HOLIDAY);
+            else {
+                if (results.affectedRows > 0) 
+                    res.json(Message.HOLIDAY_APPROVED_SUCCESSFULLY);
+
+            }
+        });
+    },
     searchHoliday: async (req, res, next) => {
 
-        Connection.query(Queries.SelectHoliday, HolidayModel.searchData(req), function (error, results) {
+        Connection.query(Queries.SearchHoliday, HolidayModel.searchData(req), function (error, results) {
             if (error) res.json(Message.NO_DATA_FOUND);
             else {
                 JsonUtil.mask(results, "autoId");

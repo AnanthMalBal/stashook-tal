@@ -65,19 +65,24 @@ module.exports = {
 
     SpecialApproveLockedAttendance : `UPDATE usersattendance SET approvedTime = ?, approvalStatus = ?, comments = ?, approvedBy = ? WHERE lockStatus = 'Locked' AND attendanceId = ?` ,
 
-    UpdateBlockHoliday : `UPDATE usersholidayscalendar SET status = ? WHERE autoId = ? `,
+    //Bulk Update
+    UpdateApproveHoliday : `UPDATE usersholidayscalendar SET comments = CONCAT(comments,'\n',?),  approvalStatus = ?, approvedBy = ?, approvedDate = ?, status = ? WHERE approvalStatus IN ('Review')`,
+
+    UpdateBlockHoliday : `UPDATE usersholidayscalendar SET approvalStatus = ?, modifiedBy = ?, modifiedDate = ?, status = ? WHERE autoId = ?`,
 
     DeleteHoliday :  `DELETE FROM usersholidayscalendar WHERE autoId = ? `,
 
-    UpdateHoliday : `UPDATE usersholidayscalendar SET holiday = ?, country = ?, startDate = ?, endDate = ?, year = ?, symbol = ?, zoneArea = ?,
-    modifiedBy = ?, modifiedDate = ? WHERE autoId = ? `,
+    UpdateHoliday : `UPDATE usersholidayscalendar SET holiday = ?, country = ?, startDate = ?, endDate = ?, year = ?, symbol = ?, zoneArea = ?, 
+    approvalStatus = ?, modifiedBy = ?, modifiedDate = ?, status = ? WHERE autoId = ? `,
 
-    SelectHoliday : `SELECT HC.autoId, HC.holiday, HC.country, HC.startDate, HC.endDate, HC.year, HC.symbol, HC.zoneArea, 
+    SearchHoliday : `SELECT HC.autoId, HC.holiday, HC.country, HC.startDate, HC.endDate, HC.year, HC.symbol, HC.zoneArea, 
     CONCAT(U1.userName, '(', HC.createdBy, ')') AS createdBy, HC.createdDate, 
     CONCAT(U2.userName, '(', HC.modifiedBy, ')') AS modifiedBy, HC.modifiedDate, 
+    CONCAT(U3.userName, '(', HC.approvedBy, ')') AS approvedBy, HC.approvedDate, 
     HC.status FROM usersholidayscalendar HC
     JOIN users U1 on U1.employeeId = HC.createdBy 
     JOIN users U2 on U2.employeeId = HC.modifiedBy 
+    LEFTJOIN users U3 on U3.employeeId = HC.approvedBy 
     WHERE ( HC.holiday LIKE ? OR HC.country LIKE ? OR HC.symbol LIKE ? OR HC.zoneArea LIKE ? ) AND 
     HC.startDate >= ? AND HC.endDate <= ?`,
 
