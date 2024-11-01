@@ -816,6 +816,44 @@
 					"response": []
 				},
 				{
+					"name": "Download-Holiday-Template",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9100/stashook/downloadHolidayTemplate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"downloadHolidayTemplate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Block-Holiday",
 					"request": {
 						"method": "POST",
