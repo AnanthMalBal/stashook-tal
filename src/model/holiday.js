@@ -8,11 +8,9 @@ module.exports = new class HolidayModel extends Model {
   }
 
   searchData(req) {
+
     let startDate = req.body.startDate;
     let endDate = req.body.endDate;
-
-    console.log(startDate);
-    console.log(endDate);
 
     let searchData = [];
     searchData.push(Util.withPercent(req.body.searchTerm));
@@ -36,8 +34,9 @@ module.exports = new class HolidayModel extends Model {
 
     searchData.push(startDate);
     searchData.push(endDate);
-
-    console.log(searchData);
+    searchData.push(this.getOffset(req));
+    searchData.push(req.body.perPage);
+    
     return searchData;
   }
 

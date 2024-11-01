@@ -80,11 +80,10 @@ module.exports = {
     CONCAT(U2.userName, '(', HC.modifiedBy, ')') AS modifiedBy, HC.modifiedDate, 
     CONCAT(U3.userName, '(', HC.approvedBy, ')') AS approvedBy, HC.approvedDate, 
     HC.status FROM usersholidayscalendar HC
-    JOIN users U1 on U1.employeeId = HC.createdBy 
-    JOIN users U2 on U2.employeeId = HC.modifiedBy 
-    LEFTJOIN users U3 on U3.employeeId = HC.approvedBy 
+    LEFT JOIN users U1 on U1.employeeId = HC.createdBy 
+    LEFT JOIN users U2 on U2.employeeId = HC.modifiedBy 
+    LEFT JOIN users U3 on U3.employeeId = HC.approvedBy 
     WHERE ( HC.holiday LIKE ? OR HC.country LIKE ? OR HC.symbol LIKE ? OR HC.zoneArea LIKE ? ) AND 
-    HC.startDate >= ? AND HC.endDate <= ?`,
-
+    HC.startDate >= ? AND HC.endDate <= ? LIMIT ?, ?`,
 
 }
