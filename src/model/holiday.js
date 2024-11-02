@@ -13,10 +13,10 @@ module.exports = new class HolidayModel extends Model {
     let endDate = req.body.endDate;
 
     let searchData = [];
-    searchData.push(Util.withPercent(req.body.searchTerm));
-    searchData.push(Util.withPercent(req.body.searchTerm));
-    searchData.push(Util.withPercent(req.body.searchTerm));
-    searchData.push(Util.withPercent(req.body.searchTerm));
+    searchData.push(Util.withPercent(req.body.searchTerm)); //1
+    searchData.push(Util.withPercent(req.body.searchTerm)); //2
+    searchData.push(Util.withPercent(req.body.searchTerm)); //3
+    searchData.push(Util.withPercent(req.body.searchTerm)); //4
 
     if (startDate && endDate) {
       startDate = moment(req.body.startDate).format('YYYY-MM-DD');
@@ -24,7 +24,7 @@ module.exports = new class HolidayModel extends Model {
 
       if (moment(startDate, 'YYYY-MM-DD').isAfter(moment(endDate, 'YYYY-MM-DD'), 'day')){
         startDate = endDate;
-        endDate = startDate.add(30, 'day');
+        endDate = moment(startDate).add(30, 'day').format('YYYY-MM-DD');
       }
     }
     else {
@@ -32,8 +32,10 @@ module.exports = new class HolidayModel extends Model {
       endDate = moment(startDate).add(30, 'day').format('YYYY-MM-DD');
     }
 
-    searchData.push(startDate);
-    searchData.push(endDate);
+    searchData.push(startDate); //5
+    searchData.push(endDate); //6
+
+    //console.log(JSON.stringify(searchData));
     
     return searchData;
   }

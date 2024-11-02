@@ -79,9 +79,9 @@ module.exports = {
     approvalStatus = ?, modifiedBy = ?, modifiedDate = ?, status = ? WHERE autoId = ? `,
 
     SearchHoliday : `SELECT HC.autoId, HC.holiday, HC.country, HC.startDate, HC.endDate, HC.year, HC.symbol, HC.zoneArea, 
-    CONCAT(U1.userName, '(', HC.createdBy, ')') AS createdBy, HC.createdDate, 
-    CONCAT(U2.userName, '(', HC.modifiedBy, ')') AS modifiedBy, HC.modifiedDate, 
-    CONCAT(U3.userName, '(', HC.approvedBy, ')') AS approvedBy, HC.approvedDate, 
+    CONCAT(U1.userName, '(', U1.userId, ')') AS createdBy, HC.createdDate, 
+    CONCAT(U2.userName, '(', U2.userId, ')') AS modifiedBy, HC.modifiedDate, 
+    CONCAT(U3.userName, '(', U3.userId, ')') AS approvedBy, HC.approvedDate, 
     HC.status FROM usersholidayscalendar HC
     LEFT JOIN users U1 on U1.employeeId = HC.createdBy 
     LEFT JOIN users U2 on U2.employeeId = HC.modifiedBy 

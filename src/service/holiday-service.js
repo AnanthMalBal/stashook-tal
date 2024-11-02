@@ -23,7 +23,7 @@ module.exports = {
 
     uploadHolidays: async (req, res, next) => {
         
-        const workbook = xlsx.readFile(req.file.path);
+        const workbook = xlsx.readFile(req.uploadFileName);
 
         if (workbook.SheetNames.length === 1) {
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];

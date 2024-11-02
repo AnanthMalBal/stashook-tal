@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
         {
             fName = fName.substring(0, fName.indexOf(".xlsx")) + '_' + moment(Date.now()).format("DDMMYYYYHHmmss") + '.xlsx';
         }
-        req.uploadFileName = fName;
+        req.uploadFileName = process.env.HOLIDAY_UPLOAD_LOCATION + '/' + fName;
         cb(null, fName); // Use the original file name
     }
 });
