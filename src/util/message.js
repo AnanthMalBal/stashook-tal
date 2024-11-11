@@ -1,6 +1,6 @@
 module.exports = {
 
-    NO_DATA_FOUND : {type: 'success', message: 'No Data Found.'},
+    NO_DATA_FOUND : {type: 'error', message: 'No Data Found.'},
     ATTENDANCE_MARKED_SUCCESSFULLY: {type: 'success', message: 'Attendance Marked Successfully.'},
     UNABLE_TO_MARK_ATTENDANCE: {type: 'error', message: 'Unable to Mark Attendance. Please Contact Admin.'},
     HOLIDAY_INVALID_DATE: {type: 'error', message: 'Please provide valid Date.'},
@@ -25,6 +25,7 @@ module.exports = {
     TIMESHEET_REFERBACK_SUCCESSFULLY:{type: 'success', message: 'User Timesheet Refer Backed Successfully.'},
     TIMESHEET_REFERBACK_FAILED:{type: 'error', message: 'Unable to Refer Backed User\'s Timesheet. Please Contact Admin.'},
     HOLIDAY_ADDED_SUCCESSFULLY: {type: 'success', message: 'Holiday(s) Added Successfully.'},
+    HOLIDAY_EXISTS: {type: 'error', message: 'Holiday Already Exists . Please Contact Admin.'},
     UNABLE_TO_ADD_HOLIDAY: {type: 'error', message: 'Unable to Add Holiday. Please Contact Admin.'},
     HOLIDAY_UPDATED_SUCCESSFULLY: {type: 'success', message: 'Holiday(s) Updated Successfully.'},
     UNABLE_TO_UPDATE_HOLIDAY: {type: 'error', message: 'Unable to Update Holiday. Please Contact Admin.'},

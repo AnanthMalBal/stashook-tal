@@ -3,34 +3,24 @@ const LeaveModel = require('../model/leave');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
 const Logger = require('../util/logger');
+const moment = require('moment');
 
 module.exports = {
 
     SearchLeave: async (req, res, next) => {
 
         let sessionSearchData = [req.sessionUser.employeeId, req.body.fromDate, req.body.toDate];
+
         if (req.sessionUser.isAdmin) {
 
             Connection.query(Queries.GetReportingEmployeeList, [req.sessionUser.employeeId], function (error, result) {
 
-                //Logger.info("::Queries::GetReportingEmployeeList::result: " + JSON.stringify(result));
+                Logger.info("::Queries::GetReportingEmployeeList::result: " + JSON.stringify(result));
 
                 if (error) setSearchLeaveResult(req, res, sessionSearchData); // Default Search SessionUser
 
                 if (result && result.length > 0) {
-                    let employeeIds = [];
-                    result.forEach(element => {
-                        employeeIds.push(element.employeeId);
-                    });
-                    let searchData = [];
-                    searchData.push(employeeIds);
-                    searchData.push(req.body.employeeName ? Util.withPercent(req.body.employeeName) : '%%');
-                    searchData.push(req.body.symbol ? Util.withPercent(req.body.symbol) : '%%');
-                    searchData.push(req.body.status ? Util.withPercent(req.body.status) : '%%');
-                    searchData.push(req.body.fromDate);
-                    searchData.push(req.body.toDate);
-
-                    setSearchLeaveResult(req, res, searchData);
+                    setSearchLeaveResult(req, res, LeaveModel.searchData(result, req));
                 }
             });
         }
@@ -43,7 +33,8 @@ module.exports = {
 
         let employeeId = (req.body.employeeId) ? req.body.employeeId : req.sessionUser.employeeId; //By Default Session User
 
-        Connection.query(Queries.SearchLeaveWithInRange, createSearchRangeData(req, employeeId), function (error, outResults) {
+        Connection.query(Queries.SearchLeaveWithInRange, LeaveModel.searchRangeData(req, employeeId), function (error, outResults) {
+
             Logger.info("::Queries::SearchLeaveWithInRange::outResults: " + JSON.stringify(outResults));
 
             if (outResults.length === 0) {
@@ -165,11 +156,45 @@ const setSearchLeaveResult = (req, res, searchData) => {
             LeaveModel.searchResults(req, res, []);
         }
         else {
-            //JsonUtil.ignore(results, ["createdBy","createdDate", "employeeId"]);
-            //JsonUtil.empty(results);
             JsonUtil.mask(results, "leaveId");
+            JsonUtil.dates(results, "fromDate", 'DD-MMM-YYYY HH:mm:ss');
+            JsonUtil.dates(results, "toDate", 'DD-MMM-YYYY HH:mm:ss');
+            JsonUtil.dates(results, "createdDate", 'DD-MMM-YYYY HH:mm:ss');
+            JsonUtil.dates(results, "modifiedDate", 'DD-MMM-YYYY HH:mm:ss');
+            JsonUtil.dates(results, "approvedDate", 'DD-MMM-YYYY HH:mm:ss');
+            formatLeaveDates(results);
+
             LeaveModel.searchResults(req, res, results);
         }
+    });
+}
+
+function formatLeaveDates(results) {
+
+    results.forEach(row => {
+        let dates = row['leaveDates'].replace('{', '').replace('}', '').split(',');
+
+        if (dates === undefined || dates === null)
+            row['leaveDates'] = '';
+        else
+        {
+            let leaveDates = '';
+            dates.forEach(dt => {
+                leaveDates = leaveDates + (moment(dt + '').format('DD-MMM-YYYY') + '\n' );
+            });
+            row['leaveDates'] = leaveDates.trim();
+        }           
+    });
+}
+
+function extractWorkingHours(results) {
+    results.forEach(row => {
+        let value = row['workingHours'];
+        if (value === undefined || value === null)
+            row['workingHours'] = 0;
+
+        else
+            row['workingHours'] = row['workingHours'].replace('P', '');
     });
 }
 
@@ -189,19 +214,7 @@ function createCancelLeaveData(req, lvResults) {
     cancelData.push(Util.getDate());
     cancelData.push(JsonUtil.unmaskField(req.body.leaveId));
 
-    Logger.info(":::Masked Leave Id:: " + req.body.leaveId + " Queries::cancelData::: " + JSON.stringify(cancelData));
-
     return cancelData;
 }
 
-function createSearchRangeData(req, employeeId) {
-
-    let searchData = [];
-    searchData.push(employeeId);
-    searchData.push(req.body.fromDate);
-    searchData.push(req.body.toDate);
-    searchData.push(Util.withPercent(req.body.fromDate));
-    searchData.push(Util.withPercent(req.body.toDate));
-    return searchData;
-}
 

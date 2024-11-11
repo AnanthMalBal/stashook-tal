@@ -1,4 +1,4 @@
-const { Util, Connection} = require('stashook-utils');
+const { Util, Connection, JsonUtil } = require('stashook-utils');
 const Logger = require('../util/logger');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
@@ -8,12 +8,22 @@ const TimesheetModel = require('../model/timesheet');
 
 module.exports = {
 
-    getMarkedTime: async (req, res, next) => {
+    getMarkedAttendance: async (req, res, next) => {
 
-        Connection.query(Queries.MarkTime, [req.body.employeeId, req.body.attendancDate], function (error, results) {
-            if (error) res.json(Message.NO_DATA_FOUND);
-            else
-                res.json(results)
+        Logger.info("::Queries::GetMarkTime::: " + Queries.GetMarkTime);
+
+        let attendanceDate = Util.getDate("YYYY-MM-DD 00:00:00");
+
+        Connection.query(Queries.GetMarkTime, [req.sessionUser.employeeId, attendanceDate], function (error, results) {
+            if (error || results === undefined || results.length === 0) { res.json({}); }
+            else {
+                JsonUtil.mask(results, 'employeeId');
+                JsonUtil.mask(results, 'attendanceId');
+                JsonUtil.dates(results, 'markedTime', 'DD-MMM-YYYY HH:mm:ss');
+                JsonUtil.format(results, 'workingHours', workingHours); //Get Marked Hours By Symbol P4 as 4, P8 as 8, P12 as 12 
+
+                res.json(results[0]);
+            }
         });
     },
 
@@ -24,6 +34,8 @@ module.exports = {
 
         if (employeeId == null || employeeId == undefined)
             employeeId = req.sessionUser.employeeId;
+        else
+            employeeId = JsonUtil.unmaskField(employeeId);
 
         Logger.info("::Marking Attendance For The Employee Id ::: " + employeeId);
 
@@ -71,6 +83,13 @@ module.exports = {
             }
         });
     }
+}
+
+function workingHours(data) {
+    if (data === undefined || data === null)
+        return 0;
+    else
+        return data.replace('P', '');
 }
 
 function createTimesheetEntry(attendanceId, res) {

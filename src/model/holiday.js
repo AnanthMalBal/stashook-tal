@@ -7,6 +7,21 @@ module.exports = new class HolidayModel extends Model {
     super('usersholidayscalendar'); // Table Name
   }
 
+  searchExistData(req) {
+    let startDate = moment(req.body.startDate).format('YYYY-MM-DD');
+    let endDate = moment(req.body.endDate).format('YYYY-MM-DD');
+
+    let searchData = [];
+    searchData.push(startDate);
+    searchData.push(endDate);
+    searchData.push(req.body.zoneArea);
+
+    if (req.body.autoId)
+      searchData.push(JsonUtil.unmaskField(req.body.autoId));
+    
+    return searchData;
+  }
+
   searchData(req) {
 
     let startDate = req.body.startDate;
@@ -22,7 +37,7 @@ module.exports = new class HolidayModel extends Model {
       startDate = moment(req.body.startDate).format('YYYY-MM-DD');
       endDate = moment(req.body.endDate).format('YYYY-MM-DD');
 
-      if (moment(startDate, 'YYYY-MM-DD').isAfter(moment(endDate, 'YYYY-MM-DD'), 'day')){
+      if (moment(startDate, 'YYYY-MM-DD').isAfter(moment(endDate, 'YYYY-MM-DD'), 'day')) {
         startDate = endDate;
         endDate = moment(startDate).add(30, 'day').format('YYYY-MM-DD');
       }
@@ -35,8 +50,6 @@ module.exports = new class HolidayModel extends Model {
     searchData.push(startDate); //5
     searchData.push(endDate); //6
 
-    //console.log(JSON.stringify(searchData));
-    
     return searchData;
   }
 
@@ -50,7 +63,7 @@ module.exports = new class HolidayModel extends Model {
       'year': req.body.year,
       'symbol': req.body.symbol,
       'zoneArea': req.body.zoneArea,
-      'approvalStatus':'Review',
+      'approvalStatus': 'Review',
       'createdBy': req.sessionUser.employeeId,
       'createdDate': Util.getDate(),
       'modifiedBy': req.sessionUser.employeeId,
@@ -59,27 +72,24 @@ module.exports = new class HolidayModel extends Model {
     }
   }
 
-  blockData(req)
-  {
+  blockData(req) {
     let blkData = [];
     blkData.push('Review');
     blkData.push(req.sessionUser.employeeId);
     blkData.push(Util.getDate());
     blkData.push(req.body.status); //Will Be Set On Approval
     blkData.push(JsonUtil.unmaskField(req.body.autoId));
-    console.log(JSON.stringify(blkData));
 
     return blkData;
   }
 
-  approveData(req)
-  {
+  approveData(req) {
     let appData = [];
     appData.push(req.body.comments);
     appData.push(req.body.approvalStatus);// Mandatory
     appData.push(req.sessionUser.employeeId);
     appData.push(Util.getDate());
-    appData.push(req.body.approvalStatus === 'Approved' ? 1 : 0 ); // Mandatory
+    appData.push(req.body.approvalStatus === 'Approved' ? 1 : 0); // Mandatory
 
     return appData;
   }

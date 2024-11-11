@@ -4,12 +4,12 @@ const Logger = require('../util/logger');
 
 module.exports = {
 
-    getMarkedTime: async (req, res, next) => {
+    getMarkedAttendance: async (req, res, next) => {
 
         try {
            	
 
-            attendanceService.getMarkedTime(req, res, next);
+            attendanceService.getMarkedAttendance(req, res, next);
         }
         catch (excep) {
             Util.sendError500(req, res, excep);

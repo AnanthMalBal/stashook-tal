@@ -5,7 +5,7 @@ const Message = require('../util/message');
 module.exports = {
     getProjectList: async (req, res, next) => {
 
-        Connection.query(Queries.ProjectList,function (error, result) {
+        Connection.query(Queries.ProjectList, [req.body.divisionId] ,function (error, result) {
             if (error || result === undefined) res.json(Message.NO_ACTIVE_PROJECTS);
             else res.json(result);
         });

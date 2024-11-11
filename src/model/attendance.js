@@ -18,13 +18,14 @@ module.exports = new class AttendanceModel extends Model {
   createData(req, employeeId) {
     return { 
       'attendanceId': Util.primaryId("AT"), 
-      'employeeId': employeeId, 
+      'employeeId': employeeId,
       'symbol': req.body.symbol,
       'mode': req.body.mode,
       'status': 'Marked',
       'lockStatus' : 'None',
-      'attendanceDate': Util.getDate('YYYY-MM-DD 00:00:00'),
-      'markedTime':Util.getDate()
+      'date': Util.getDate('YYYY-MM-DD 00:00:00'),
+      'markedTime':Util.getDate(),
+      'markedBy': req.sessionUser.employeeId
     }
   }
   

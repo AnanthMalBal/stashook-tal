@@ -6,6 +6,6 @@ const AttendanceController = require('../controller/attendance-controller')
 
 router.post('/markAttendance', AuthToken.validateToken, AttendanceController.markAttendance);
 
-router.post('/getMarkedTime', AttendanceController.getMarkedTime);
+router.post('/getMarkedAttendance',AuthToken.validateToken, AttendanceController.getMarkedAttendance);
 
 module.exports = router;

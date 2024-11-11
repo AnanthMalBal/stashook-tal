@@ -1,8 +1,8 @@
 module.exports = {
 
-    MarkTime : `SELECT attendanceId, employeeId, DATE_FORMAT(markedTime,'%Y-%m-%d %H:%i:%s') AS markedTime, symbol, SUBSTRING(symbol, 2, 2) AS workingHours FROM usersattendance WHERE employeeId = ? AND attendanceDate = ?`,
+    GetMarkTime : `SELECT attendanceId, employeeId, markedTime, symbol, symbol as workingHours FROM usersattendance WHERE employeeId = ? AND date = ?`,
     
-    CheckMarkedTime : `SELECT attendanceId FROM usersattendance WHERE employeeId = ? AND attendanceDate = ? `,
+    CheckMarkedTime : `SELECT attendanceId FROM usersattendance WHERE employeeId = ? AND date = ? `,
 
     CheckTimeSheet: `SELECT timesheetId FROM userstimesheet WHERE attendanceId = ? `,
     
@@ -14,17 +14,31 @@ module.exports = {
 
     GetLeaveById : `SELECT employeeId, noOfDays, detectedLeave, fromDate, toDate FROM usersleavemanagement WHERE leaveId = ?`,
 
-    SearchUserLeave : `SELECT * FROM usersleavemanagement WHERE employeeId = ? AND fromDate >= ? AND activeToDate <= ?`,
+    SearchUserLeave : `SELECT UL.leaveId, CONCAT(UL.noOfDays, ' day(s)') AS noOfDays,  
+    CONCAT(UL.detectedLeave, ' day(s)') AS detectedLeave, UL.symbol, UL.fromDate, UL.toDate, UL.leaveDates, UL.status, UL.reason, UL.comments, 
+    CONCAT(U2.userName, '(', U2.userId, ')') AS createdBy, UL.createdDate, 
+    CONCAT(U3.userName, '(', U3.userId, ')') AS modifiedBy, UL.modifiedDate
+    FROM usersleavemanagement UL 
+    LEFT JOIN users U2 on U2.employeeId = UL.createdBy 
+    LEFT JOIN users U3 on U3.employeeId = UL.modifiedBy
+    WHERE employeeId = ? AND UL.fromDate >= ? AND UL.activeToDate <= ? `,
     
-    SearchUserLeaveByAdmin : `SELECT CONCAT(U.userName, '(', U.userId, ')') AS userName, UL.* FROM usersleavemanagement UL 
-    LEFT JOIN users U ON U.employeeId = UL.employeeId WHERE 
-    UL.employeeId IN (?) AND U.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? 
+    SearchUserLeaveByAdmin : `SELECT CONCAT(U1.userName, '(', U1.userId, ')') AS userName, UL.leaveId, CONCAT(UL.noOfDays, ' day(s)') AS noOfDays,  
+    CONCAT(UL.detectedLeave, ' day(s)') AS detectedLeave, UL.symbol, UL.fromDate, UL.toDate, UL.leaveDates, UL.status, UL.reason, UL.comments, 
+    CONCAT(U2.userName, '(', U2.userId, ')') AS createdBy, UL.createdDate, 
+    CONCAT(U3.userName, '(', U3.userId, ')') AS modifiedBy, UL.modifiedDate
+    FROM usersleavemanagement UL 
+    LEFT JOIN users U1 ON U1.employeeId = UL.employeeId 
+    LEFT JOIN users U2 on U2.employeeId = UL.createdBy 
+    LEFT JOIN users U3 on U3.employeeId = UL.modifiedBy
+    WHERE UL.employeeId IN (?) AND U1.userName LIKE ? AND UL.symbol LIKE ? AND UL.status LIKE ? 
     AND UL.fromDate >= ? AND UL.activeToDate <= ? `,
 
-    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved', 'Partially_Availed', 'Partially_Cancel')
+    SearchLeaveWithInRange : `SELECT * FROM usersleavemanagement WHERE status In ('Pending', 'Approved', 'Partially_Availed', 'Partially_Cancel') 
      AND employeeId = ? AND (fromDate >= ? AND activeToDate <= ? OR leaveDates LIKE ? OR leaveDates LIKE ?)`, // () Is Mandatory
 
-    UpdateCancelLeave : `UPDATE usersleavemanagement SET status = ?, comments = ?, leaveDates = ?, activeToDate = ?, modifiedBy = ?, modifiedDate = ?  WHERE  status In ('Pending', 'Approved', 'Partially_Availed') AND leaveId = ?`,
+    UpdateCancelLeave : `UPDATE usersleavemanagement SET status = ?, comments = ?, leaveDates = ?, activeToDate = ?, modifiedBy = ?, modifiedDate = ?  
+    WHERE status In ('Pending', 'Partially_Availed', 'Approved', 'Refer_Back') AND leaveId = ?`,
 
     UpdateUserLeaveBalance : `UPDATE usershrrecords SET approvedLeaveBalance = (approvedLeaveBalance + ?) WHERE employeeId = ? `,
 
@@ -36,24 +50,26 @@ module.exports = {
     
     SP_LeaveBalance : `CALL getLMSLeave(?)`,
 
-    GetUsersDailyLog: `SELECT TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL JOIN timesheetprocess TP ON TP.processId = UL.processId 
-    WHERE UL.timesheetId = ?`,
+    GetUsersDailyLog: `SELECT TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL 
+    LEFT JOIN timesheetprocess TP ON TP.processId = UL.processId WHERE UL.timesheetId = ?`,
 
     CheckUsersDailyLog: `SELECT * FROM usersdailylog WHERE timesheetId = ? AND processId = ?` ,
 
     DeleteUserDailyLog: `DELETE FROM usersdailylog WHERE autoId = ?`,
     
-    ProjectList : `SELECT projectId, projectName FROM operational_resource_project WHERE status = 1 ORDER BY displayOrder ASC`,
+    ProjectList : `SELECT projectId, projectName FROM operational_resource_project WHERE status = 1 AND divisionId = ? ORDER BY displayOrder ASC`,
     
     ProjectProcessList : `SELECT TP.processId, TP.processName, TP.billType, CAST(TP.billable AS UNSIGNED) AS billable, TP.entryType, TP.minutes FROM timesheetprocess TP
     JOIN timesheetprocessproject TPP ON TPP.processId = TP.processId WHERE TP.status = 1 AND TPP.projectId = ? ORDER BY TP.displayOrder ASC`,
 
-    GetTimesheetByDateRange : `SELECT UT.timesheetId, UT.attendanceId, DATE_FORMAT(UA.attendanceDate, '%Y-%m-%d') AS attendanceDate, 
-    CONCAT(U.userName, ' (', U.UserId, ')' ) AS approvedBy, UT.hoursBillable, UT.hoursNBNP, UT.hoursNBP, UT.hoursOTApproved, 
-    CAST(UT.hoursOTLocked AS UNSIGNED) hoursOTLocked, UT.markedTime, UT.approvedTime, UT.status, UT.comments FROM  userstimesheet UT 
-     JOIN usersattendance UA ON UT.attendanceId = UA.attendanceId 
-     JOIN users U ON UA.employeeId = U.employeeId 
-     WHERE UA.employeeId = ? AND UA.attendanceDate IN ( ? ) `,
+    GetTimesheetByDateRange : `SELECT UT.timesheetId, UT.attendanceId, UA.date, UT.hoursBillable, UT.hoursNBNP, UT.hoursNBP, UT.hoursOTApproved,
+    CAST(UT.hoursOTLocked AS UNSIGNED) hoursOTLocked, 
+    CONCAT(U.userName, ' (', U.UserId, ')' ) AS markedBy, UT.markedTime, 
+    CONCAT(U.userName, ' (', U.UserId, ')' ) AS approvedBy, UT.approvedTime, 
+    UT.status, UT.comments FROM  userstimesheet UT 
+    LEFT JOIN usersattendance UA ON UT.attendanceId = UA.attendanceId 
+    LEFT JOIN users U ON UA.employeeId = U.employeeId 
+    WHERE UA.employeeId = ? AND UA.date IN ( ? ) `,
 
     UpdateTimesheet : `UPDATE userstimesheet SET hoursBillable = ? , hoursNBNP = ?, hoursNBP = ?, markedTime = ?, status = 'Pending' 
     WHERE status IN ('None', 'Pending', 'ReferBack') AND lockStatus = 'None' AND timesheetId = ?`,
@@ -69,14 +85,19 @@ module.exports = {
     SpecialApproveLockedAttendance : `UPDATE usersattendance SET approvedTime = ?, approvalStatus = ?, comments = ?, approvedBy = ? WHERE lockStatus = 'Locked' AND attendanceId = ?` ,
 
     //Bulk Update
-    UpdateApproveHoliday : `UPDATE usersholidayscalendar SET comments = CONCAT(comments,'\n',?),  approvalStatus = ?, approvedBy = ?, approvedDate = ?, status = ? WHERE approvalStatus IN ('Review')`,
+    UpdateApproveHoliday : `UPDATE usersholidayscalendar SET comments = CONCAT(comments,'\n',?),  approvalStatus = ?, approvedBy = ?, approvedDate = ?, status = ? 
+    WHERE approvalStatus IN ('Review', 'ReferBack')`,
 
     UpdateBlockHoliday : `UPDATE usersholidayscalendar SET approvalStatus = ?, modifiedBy = ?, modifiedDate = ?, status = ? WHERE autoId = ?`,
 
-    DeleteHoliday :  `DELETE FROM usersholidayscalendar WHERE autoId = ? `,
+    DeleteHoliday :  `DELETE FROM usersholidayscalendar WHERE startDate > ? AND autoId = ? `,
 
     UpdateHoliday : `UPDATE usersholidayscalendar SET holiday = ?, country = ?, startDate = ?, endDate = ?, year = ?, symbol = ?, zoneArea = ?, 
     approvalStatus = ?, modifiedBy = ?, modifiedDate = ?, status = ? WHERE autoId = ? `,
+    
+    SearchHolidayExists: `SELECT HC.holiday FROM usersholidayscalendar HC WHERE HC.startDate >= ? AND HC.endDate <= ? AND HC.zoneArea = ?`,
+
+    SearchHolidayUpdateExists: `SELECT HC.holiday FROM usersholidayscalendar HC WHERE HC.startDate >= ? AND HC.endDate <= ? AND HC.zoneArea = ? AND HC.autoId <> ?`,
 
     SearchHoliday : `SELECT HC.autoId, HC.holiday, HC.country, HC.startDate, HC.endDate, HC.year, HC.symbol, HC.zoneArea, 
     CONCAT(U1.userName, '(', U1.userId, ')') AS createdBy, HC.createdDate, 

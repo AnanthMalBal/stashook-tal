@@ -1,4 +1,4 @@
-const { Util, Connection, JsonUtil } = require('stashook-utils');
+const { Connection, JsonUtil } = require('stashook-utils');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
 const TimesheetModel = require('../model/timesheet');
@@ -8,10 +8,18 @@ module.exports = {
     getTimesheetByDateRange: async (req, res, next) => {
 
         Connection.query(Queries.GetTimesheetByDateRange, TimesheetModel.getTimesheetData(req), function (error, results) {
-            if (error || results === undefined|| results === 0) res.json(Message.NO_DATA_FOUND);
+            if (error || results === undefined || results === 0) res.json(Message.NO_DATA_FOUND);
             else {
                 JsonUtil.mask(results, "timesheetId");
                 JsonUtil.mask(results, "attendanceId");
+                JsonUtil.dates(results, "date", "DD-MMM-YYYY");
+                JsonUtil.dates(results, "markedTime", "DD-MMM-YYYY HH:mm");
+                JsonUtil.dates(results, "approvedTime", "DD-MMM-YYYY HH:mm");
+                JsonUtil.format(results, "hoursBillable", inHoursMins);
+                JsonUtil.format(results, "hoursNBNP", inHoursMins);
+                JsonUtil.format(results, "hoursNBP", inHoursMins);
+                JsonUtil.format(results, "hoursOTApproved", inHoursMins);
+                JsonUtil.format(results, "hoursOTLocked", inHoursMins);
                 res.json(results);
             }
         });
@@ -44,7 +52,7 @@ module.exports = {
                         if (error || attResults.affectedRows === 0)
                             res.json(Message.TIMESHEET_ATTENDANCE_APPROVE_FAILED); // On Success of Timesheet & But Failed Attendance 
                         else
-                            res.json(process ? Message.TIMESHEET_APPROVED_SUCCESSFULLY: Message.TIMESHEET_REFERBACK_SUCCESSFULLY); // On Success of Both Timesheet & Attendance 
+                            res.json(process ? Message.TIMESHEET_APPROVED_SUCCESSFULLY : Message.TIMESHEET_REFERBACK_SUCCESSFULLY); // On Success of Both Timesheet & Attendance 
                     });
                 }
             }
@@ -67,7 +75,7 @@ module.exports = {
                         if (error || attResults.affectedRows === 0)
                             res.json(Message.TIMESHEET_ATTENDANCE_APPROVE_FAILED); // On Success of Timesheet & But Failed Attendance 
                         else
-                            res.json(process ? Message.TIMESHEET_APPROVED_SUCCESSFULLY: Message.TIMESHEET_REFERBACK_SUCCESSFULLY); // On Success of Both Timesheet & Attendance 
+                            res.json(process ? Message.TIMESHEET_APPROVED_SUCCESSFULLY : Message.TIMESHEET_REFERBACK_SUCCESSFULLY); // On Success of Both Timesheet & Attendance 
                     });
                 }
             }
@@ -75,3 +83,19 @@ module.exports = {
     },
 }
 
+function inHoursMins(num) {
+    if (num) {
+        let hours = Math.floor(num / 60);
+        let minutes = num % 60;
+
+        if ((hours + '').length < 2) {
+            hours = '0' + hours;
+        }
+
+        if ((minutes + '').length < 2) {
+            minutes = '0' + minutes;
+        }
+        return hours + ":" + minutes;
+    }
+    return "00:00";
+}

@@ -11,6 +11,33 @@ module.exports = new class LeaveModel extends Model {
     super('usersleavemanagement');// Table Name
   }
 
+  searchData(result, req) {
+    let employeeIds = [];
+    result.forEach(element => {
+      employeeIds.push(element.employeeId);
+    });
+    let searchData = [];
+    searchData.push(employeeIds);
+    searchData.push(req.body.employeeName ? Util.withPercent(req.body.employeeName) : '%%');
+    searchData.push(req.body.symbol ? Util.withPercent(req.body.symbol) : '%%');
+    searchData.push(req.body.status ? Util.withPercent(req.body.status) : '%%');
+    searchData.push(req.body.fromDate);
+    searchData.push(req.body.toDate);
+    return searchData;
+  }
+
+  searchRangeData(req, employeeId) {
+
+    let searchData = [];
+    searchData.push(employeeId);
+    searchData.push(req.body.fromDate);
+    searchData.push(req.body.toDate);
+    searchData.push(Util.withPercent(req.body.fromDate));
+    searchData.push(Util.withPercent(req.body.toDate));
+    return searchData;
+  }
+
+
   createData(req) {
 
     let employeeId = (req.body.employeeId) ? req.body.employeeId : req.sessionUser.employeeId; //By Default Session User
