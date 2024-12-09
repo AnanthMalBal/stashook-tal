@@ -42,8 +42,8 @@ module.exports = {
                 let lvDetect = parseFloat(LeaveModel.getNoOfLeaveDays(req)) * -1;
 
                 Connection.query(Queries.UpdateUserLeaveBalance, [lvDetect, employeeId], function (error, userResults) {
-                    
-                    Logger.info("::Queries::UpdateUserLeaveBalance::userResults: " +  JSON.stringify(userResults)) ;
+
+                    Logger.info("::Queries::UpdateUserLeaveBalance::userResults: " + JSON.stringify(userResults));
 
                     if (error || userResults.affectedRows === 0) res.json(Message.UNABLE_TO_UPDATE_LEAVE_BALANCE);
 
@@ -128,19 +128,33 @@ module.exports = {
 
     getLeaveHolidayColor: async (req, res, next) => {
 
-        Connection.query(Queries.SP_HolidayColor, [req.body.cDate, req.body.employeeId], function (error, results) {
+        Connection.query(Queries.SP_HolidayColor, [req.body.selectedDate, req.body.employeeId], function (error, results) {
             if (error || results.length === 0) res.json(Message.HOLIDAY_INVALID_DATE);
             Logger.info("::Queries::getLeaveHolidayColor::: " + JSON.stringify(results));
-            res.json(results);
+
+            let finalResult = [];
+            if(results.length > 1)
+            {
+                finalResult.push(results[0]);
+                finalResult.push(results[1]);
+            }
+            res.json(finalResult);
+
         });
     },
 
     getLeaveBalance: async (req, res, next) => {
 
-        Connection.query(Queries.SP_LeaveBalance, [req.body.employeeId], function (error, results) {
-            if (error || results.length === 0) res.json(Message.HOLIDAY_INVALID_DATE);
+        let employeeId = req.body.employeeId ? req.body.employeeId : req.sessionUser.employeeId;
+
+        Connection.query(Queries.GetUserLeaveBalance, [employeeId], function (error, results) {
             Logger.info("::Queries::getLeaveBalance::: " + JSON.stringify(results));
-            res.json(results);
+            if (error || results.length === 0) res.json(Message.UNABLE_TO_GET_LEAVE_BALANCE);
+            else {
+                Logger.info("::Queries::getLeaveBalance::: " + JSON.stringify(results));
+                results[0].Description = "Approved Leave Balance";
+                res.json(results[0]);
+            }
         });
     }
 }
@@ -150,7 +164,7 @@ const setSearchLeaveResult = (req, res, searchData) => {
 
     Connection.query(LeaveModel.SearchWithLimit(req, LEAVE_QUERY), searchData, function (error, results) {
 
-        if (error || results === undefined || results.length === 0) { 
+        if (error || results === undefined || results.length === 0) {
             Logger.error("LeaveModel is Error :: " + error);
             Logger.error("LeaveModel is Results Undefined :: " + (results === undefined));
             LeaveModel.searchResults(req, res, []);
@@ -176,14 +190,13 @@ function formatLeaveDates(results) {
 
         if (dates === undefined || dates === null)
             row['leaveDates'] = '';
-        else
-        {
+        else {
             let leaveDates = '';
             dates.forEach(dt => {
-                leaveDates = leaveDates + (moment(dt + '').format('DD-MMM-YYYY') + '\n' );
+                leaveDates = leaveDates + (moment(dt + '').format('DD-MMM-YYYY') + '\n');
             });
             row['leaveDates'] = leaveDates.trim();
-        }           
+        }
     });
 }
 
@@ -200,7 +213,7 @@ function extractWorkingHours(results) {
 
 
 function createCancelLeaveData(req, lvResults) {
-    
+
     const status = lvResults[0].detectedLeave === 0 ? 'Cancel' : 'Partially_Cancel';
 
     let cancelData = [];
@@ -208,8 +221,8 @@ function createCancelLeaveData(req, lvResults) {
 
     cancelData.push(status);
     cancelData.push(req.body.comments);
-    cancelData.push('{' +  leaveDates + '}');
-    cancelData.push(leaveDates[leaveDates.length-1]);
+    cancelData.push('{' + leaveDates + '}');
+    cancelData.push(leaveDates[leaveDates.length - 1]);
     cancelData.push(req.sessionUser.employeeId);
     cancelData.push(Util.getDate());
     cancelData.push(JsonUtil.unmaskField(req.body.leaveId));

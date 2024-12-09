@@ -41,6 +41,16 @@ module.exports = {
         }
     },
 
+    getLeaveHolidayColor: async (req, res, next) => {
+
+        try {
+            leaveService.getLeaveHolidayColor(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
+
     getLeaveColorList: async (req, res, next) => {
 
         try {

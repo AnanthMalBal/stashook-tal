@@ -3,6 +3,7 @@ const Logger = require('../util/logger');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
 const UsersDailyLogModel = require('../model/usersdailylog');
+const moment = require('moment');
 
 module.exports = {
     addUserDailyLog: async (req, res, next) => {
@@ -38,10 +39,55 @@ module.exports = {
             Logger.info(":::GetUsersDailyLog::: " + JSON.stringify(result));
 
             if (error || result === undefined) res.json({});
-            else res.json(result);
-
+            else 
+            {
+                JsonUtil.mask(result, "autoId");
+                res.json(result);
+            }
         });
     },
+
+    getAssignedUserDailyLog: async (req, res, next) => {
+
+        Connection.query(Queries.GetAssignedTasks, [req.sessionUser.employeeId], function (error, result) {
+
+            Logger.info(":::GetAssignedUserDailyLog:::GetAssignedTasks::: " + JSON.stringify(result));
+
+            if (error || result === undefined || result.length === 0) res.json([]);
+            else {
+                let searchDate = new Date();
+                let startDay;
+                let startDate;
+                let endDate;
+
+                if (searchDate.getDay() > 1 && searchDate.getDay() < 6) {
+                    startDay = searchDate.getDay() - 1;
+                }
+                else{
+                    startDay = 7;
+                }
+
+                startDate = moment(searchDate).subtract(startDay, 'day').format('YYYY-MM-DD');
+                endDate = moment(startDate).add(6, 'day').format('YYYY-MM-DD');
+
+                let processInfo = JSON.parse(result[0].processInfo);
+
+                Connection.query(Queries.GetAssignedUsersDailyLog, [ req.sessionUser.employeeId, startDate, endDate], function (error, udlResult) {
+
+                    Logger.info(":::GetAssignedUsersDailyLog::: " + JSON.stringify(udlResult));
+
+                    if (error || udlResult === undefined) res.json({});
+                    else res.json(udlResult);
+
+                });
+
+            }
+
+        });
+
+
+    },
+
 
     deleteUserDailyLog: async (req, res, next) => {
 

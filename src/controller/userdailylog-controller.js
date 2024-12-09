@@ -24,6 +24,16 @@ module.exports = {
         }
     },
 
+    getAssignedUserDailyLog: async (req, res, next) => {
+
+        try {
+            usersDailyLogService.getAssignedUserDailyLog(req, res, next);
+        }
+        catch (excep) {
+            Util.sendError500(req, res, excep);
+        }
+    },
+
     deleteUserDailyLog: async (req, res, next) => {
 
         try {

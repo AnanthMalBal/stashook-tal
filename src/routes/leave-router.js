@@ -13,6 +13,8 @@ router.post('/getLeaveTypeList', AuthToken.validateToken, LeaveController.getLea
 
 router.post('/getLeaveColorList', AuthToken.validateToken, LeaveController.getLeaveColorList);
 
+router.post('/getLeaveHolidayColor', AuthToken.validateToken, LeaveController.getLeaveHolidayColor);
+
 router.post('/getLeaveBalance', AuthToken.validateToken, LeaveController.getLeaveBalance);
 
 router.post('/getOnBehalfUsersList', AuthToken.validateToken, LeaveController.getOnBehalfUsersList);

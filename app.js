@@ -11,6 +11,7 @@ var leaveRouter = require('./src/routes/leave-router');
 var utilRouter = require('./src/routes/util-router');
 var dailyLogRouter = require('./src/routes/userdailylog-router');
 var holidayRouter = require('./src/routes/holiday-router');
+var assignedTasksRouter = require('./src/routes/assignedtasks-router');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(CONTEXT_PATH, leaveRouter);
 app.use(CONTEXT_PATH, utilRouter);
 app.use(CONTEXT_PATH, dailyLogRouter);
 app.use(CONTEXT_PATH, holidayRouter);
+app.use(CONTEXT_PATH, assignedTasksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
