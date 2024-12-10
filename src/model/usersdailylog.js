@@ -8,6 +8,8 @@ module.exports = new class UsersDailyLogModel extends Model {
 
   createData(req) {
     return { 
+      'employeeId': req.sessionUser.employeeId,
+      'taskDate' : req.body.attendanceDate,
       'projectId' : req.body.projectId,
       'processId' : req.body.processId,
       'timesheetId' : JsonUtil.unmaskField(req.body.timesheetId),

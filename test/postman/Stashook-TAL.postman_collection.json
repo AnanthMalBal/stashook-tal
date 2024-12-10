@@ -24,7 +24,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:9100/stashook?mask=CBK1733061459464",
+							"raw": "http://localhost:9100/stashook?mask=121",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -36,7 +36,7 @@
 							"query": [
 								{
 									"key": "mask",
-									"value": "CBK1733061459464"
+									"value": "121"
 								},
 								{
 									"key": null,
@@ -135,7 +135,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employeeId\":\"barax\",\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\"\r\n}",
+							"raw": "{\r\n    \"employeeId\":\"braas\",\r\n    \"symbol\":\"P12\",\r\n    \"mode\":\"WFH\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -201,7 +201,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"\",\r\n   \"status\": \"\",\r\n    \"fromDate\": \"2023-01-22\",\r\n    \"toDate\": \"2024-12-26\",\r\n    \"page\":1,\r\n    \"perPage\":5,\r\n    \"sort\": \"modifiedDate desc\"\r\n}\r\n",
+							"raw": "{\r\n   \"employeeName\":\"\",\r\n   \"symbol\": \"\",\r\n   \"status\": \"\",\r\n    \"fromDate\": \"2024-01-22\",\r\n    \"toDate\": \"2024-12-31\",\r\n    \"page\":1,\r\n    \"perPage\":5,\r\n    \"sort\": \"modifiedDate desc\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -306,7 +306,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"symbol\": \"Paternity_Leave\",\r\n    \"fromDate\": \"2024-11-27\",\r\n    \"toDate\": \"2024-11-28\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
+							"raw": "{\r\n    \"symbol\": \"Leave\",\r\n    \"fromDate\": \"2024-12-29\",\r\n    \"toDate\": \"2024-12-31\",\r\n    \"reason\": \"Test Leave\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -341,7 +341,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"leaveId\": \"LMbxpbcqbbrbpyr\",\r\n    \"comments\": \"No Needed at present LMbxpbcqbbrbpyr\"\r\n}\r\n",
+							"raw": "{\r\n    \"leaveId\": \"LMbxppyazcxxqxz\",\r\n    \"comments\": \"No Needed at present LMbxppyazcxxqxz\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -374,9 +374,35 @@
 								"type": "text"
 							}
 						],
+						"url": {
+							"raw": "http://localhost:9100/stashook/getLeaveBalance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"getLeaveBalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Leave-Balance Other Employee Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"leaveId\": \"LMbxpbcqbbrbpyr\",\r\n    \"comments\": \"No Needed at present LMbxpbcqbbrbpyr\"\r\n}\r\n",
+							"raw": "{\r\n    \"employeeId\": \"braas\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -437,7 +463,42 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employeeId\":\"10504\",\r\n    \"selectedDate\":\"2024-09-01\"\r\n}",
+							"raw": "{\r\n    \"selectedDate\":\"2024-12-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/getLeaveHolidayColor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"getLeaveHolidayColor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Leave-Color  Other Employee Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employeeId\":\"braas\",\r\n    \"selectedDate\":\"2024-12-01\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -477,7 +538,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fromDate\": \"2024-11-08\",\r\n    \"toDate\": \"2024-11-15\"\r\n}\r\n",
+							"raw": "{\r\n    \"fromDate\": \"2024-12-08\",\r\n    \"toDate\": \"2024-12-30\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -582,7 +643,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n    \"timesheetId\" : \"TSbxpbarzpbxyqr\",\r\n    \"hoursBillable\" : \"120\",\r\n    \"hoursNBNP\" : \"100\",\r\n    \"hoursNBP\" : \"70\"\r\n}   \r\n",
+							"raw": "{ \r\n    \"timesheetId\" : \"TSbxppyaxzrcxcx\",\r\n    \"hoursBillable\" : \"125\",\r\n    \"hoursNBNP\" : \"100\",\r\n    \"hoursNBP\" : \"70\"\r\n}   \r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -617,7 +678,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxpbarzpbxyqr\",\r\n      \"attendanceId\" : \"ATbxpbarzpbxyps\",\r\n      \"status\" : \"Approved\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
+							"raw": "{ \r\n\r\n      \"timesheetId\" : \"TSbxppyaxzrcxcx\",\r\n      \"attendanceId\" : \"ATbxppyaxzrcxcc\",\r\n      \"status\" : \"Approved\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -652,7 +713,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n      \"timesheetId\" : \"TSbxczzrcspxrxr\",\r\n      \"attendanceId\" : \"ATbxczzrcspxrss\",\r\n      \"status\" : \"ReferBack\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
+							"raw": "{ \r\n      \"timesheetId\" : \"TSbxppyaxzrcxcx\",\r\n      \"attendanceId\" : \"ATbxppyaxzrcxcc\",\r\n      \"status\" : \"ReferBack\",\r\n      \"comments\" : \"ReferBack Approved\"\r\n    }   \r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -687,7 +748,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"divisionId\" : \"IT\"\r\n}",
+							"raw": "{\r\n    \"divisionId\" : \"DEV\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -722,7 +783,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"values\": [\"SVRBZG1pbiwyMDI0LTEyLTAxIDAwOjAwOjAwLDIwMjUtMTItMDEgMDA6MDA6MDA=\", \"UHJvRm9jMDAwMSwyMDI0LTEyLTAxIDAwOjAwOjAwLDIwMjUtMTItMDEgMDA6MDA6MDA=\"]\r\n}\r\n",
+							"raw": "{\r\n    \"values\": [\"REVWMTcyNTI4Mjg2MTYyMiwyMDI0LTEyLTAxIDAwOjAwOjAwLDIwMjUtMTItMDEgMDA6MDA6MDA=\",\r\n    \"UHJvRm9jMDAwMSwyMDI0LTEyLTAxIDAwOjAwOjAwLDIwMjUtMTItMDEgMDA6MDA6MDA=\"]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1019,7 +1080,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"taskIds\" : [1000,1001,1002]\r\n}",
+							"raw": "{\r\n    \"taskIds\" : [1000,1001,1002,1005,1006]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1155,7 +1216,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"searchTerm\":\"\",\r\n    \"startDate\": \"2023-01-14\",\r\n    \"endDate\": \"2025-09-17\",\r\n    \"page\":1,\r\n    \"perPage\":15,\r\n    \"sort\": \"modifiedDate desc\"\r\n}\r\n",
+							"raw": "{\r\n    \"searchTerm\":\"\",\r\n    \"startDate\": \"2024-01-14\",\r\n    \"endDate\": \"2025-12-17\",\r\n    \"page\":1,\r\n    \"perPage\":15,\r\n    \"sort\": \"modifiedDate desc\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1299,7 +1360,7 @@
 								{
 									"key": "excelFile",
 									"type": "file",
-									"src": "/C:/Users/Ananth/Desktop/HolidayTemplate_Download.xlsx"
+									"src": "/C:/Users/Ananth/Desktop/HolidayTemplate.xlsx"
 								}
 							]
 						},
@@ -1331,7 +1392,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " { \r\n      \"autoId\" : \"bxpbcrqpxczxp\",\r\n      \"holiday\": \"Parliment Election\", \r\n      \"country\": \"Asia/Kolkata\",\r\n      \"startDate\": \"01-12-2026\",\r\n      \"endDate\": \"01-12-2026\",\r\n      \"year\": \"2025\",\r\n      \"symbol\": \"Holiday\",\r\n      \"zoneArea\": \"Chennai\"\r\n }\r\n",
+							"raw": " { \r\n      \"autoId\" : \"bxppypqxaxacc\",\r\n      \"holiday\": \"Parliment Election\", \r\n      \"country\": \"Asia/Kolkata\",\r\n      \"startDate\": \"01-12-2026\",\r\n      \"endDate\": \"01-12-2026\",\r\n      \"year\": \"2025\",\r\n      \"symbol\": \"Holiday\",\r\n      \"zoneArea\": \"Chennai\"\r\n }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1404,7 +1465,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " { \r\n      \"autoId\" : \"bxpbcrqyyxcpc\",\r\n      \"status\": 0\r\n }\r\n",
+							"raw": " { \r\n      \"autoId\" : \"bxppypqxaxacc\",\r\n      \"status\": 1\r\n }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1474,7 +1535,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " { \r\n      \"autoId\" : \"bxpbcrqpxczxp\"\r\n }\r\n",
+							"raw": " { \r\n      \"autoId\" : \"bxppypqxaxacc\"\r\n }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1502,41 +1563,6 @@
 			"name": "DailyLog",
 			"item": [
 				{
-					"name": "Add-Daily-Log",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{ \r\n      \"projectId\" : \"ProFoc0001\",\r\n      \"processId\" : \"ProcessTraining\",\r\n      \"timesheetId\" : \"TSbxpbarzpbxyqr\",\r\n      \"actualTime\" : \"100\",\r\n      \"description\" : \"AWS Process Training\"\r\n    }   \r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9100/stashook/addUserDailyLog",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9100",
-							"path": [
-								"stashook",
-								"addUserDailyLog"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get-Daily-Log",
 					"request": {
 						"method": "POST",
@@ -1549,7 +1575,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n      \"timesheetId\" : \"TSbxczxybqraycc\"\r\n}   \r\n",
+							"raw": "{ \r\n      \"timesheetId\" : \"TSbxpaarpyaazaq\"\r\n}   \r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1572,6 +1598,41 @@
 					"response": []
 				},
 				{
+					"name": "Add-Daily-Log",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n      \"projectId\" : \"ProFoc0001\",\r\n      \"processId\" : \"TeamMeeting\",\r\n      \"timesheetId\" : \"TSbxpaarpyaazaq\",\r\n      \"actualTime\" : \"100\",\r\n      \"description\" : \"AWS Process Training\",\r\n      \"attendanceDate\": \"2024-12-10 00:00:00\"\r\n      \r\n    }   \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/addUserDailyLog",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"addUserDailyLog"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete-Daily-Log",
 					"request": {
 						"method": "POST",
@@ -1584,7 +1645,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n      \"autoId\" : \"br\"\r\n}   \r\n",
+							"raw": "{ \r\n      \"autoId\" : \"bcb\"\r\n}   \r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1696,42 +1757,47 @@
 			]
 		},
 		{
-			"name": "Get-On-Behalf-Users-List",
-			"event": [
+			"name": "Users",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authorization",
-						"value": "{{token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:9100/stashook/getOnBehalfUsersList",
-					"protocol": "http",
-					"host": [
-						"localhost"
+					"name": "Get-On-Behalf-Users-List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
 					],
-					"port": "9100",
-					"path": [
-						"stashook",
-						"getOnBehalfUsersList"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9100/stashook/getOnBehalfUsersList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"getOnBehalfUsersList"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	],
 	"event": [

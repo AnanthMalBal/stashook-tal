@@ -74,11 +74,14 @@ module.exports = {
 
                 Connection.query(Queries.GetAssignedUsersDailyLog, [ req.sessionUser.employeeId, startDate, endDate], function (error, udlResult) {
 
-                    Logger.info(":::GetAssignedUsersDailyLog::: " + JSON.stringify(udlResult));
+                    Logger.info(":::GetAssignedUsersDailyLog::udlResult: " + JSON.stringify(udlResult));
 
                     if (error || udlResult === undefined) res.json({});
-                    else res.json(udlResult);
-
+                    else 
+                    {
+                        JsonUtil.mask(udlResult, "autoId");
+                        res.json(udlResult);
+                    }
                 });
 
             }

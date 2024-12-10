@@ -51,7 +51,7 @@ module.exports = {
     GetUsersDailyLog: `SELECT UL.autoId, TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL 
     LEFT JOIN timesheetprocess TP ON TP.processId = UL.processId WHERE UL.timesheetId = ?`,
 
-    GetAssignedUsersDailyLog: `SELECT TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL 
+    GetAssignedUsersDailyLog: `SELECT UL.autoId, TP.processId, TP.processName, TP.billType, UL.actualTime, UL.status, UL.description from usersdailylog UL 
     LEFT JOIN timesheetprocess TP ON TP.processId = UL.processId WHERE UL.employeeId = ? AND UL.taskDate BETWEEN ? AND ?`,
 
     CheckUsersDailyLog: `SELECT * FROM usersdailylog WHERE timesheetId = ? AND processId = ?`,

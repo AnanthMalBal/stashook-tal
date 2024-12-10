@@ -20,6 +20,8 @@ module.exports = {
                 JsonUtil.format(results, "hoursNBP", inHoursMins);
                 JsonUtil.format(results, "hoursOTApproved", inHoursMins);
                 JsonUtil.format(results, "hoursOTLocked", inHoursMins);
+                duplicateAttendanceDate(results, 'date');
+                JsonUtil.dates(results, "_date", "YYYY-MM-DD 00:00:00");
                 res.json(results);
             }
         });
@@ -81,6 +83,19 @@ module.exports = {
             }
         });
     },
+}
+
+function duplicateAttendanceDate(results, field)
+{
+    results.forEach(row => {
+        let value = row[field];
+        if (value !== undefined && value !== null)
+            row['_'+ field] = value;
+        else
+        row['_'+ field] = '';
+        // console.log(">>>>dates>>>>>row[field] >>>>>>> " +  row[field]);
+    });
+
 }
 
 function inHoursMins(num) {

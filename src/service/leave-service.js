@@ -128,13 +128,16 @@ module.exports = {
 
     getLeaveHolidayColor: async (req, res, next) => {
 
-        Connection.query(Queries.SP_HolidayColor, [req.body.selectedDate, req.body.employeeId], function (error, results) {
+        let employeeId = req.body.employeeId ? JsonUtil.unmaskField(req.body.employeeId) : req.sessionUser.employeeId;
+
+        Connection.query(Queries.SP_HolidayColor, [req.body.selectedDate, employeeId], function (error, results) {
             if (error || results.length === 0) res.json(Message.HOLIDAY_INVALID_DATE);
             Logger.info("::Queries::getLeaveHolidayColor::: " + JSON.stringify(results));
 
             let finalResult = [];
             if(results.length > 1)
             {
+                JsonUtil.dates(results[0], 'cDate','YYYY-MM-DD');
                 finalResult.push(results[0]);
                 finalResult.push(results[1]);
             }
@@ -145,7 +148,7 @@ module.exports = {
 
     getLeaveBalance: async (req, res, next) => {
 
-        let employeeId = req.body.employeeId ? req.body.employeeId : req.sessionUser.employeeId;
+        let employeeId = req.body.employeeId ? JsonUtil.unmaskField(req.body.employeeId) : req.sessionUser.employeeId;
 
         Connection.query(Queries.GetUserLeaveBalance, [employeeId], function (error, results) {
             Logger.info("::Queries::getLeaveBalance::: " + JSON.stringify(results));
