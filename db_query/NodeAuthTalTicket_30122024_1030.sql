@@ -14,481 +14,152 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table data_process.accessprivilege
-CREATE TABLE IF NOT EXISTS `accessprivilege` (
-  `autoId` int NOT NULL AUTO_INCREMENT,
-  `preAuthorize` varchar(50) NOT NULL,
-  `roleId` varchar(50) NOT NULL,
+-- Dumping structure for table data_process.access_privilege
+CREATE TABLE IF NOT EXISTS `access_privilege` (
+  `accessId` varchar(50) NOT NULL DEFAULT 'AUTO_INCREMENT',
+  `groupName` varchar(50) NOT NULL,
   `requestName` varchar(50) NOT NULL,
   `requestPath` varchar(50) NOT NULL,
-  `serviceName` varchar(50) NOT NULL,
-  `status` bit(1) NOT NULL DEFAULT b'1',
-  PRIMARY KEY (`autoId`),
-  KEY `FK_accessprivilege_roles` (`roleId`),
-  CONSTRAINT `FK_accessprivilege_roles` FOREIGN KEY (`roleId`) REFERENCES `roles` (`roleId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3679 DEFAULT CHARSET=utf8mb3;
+  `status` bit(1) NOT NULL DEFAULT b'1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.accessprivilege: ~458 rows (approximately)
-DELETE FROM `accessprivilege`;
-INSERT INTO `accessprivilege` (`autoId`, `preAuthorize`, `roleId`, `requestName`, `requestPath`, `serviceName`, `status`) VALUES
-	(2, 'CRUDUser', 'Admin', 'Add User', '/addUser', 'core_admin', b'1'),
-	(3, 'CRUDUser', 'Admin', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(4, 'CRUDUser', 'Admin', 'Block User', '/blockUser', 'core_admin', b'1'),
-	(5, 'CRUDUser', 'Admin', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(6, 'CRUDUser', 'Admin', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(7, 'CRUDUser', 'Admin', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(9, 'CRUDUser', 'Admin', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(14, 'CRUDUser', 'Admin', 'Resource Team By Employee And Role', '/getTeamList/{skillId}/{groupId}', 'core_admin', b'1'),
-	(16, 'CRUDUser', 'Admin', 'Get User By Producer', '/getUserByProducer', 'core_admin', b'1'),
-	(17, 'CRUDUser', 'Admin', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(18, 'CRUDUser', 'Admin', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(19, 'CRUDUser', 'Admin', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(20, 'CRUDUser', 'Admin', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(21, 'CRUDUser', 'Admin', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(24, 'General', 'Admin', 'City List', '/searchCity', 'core_admin', b'1'),
-	(25, 'General', 'Admin', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(26, 'General', 'Admin', 'State List', '/searchState', 'core_admin', b'1'),
-	(27, 'ITUpdate', 'Admin', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(28, 'ITUpdate', 'Admin', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(29, 'OperUpdate', 'Admin', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(30, 'OperUpdate', 'Admin', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(31, 'DataView', 'Admin', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(32, 'DataView', 'Admin', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(33, 'DataProcess', 'Admin', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(34, 'DataView', 'Admin', 'Update Task', '/updateTask', 'edr_data_view', b'1'),
-	(35, 'DataProcess', 'Admin', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(36, 'General', 'Employee', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(37, 'General', 'Employee', 'State List', '/searchState', 'core_admin', b'1'),
-	(38, 'General', 'Employee', 'City List', '/searchCity', 'core_admin', b'1'),
-	(84, 'DataView', 'ProjectLeader', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(85, 'DataView', 'ProjectManager', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(88, 'DataView', 'TeamLeader', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(89, 'DataView', 'TeamLeaderTrainee', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(90, 'DataView', 'Trainee', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(124, 'DataView', 'ProjectLeader', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(125, 'DataView', 'ProjectManager', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(128, 'DataView', 'TeamLeader', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(129, 'DataView', 'TeamLeaderTrainee', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(130, 'DataView', 'Trainee', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(164, 'DataView', 'ProjectLeader', 'Update Tasks', '/updateTask', 'edr_data_view', b'1'),
-	(165, 'DataView', 'ProjectManager', 'Update Tasks', '/updateTask', 'edr_data_view', b'1'),
-	(168, 'DataView', 'TeamLeader', 'Update Tasks', '/updateTask', 'edr_data_view', b'1'),
-	(169, 'DataView', 'TeamLeaderTrainee', 'Update Tasks', '/updateTask', 'edr_data_view', b'1'),
-	(170, 'DataView', 'Trainee', 'Update Tasks', '/updateTask', 'edr_data_view', b'1'),
-	(207, 'DataProcess', 'ProjectLeader', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(210, 'DataProcess', 'TeamLeader', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(227, 'OperUpdate', 'ProjectLeader', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(230, 'OperUpdate', 'TeamLeader', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(247, 'OperUpdate', 'ProjectLeader', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(250, 'OperUpdate', 'TeamLeader', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(267, 'OperUpdate', 'ProjectLeader', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(270, 'OperUpdate', 'TeamLeader', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(272, 'CRUDUser', 'Admin', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(275, 'General', 'Employee', 'DistrictList', '/searchDistrict', 'core_admin', b'1'),
-	(276, 'CRUDUser', 'Admin', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(277, 'ITUpdate', 'Admin', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(278, 'ITUpdate', 'Admin', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(289, 'ITUpdate', 'Admin', 'Create User Assets', '/createUserAssets', 'core_admin', b'1'),
-	(337, 'DataView', 'ProjectLeader', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(338, 'DataView', 'ProjectManager', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(341, 'DataView', 'TeamLeader', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(342, 'DataView', 'Admin', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(346, 'DataView', 'Admin', 'ReAllocate Task', '/reAllocateTask', 'edr_data_view', b'1'),
-	(369, 'DataView', 'ProjectLeader', 'ReAllocate Tasks', '/reAllocateTask', 'edr_data_view', b'1'),
-	(370, 'DataView', 'ProjectManager', 'ReAllocate Tasks', '/reAllocateTask', 'edr_data_view', b'1'),
-	(372, 'DataView', 'TeamLeader', 'ReAllocate Tasks', '/reAllocateTask', 'edr_data_view', b'1'),
-	(373, 'DataView', 'TeamLeaderTrainee', 'ReAllocate Tasks', '/reAllocateTask', 'edr_data_view', b'1'),
-	(390, 'OperUpdate', 'TeamLeaderTrainee', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(393, 'DataView', 'TeamLeaderTrainee', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(416, 'CRUDUser', 'ProjectLeader', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(417, 'CRUDUser', 'ProjectManager', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(433, 'CRUDUser', 'ProjectLeader', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(434, 'CRUDUser', 'ProjectManager', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(445, 'DataProcess', 'ProjectLeader', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(446, 'DataProcess', 'ProjectManager', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(488, 'DataView', 'ProjectLeader', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(489, 'DataView', 'ProjectManager', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(510, 'DataView', 'Admin', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(530, 'CRUDUser', 'Admin', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(560, 'CRUDUser', 'Admin', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(566, 'CRUDUser', 'Admin', 'Get HR Records', '/getHRRecord', 'core_admin', b'1'),
-	(622, 'DataView', 'TeamLeader', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(623, 'DataView', 'TeamLeaderTrainee', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(624, 'DataView', 'Trainee', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(628, 'DataView', 'ProjectLeader', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(629, 'DataView', 'ProjectManager', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(650, 'DataView', 'Admin', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(673, 'CRUDUser', 'TeamLeader', 'Get Task Users List', '/getTaskUsersList/{skillSet}', 'core_admin', b'1'),
-	(674, 'CRUDUser', 'TeamLeaderTrainee', 'Get Task Users List', '/getTaskUsersList/{skillSet}', 'core_admin', b'1'),
-	(679, 'CRUDUser', 'ProjectLeader', 'Get Task Users List', '/getTaskUsersList/{skillSet}', 'core_admin', b'1'),
-	(680, 'CRUDUser', 'ProjectManager', 'Get Task Users List', '/getTaskUsersList/{skillSet}', 'core_admin', b'1'),
-	(699, 'CRUDUser', 'Admin', 'Get Task Users List', '/getTaskUsersList/{skillSet}', 'core_admin', b'1'),
-	(722, 'CRUDUser', 'TeamLeader', 'Get User', '/getUser', 'core_admin', b'1'),
-	(723, 'CRUDUser', 'TeamLeaderTrainee', 'Get User', '/getUser', 'core_admin', b'1'),
-	(724, 'CRUDUser', 'Trainee', 'Get User', '/getUser', 'core_admin', b'1'),
-	(728, 'CRUDUser', 'ProjectLeader', 'Get User', '/getUser', 'core_admin', b'1'),
-	(729, 'CRUDUser', 'ProjectManager', 'Get User', '/getUser', 'core_admin', b'1'),
-	(750, 'CRUDUser', 'Admin', 'Get User', '/getUser', 'core_admin', b'1'),
-	(773, 'DataView', 'TeamLeader', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(774, 'DataView', 'TeamLeaderTrainee', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(779, 'DataView', 'ProjectLeader', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(780, 'DataView', 'ProjectManager', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(801, 'DataView', 'Admin', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(878, 'CRUDUser', 'ProjectLeader', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(879, 'CRUDUser', 'ProjectManager', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(900, 'CRUDUser', 'Admin', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(912, 'CRUDUser', 'Admin', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(929, 'CRUDUser', 'ProjectLeader', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(930, 'CRUDUser', 'ProjectManager', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(972, 'General', 'TeamLeader', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(973, 'General', 'TeamLeaderTrainee', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(974, 'General', 'Trainee', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(978, 'General', 'ProjectLeader', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(979, 'General', 'ProjectManager', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1000, 'General', 'Admin', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1016, 'CRUDUser', 'ProjectLeader', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(1017, 'CRUDUser', 'ProjectLeader', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1018, 'CRUDUser', 'ProjectLeader', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(1019, 'CRUDUser', 'ProjectLeader', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(1020, 'CRUDUser', 'ProjectLeader', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1021, 'CRUDUser', 'ProjectLeader', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1022, 'CRUDUser', 'ProjectLeader', 'Resource Team By Employee And Role', '/getTeamList/{skillId}/{groupId}', 'core_admin', b'1'),
-	(1044, 'CRUDUser', 'ProjectManager', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(1045, 'CRUDUser', 'ProjectManager', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1046, 'CRUDUser', 'ProjectManager', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(1047, 'CRUDUser', 'ProjectManager', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(1048, 'CRUDUser', 'ProjectManager', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1049, 'CRUDUser', 'ProjectManager', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1050, 'CRUDUser', 'ProjectManager', 'Resource Team By Employee And Role', '/getTeamList/{skillId}/{groupId}', 'core_admin', b'1'),
-	(1090, 'CRUDUser', 'ProjectLeader', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1091, 'CRUDUser', 'ProjectManager', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1094, 'CRUDUser', 'ProjectLeader', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(1095, 'CRUDUser', 'ProjectManager', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(1122, 'OperUpdate', 'ProjectManager', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(1136, 'CRUDUser', 'ProjectLeader', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1137, 'CRUDUser', 'ProjectManager', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1149, 'CRUDUser', 'ProjectManager', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(1157, 'ITUpdate', 'ProjectManager', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(1165, 'ITUpdate', 'ProjectManager', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(1173, 'CRUDUser', 'ProjectManager', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(1181, 'ITUpdate', 'ProjectManager', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(1189, 'ITUpdate', 'ProjectManager', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(1214, 'DataView', 'TeamLeader', 'Update Data', '/updateData', 'edr_data_view', b'1'),
-	(1216, 'DataView', 'TeamLeaderTrainee', 'Update Data', '/updateData', 'edr_data_view', b'1'),
-	(1217, 'DataView', 'ProjectLeader', 'Update Data', '/updateData', 'edr_data_view', b'1'),
-	(1219, 'CRUDUser', 'Admin', 'Search Approval Attendance', '/searchApprovalAttendance', 'core_admin', b'1'),
-	(1220, 'CRUDUser', 'ProjectLeader', 'Search Approval Attendance', '/searchApprovalAttendance', 'core_admin', b'1'),
-	(1221, 'CRUDUser', 'ProjectManager', 'Search Approval Attendance', '/searchApprovalAttendance', 'core_admin', b'1'),
-	(1232, 'CRUDUser', 'Admin', 'Approve Attendance ', '/approveAttendance', 'core_admin', b'1'),
-	(1233, 'CRUDUser', 'ProjectLeader', 'Approve Attendance ', '/approveAttendance', 'core_admin', b'1'),
-	(1234, 'CRUDUser', 'ProjectManager', 'Approve Attendance ', '/approveAttendance', 'core_admin', b'1'),
-	(1237, 'CRUDUser', 'TeamLeader', 'Approve Attendance ', '/approveAttendance', 'core_admin', b'1'),
-	(1238, 'CRUDUser', 'Admin', 'Mark Attendance ', '/markAttendanceOnBehalf', 'core_admin', b'1'),
-	(1239, 'CRUDUser', 'ProjectLeader', 'Mark Attendance ', '/markAttendanceOnBehalf', 'core_admin', b'1'),
-	(1240, 'CRUDUser', 'ProjectManager', 'Mark Attendance ', '/markAttendanceOnBehalf', 'core_admin', b'1'),
-	(1243, 'CRUDUser', 'TeamLeader', 'Mark Attendance ', '/markAttendanceOnBehalf', 'core_admin', b'1'),
-	(1244, 'CRUDUser', 'Employee', 'Mark Attendance ', '/getAttendanceComboList', 'core_admin', b'1'),
-	(1246, 'CRUDUser', 'Employee', 'Mark Attendance ', '/searchTimesheet', 'core_admin', b'1'),
-	(1247, 'DataView', 'Employee', 'Update Daily Activity Logs', '/saveDailyLog', 'edr_data_view', b'1'),
-	(1248, 'DataView', 'Employee', 'Submit Daily Activity Logs', '/submitDailyLog', 'edr_data_view', b'1'),
-	(1249, 'DataView', 'Employee', 'Update Daily Activity Logs', '/getDailyActivities', 'edr_data_view', b'1'),
-	(1251, 'CRUDUser', 'Admin', 'Approval Timesheet', '/approveTimesheet', 'core_admin', b'1'),
-	(1252, 'CRUDUser', 'ProjectLeader', 'Approval Timesheet', '/approveTimesheet', 'core_admin', b'1'),
-	(1253, 'CRUDUser', 'ProjectManager', 'Approval Timesheet', '/approveTimesheet', 'core_admin', b'1'),
-	(1264, 'DataView', 'Employee', 'Submit Daily Activity Logs', '/deleteDailyLog', 'edr_data_view', b'1'),
-	(1265, 'CRUDUser', 'GeneralManagerOperations', 'Add User', '/addUser', 'core_admin', b'1'),
-	(1266, 'CRUDUser', 'GeneralManagerOperations', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(1267, 'CRUDUser', 'GeneralManagerOperations', 'Block User', '/blockUser', 'core_admin', b'1'),
-	(1268, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(1269, 'CRUDUser', 'GeneralManagerOperations', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(1270, 'CRUDUser', 'GeneralManagerOperations', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1271, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1272, 'CRUDUser', 'GeneralManagerOperations', 'Resource Team By Employee And Role', '/getTeamList/{skillId}/{groupId}', 'core_admin', b'1'),
-	(1273, 'CRUDUser', 'GeneralManagerOperations', 'Get User By Producer', '/getUserByProducer', 'core_admin', b'1'),
-	(1274, 'CRUDUser', 'GeneralManagerOperations', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1275, 'CRUDUser', 'GeneralManagerOperations', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(1276, 'CRUDUser', 'GeneralManagerOperations', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1277, 'CRUDUser', 'GeneralManagerOperations', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(1278, 'CRUDUser', 'GeneralManagerOperations', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(1279, 'General', 'GeneralManagerOperations', 'City List', '/searchCity', 'core_admin', b'1'),
-	(1280, 'General', 'GeneralManagerOperations', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(1281, 'General', 'GeneralManagerOperations', 'State List', '/searchState', 'core_admin', b'1'),
-	(1282, 'ITUpdate', 'GeneralManagerOperations', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(1283, 'ITUpdate', 'GeneralManagerOperations', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(1284, 'OperUpdate', 'GeneralManagerOperations', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(1285, 'OperUpdate', 'GeneralManagerOperations', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(1286, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(1287, 'DataView', 'GeneralManagerOperations', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(1288, 'DataProcess', 'GeneralManagerOperations', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(1289, 'DataView', 'GeneralManagerOperations', 'Update Task', '/updateTask', 'edr_data_view', b'1'),
-	(1290, 'DataProcess', 'GeneralManagerOperations', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(1291, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(1292, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(1293, 'ITUpdate', 'GeneralManagerOperations', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(1294, 'ITUpdate', 'GeneralManagerOperations', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(1295, 'ITUpdate', 'GeneralManagerOperations', 'Create User Assets', '/createUserAssets', 'core_admin', b'1'),
-	(1296, 'DataView', 'GeneralManagerOperations', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(1297, 'DataView', 'GeneralManagerOperations', 'ReAllocate Task', '/reAllocateTask', 'edr_data_view', b'1'),
-	(1298, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(1299, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(1300, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1301, 'CRUDUser', 'GeneralManagerOperations', 'Get HR Records', '/getHRRecord', 'core_admin', b'1'),
-	(1302, 'DataView', 'GeneralManagerOperations', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(1303, 'CRUDUser', 'GeneralManagerOperations', 'Get Task Users List', '/getTaskUsersList/{skillSet}', 'core_admin', b'1'),
-	(1304, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getUser', 'core_admin', b'1'),
-	(1305, 'DataView', 'GeneralManagerOperations', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(1306, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(1307, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(1308, 'General', 'GeneralManagerOperations', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1309, 'CRUDUser', 'GeneralManagerOperations', 'Add User', '/addUser', 'core_admin', b'1'),
-	(1310, 'CRUDUser', 'GeneralManagerOperations', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(1311, 'CRUDUser', 'GeneralManagerOperations', 'Block User', '/blockUser', 'core_admin', b'1'),
-	(1312, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(1313, 'CRUDUser', 'GeneralManagerOperations', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(1314, 'CRUDUser', 'GeneralManagerOperations', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1315, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1316, 'CRUDUser', 'GeneralManagerOperations', 'Resource Team By Employee And Role', '/getTeamList/{skillId}/{groupId}', 'core_admin', b'1'),
-	(1317, 'CRUDUser', 'GeneralManagerOperations', 'Get User By Producer', '/getUserByProducer', 'core_admin', b'1'),
-	(1318, 'CRUDUser', 'GeneralManagerOperations', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1319, 'CRUDUser', 'GeneralManagerOperations', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(1320, 'CRUDUser', 'GeneralManagerOperations', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1321, 'CRUDUser', 'GeneralManagerOperations', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(1322, 'CRUDUser', 'GeneralManagerOperations', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(1323, 'General', 'GeneralManagerOperations', 'City List', '/searchCity', 'core_admin', b'1'),
-	(1324, 'General', 'GeneralManagerOperations', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(1325, 'General', 'GeneralManagerOperations', 'State List', '/searchState', 'core_admin', b'1'),
-	(1326, 'ITUpdate', 'GeneralManagerOperations', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(1327, 'ITUpdate', 'GeneralManagerOperations', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(1328, 'OperUpdate', 'GeneralManagerOperations', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(1329, 'OperUpdate', 'GeneralManagerOperations', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(1330, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(1331, 'DataView', 'GeneralManagerOperations', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(1332, 'DataProcess', 'GeneralManagerOperations', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(1333, 'DataView', 'GeneralManagerOperations', 'Update Task', '/updateTask', 'edr_data_view', b'1'),
-	(1334, 'DataProcess', 'GeneralManagerOperations', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(1335, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(1336, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(1337, 'ITUpdate', 'GeneralManagerOperations', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(1338, 'ITUpdate', 'GeneralManagerOperations', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(1339, 'ITUpdate', 'GeneralManagerOperations', 'Create User Assets', '/createUserAssets', 'core_admin', b'1'),
-	(1340, 'DataView', 'GeneralManagerOperations', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(1341, 'DataView', 'GeneralManagerOperations', 'ReAllocate Task', '/reAllocateTask', 'edr_data_view', b'1'),
-	(1342, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(1343, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(1344, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1345, 'CRUDUser', 'GeneralManagerOperations', 'Get HR Records', '/getHRRecord', 'core_admin', b'1'),
-	(1346, 'DataView', 'GeneralManagerOperations', 'Get Projects List', '/getProjectList/{divisionId}', 'edr_data_view', b'1'),
-	(1347, 'CRUDUser', 'GeneralManagerOperations', 'Get Task Users List', '/getTaskUsersList/{skillSet}', 'core_admin', b'1'),
-	(1348, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getUser', 'core_admin', b'1'),
-	(1349, 'DataView', 'GeneralManagerOperations', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(1350, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(1351, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(1352, 'General', 'GeneralManagerOperations', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1397, 'DataView', 'Employee', 'Get Process List', '/getProcessList', 'edr_data_view', b'1'),
-	(1398, 'CRUDUser', 'Admin', 'StartScheduler', '/startScheduler', 'core_schedulers', b'1'),
-	(1399, 'CRUDUser', 'ProjectLeader', 'StartScheduler', '/startScheduler', 'core_schedulers', b'1'),
-	(1400, 'CRUDUser', 'ProjectManager', 'StartScheduler', '/startScheduler', 'core_schedulers', b'1'),
-	(1411, 'CRUDUser', 'Admin', 'Search Scheduler', '/searchScheduler', 'core_schedulers', b'1'),
-	(1412, 'CRUDUser', 'ProjectLeader', 'Search Scheduler', '/searchScheduler', 'core_schedulers', b'1'),
-	(1413, 'CRUDUser', 'ProjectManager', 'Search Scheduler', '/searchScheduler', 'core_schedulers', b'1'),
-	(1424, 'CRUDUser', 'Admin', 'Get Hierarchcy Users List', '/getUserList', 'core_admin', b'1'),
-	(1425, 'CRUDUser', 'ProjectLeader', 'Get Hierarchcy Users List', '/getUserList', 'core_admin', b'1'),
-	(1426, 'CRUDUser', 'ProjectManager', 'Get Hierarchcy Users List', '/getUserList', 'core_admin', b'1'),
-	(1437, 'CRUDUser', 'TeamLeader', 'Get Hierarchcy Users List', '/getUserList', 'core_admin', b'1'),
-	(1448, 'CRUDUser', 'TeamLeader', 'Get Hierarchcy Users List', '/getUserList', 'core_admin', b'1'),
-	(1456, 'CRUDUser', 'TeamLeader', 'Get Hierarchcy Users List', '/getUserList', 'core_admin', b'1'),
-	(1457, 'ITUpdate', 'Admin', 'Change Password', '/updatePassword', 'core_admin', b'1'),
-	(1458, 'DataProcess', 'Admin', 'Delete Web Upload', '/deleteWebUpload', 'edr_reader', b'0'),
-	(1475, 'DataProcess', 'ProjectLeader', 'Delete Web Upload', '/deleteWebUpload', 'edr_reader', b'0'),
-	(1478, 'DataProcess', 'TeamLeader', 'Delete Web Upload', '/deleteWebUpload', 'edr_reader', b'0'),
-	(1480, 'DataProcess', 'GeneralManagerOperations', 'Delete Web Upload', '/deleteWebUpload', 'edr_reader', b'0'),
-	(1481, 'DataProcess', 'GeneralManagerOperations', 'Delete Web Upload', '/deleteWebUpload', 'edr_reader', b'0'),
-	(1482, 'DataProcess', 'ProjectManager', 'Delete Web Upload', '/deleteWebUpload', 'edr_reader', b'1'),
-	(1497, 'CRUDUser', 'ProjectLeader', 'Search Timesheet Approval', '/searchApprovalTimesheet', 'core_admin', b'1'),
-	(1498, 'CRUDUser', 'ProjectManager', 'Search Timesheet Approval', '/searchApprovalTimesheet', 'core_admin', b'1'),
-	(1500, 'CRUDUser', 'TeamLeader', 'Search Timesheet Approval', '/searchApprovalTimesheet', 'core_admin', b'1'),
-	(1514, 'CRUDUser', 'Admin', 'Search Timesheet Approval', '/searchApprovalTimesheet', 'core_admin', b'1'),
-	(1516, 'CRUDUser', 'GeneralManagerOperations', 'Search Timesheet Approval', '/searchApprovalTimesheet', 'core_admin', b'1'),
-	(1517, 'CRUDUser', 'TeamLeaderTrainee', 'Search Timesheet Approval', '/searchApprovalTimesheet', 'core_admin', b'1'),
-	(1519, 'CRUDUser', 'TeamLeader', 'Approval Timesheet', '/approveTimesheet', 'core_admin', b'1'),
-	(1520, 'CRUDUser', 'TeamLeaderTrainee', 'Approval Timesheet', '/approveTimesheet', 'core_admin', b'1'),
-	(1522, 'DataProcess', 'ProjectManager', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(1524, 'CRUDUser', 'GeneralManagerOperations', 'Approval Timesheet', '/approveTimesheet', 'core_admin', b'1'),
-	(1526, 'CRUDUser', 'GeneralManagerOperations', 'Mark Attendance ', '/markAttendanceOnBehalf', 'core_admin', b'1'),
-	(1527, 'CRUDUser', 'ProjectManager', 'Search Timesheet Approval', '/searchApprovalTimesheet', 'core_admin', b'1'),
-	(1528, 'DataProcess', 'ProjectManager', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(1529, 'ITUpdate', 'ProjectManager', 'Change Password', '/updatePassword', 'core_admin', b'1'),
-	(1531, 'ITUpdate', 'GeneralManagerOperations', 'Change Password', '/updatePassword', 'core_admin', b'1'),
-	(1533, 'CRUDUser', 'Admin', 'Approval Leave', '/approveLeave', 'core_admin', b'1'),
-	(1534, 'CRUDUser', 'ProjectLeader', 'Approval Leave', '/approveLeave', 'core_admin', b'1'),
-	(1535, 'CRUDUser', 'ProjectManager', 'Approval Leave', '/approveLeave', 'core_admin', b'1'),
-	(1546, 'CRUDUser', 'Admin', 'Search Approval Leave', '/searchApprovalLeave', 'core_admin', b'1'),
-	(1547, 'CRUDUser', 'ProjectLeader', 'Search Approval Leave', '/searchApprovalLeave', 'core_admin', b'1'),
-	(1548, 'CRUDUser', 'ProjectManager', 'Search Approval Leave', '/searchApprovalLeave', 'core_admin', b'1'),
-	(1560, 'CRUDUser', 'GeneralManagerOperations', 'Approval Leave', '/approveLeave', 'core_admin', b'1'),
-	(1562, 'CRUDUser', 'GeneralManagerOperations', 'Search Approval Leave', '/searchApprovalLeave', 'core_admin', b'1'),
-	(1571, 'CRUDUser', 'TeamLeader', 'Search Approval Leave', '/searchApprovalLeave', 'core_admin', b'1'),
-	(1576, 'CRUDUser', 'TeamLeaderTrainee', 'Search Approval Leave', '/searchApprovalLeave', 'core_admin', b'1'),
-	(1590, 'CRUDUser', 'TeamLeader', 'Approval Leave', '/approveLeave', 'core_admin', b'1'),
-	(1591, 'CRUDUser', 'TeamLeaderTrainee', 'Approval Leave', '/approveLeave', 'core_admin', b'1'),
-	(1617, 'CRUDUser', 'GeneralManagerOperations', 'Get Hierarchcy Users List', '/getUserList', 'core_admin', b'1'),
-	(1623, 'CRUDUser', 'TeamLeader', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1624, 'CRUDUser', 'TeamLeaderTrainee', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1785, 'CRUDUser', 'Admin', 'Selected Active Role List', '/getSelectedRoleList/{divisionId}', 'core_admin', b'1'),
-	(1791, 'CRUDUser', 'ProjectLeader', 'Selected Active Role List', '/getSelectedRoleList/{divisionId}', 'core_admin', b'1'),
-	(1795, 'CRUDUser', 'ProjectManager', 'Selected Active Role List', '/getSelectedRoleList/{divisionId}', 'core_admin', b'1'),
-	(1801, 'CRUDUser', 'GeneralManagerOperations', 'Selected Active Role List', '/getSelectedRoleList/{divisionId}', 'core_admin', b'1'),
-	(1802, 'CRUDUser', 'GeneralManagerOperations', 'Selected Active Role List', '/getSelectedRoleList/{divisionId}', 'core_admin', b'1'),
-	(2860, 'DataView', 'ProjectLeader', 'Search Projects', '/searchProject', 'edr_data_view', b'1'),
-	(2861, 'DataView', 'ProjectManager', 'Search Projects', '/searchProject', 'edr_data_view', b'1'),
-	(2876, 'DataView', 'ProjectLeader', 'Block Projects', '/blockProject', 'edr_data_view', b'1'),
-	(2877, 'DataView', 'ProjectManager', 'Block Projects', '/blockProject', 'edr_data_view', b'1'),
-	(2892, 'DataView', 'ProjectLeader', 'Add Projects', '/addProject', 'edr_data_view', b'1'),
-	(2893, 'DataView', 'ProjectManager', 'Add Projects', '/addProject', 'edr_data_view', b'1'),
-	(2908, 'DataView', 'ProjectLeader', 'Update Projects', '/updateProject', 'edr_data_view', b'1'),
-	(2909, 'DataView', 'ProjectManager', 'Update Projects', '/updateProject', 'edr_data_view', b'1'),
-	(2924, 'DataView', 'ProjectLeader', 'Add Sub Country', '/addSubCountry', 'edr_data_view', b'1'),
-	(2925, 'DataView', 'ProjectManager', 'Add Sub Country', '/addSubCountry', 'edr_data_view', b'1'),
-	(2940, 'DataView', 'ProjectLeader', 'Map Sub Country', '/mapSubCountry', 'edr_data_view', b'1'),
-	(2941, 'DataView', 'ProjectManager', 'Map Sub Country', '/mapSubCountry', 'edr_data_view', b'1'),
-	(2956, 'DataView', 'ProjectLeader', 'Get Project', '/getProject/{projectId}', 'edr_data_view', b'1'),
-	(2957, 'DataView', 'ProjectManager', 'Get Project', '/getProject/{projectId}', 'edr_data_view', b'1'),
-	(2972, 'DataView', 'ProjectLeader', 'Road Type', '/addRoadType', 'edr_data_view', b'1'),
-	(2973, 'DataView', 'ProjectManager', 'Road Type', '/addRoadType', 'edr_data_view', b'1'),
-	(2988, 'DataView', 'ProjectLeader', 'Update Road Type', '/updateRoadType', 'edr_data_view', b'1'),
-	(2989, 'DataView', 'ProjectManager', 'Update Road Type', '/updateRoadType', 'edr_data_view', b'1'),
-	(3004, 'DataView', 'ProjectLeader', 'Block Road Type', '/blockRoadType', 'edr_data_view', b'1'),
-	(3005, 'DataView', 'ProjectManager', 'Block Road Type', '/blockRoadType', 'edr_data_view', b'1'),
-	(3020, 'DataView', 'ProjectLeader', 'Get Road Type', '/getRoadType', 'edr_data_view', b'1'),
-	(3021, 'DataView', 'ProjectManager', 'Get Road Type', '/getRoadType', 'edr_data_view', b'1'),
-	(3036, 'DataView', 'ProjectLeader', 'Search Road Type', '/searchRoadType', 'edr_data_view', b'1'),
-	(3037, 'DataView', 'ProjectManager', 'Search Road Type', '/searchRoadType', 'edr_data_view', b'1'),
-	(3052, 'DataView', 'ProjectLeader', 'Get Project Template', '/getProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3053, 'DataView', 'ProjectManager', 'Get Project Template', '/getProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3068, 'DataView', 'ProjectLeader', 'Search PO Limit', '/searchPOLimit', 'edr_data_view', b'1'),
-	(3069, 'DataView', 'ProjectManager', 'Search PO Limit', '/searchPOLimit', 'edr_data_view', b'1'),
-	(3084, 'DataView', 'ProjectLeader', 'Add PO Limit', '/addPOLimit', 'edr_data_view', b'1'),
-	(3085, 'DataView', 'ProjectManager', 'Add PO Limit', '/addPOLimit', 'edr_data_view', b'1'),
-	(3100, 'DataView', 'ProjectLeader', 'Delete PO Limit', '/deletePOLimit', 'edr_data_view', b'1'),
-	(3101, 'DataView', 'ProjectManager', 'Delete PO Limit', '/deletePOLimit', 'edr_data_view', b'1'),
-	(3116, 'DataView', 'ProjectLeader', 'Add Process List', '/addProcess', 'edr_data_view', b'1'),
-	(3117, 'DataView', 'ProjectManager', 'Add Process List', '/addProcess', 'edr_data_view', b'1'),
-	(3132, 'DataView', 'ProjectLeader', 'Update Process List', '/updateProcess', 'edr_data_view', b'1'),
-	(3133, 'DataView', 'ProjectManager', 'Update Process List', '/updateProcess', 'edr_data_view', b'1'),
-	(3148, 'DataView', 'ProjectLeader', 'Block Process List', '/blockProcess', 'edr_data_view', b'1'),
-	(3149, 'DataView', 'ProjectManager', 'Block Process List', '/blockProcess', 'edr_data_view', b'1'),
-	(3164, 'DataView', 'ProjectLeader', 'Search  Process List', '/searchProcess', 'edr_data_view', b'1'),
-	(3165, 'DataView', 'ProjectManager', 'Search  Process List', '/searchProcess', 'edr_data_view', b'1'),
-	(3180, 'DataView', 'ProjectLeader', 'Add Process Project List', '/mapProcessProjectList', 'edr_data_view', b'1'),
-	(3181, 'DataView', 'ProjectManager', 'Add Process Project List', '/mapProcessProjectList', 'edr_data_view', b'1'),
-	(3196, 'DataView', 'ProjectLeader', 'UnMap Process Project List', '/unmapProcessProjectList', 'edr_data_view', b'1'),
-	(3197, 'DataView', 'ProjectManager', 'UnMap Process Project List', '/unmapProcessProjectList', 'edr_data_view', b'1'),
-	(3212, 'DataView', 'ProjectLeader', 'UnMap Process Project', '/unmapProcessProject', 'edr_data_view', b'1'),
-	(3213, 'DataView', 'ProjectManager', 'UnMap Process Project', '/unmapProcessProject', 'edr_data_view', b'1'),
-	(3228, 'DataView', 'ProjectLeader', 'Map Process Project', '/mapProcessProject', 'edr_data_view', b'1'),
-	(3229, 'DataView', 'ProjectManager', 'Map Process Project', '/mapProcessProject', 'edr_data_view', b'1'),
-	(3244, 'DataView', 'ProjectLeader', 'Add Group Team', '/addGroupTeam', 'edr_data_view', b'1'),
-	(3245, 'DataView', 'ProjectManager', 'Add Group Team', '/addGroupTeam', 'edr_data_view', b'1'),
-	(3260, 'DataView', 'ProjectLeader', 'Update Group Team', '/updateGroupTeam', 'edr_data_view', b'1'),
-	(3261, 'DataView', 'ProjectManager', 'Update Group Team', '/updateGroupTeam', 'edr_data_view', b'1'),
-	(3276, 'DataView', 'ProjectLeader', 'Search Group Team', '/searchGroupTeam', 'edr_data_view', b'1'),
-	(3277, 'DataView', 'ProjectManager', 'Search Group Team', '/searchGroupTeam', 'edr_data_view', b'1'),
-	(3292, 'DataView', 'ProjectLeader', 'Search Allocation Group', '/searchAllocationGroup', 'edr_data_view', b'1'),
-	(3293, 'DataView', 'ProjectManager', 'Search Allocation Group', '/searchAllocationGroup', 'edr_data_view', b'1'),
-	(3308, 'DataView', 'ProjectLeader', 'Add Allocation Group', '/addAllocationGroup', 'edr_data_view', b'1'),
-	(3309, 'DataView', 'ProjectManager', 'Add Allocation Group', '/addAllocationGroup', 'edr_data_view', b'1'),
-	(3324, 'DataView', 'ProjectLeader', 'Update Allocation Group', '/updateAllocationGroup', 'edr_data_view', b'1'),
-	(3325, 'DataView', 'ProjectManager', 'Update Allocation Group', '/updateAllocationGroup', 'edr_data_view', b'1'),
-	(3340, 'DataView', 'ProjectLeader', 'Get Group Or Team', '/getGroupTeam', 'edr_data_view', b'1'),
-	(3341, 'DataView', 'ProjectManager', 'Get Group Or Team', '/getGroupTeam', 'edr_data_view', b'1'),
-	(3356, 'DataView', 'ProjectLeader', 'Block Group Or Team', '/blockGroupTeam', 'edr_data_view', b'1'),
-	(3357, 'DataView', 'ProjectManager', 'Block Group Or Team', '/blockGroupTeam', 'edr_data_view', b'1'),
-	(3372, 'DataView', 'ProjectLeader', 'Search Allocation Group', '/searchAllocationGroup', 'edr_data_view', b'1'),
-	(3373, 'DataView', 'ProjectManager', 'Search Allocation Group', '/searchAllocationGroup', 'edr_data_view', b'1'),
-	(3388, 'DataView', 'ProjectLeader', 'Add Allocation Group', '/addAllocationGroup', 'edr_data_view', b'1'),
-	(3389, 'DataView', 'ProjectManager', 'Add Allocation Group', '/addAllocationGroup', 'edr_data_view', b'1'),
-	(3404, 'DataView', 'ProjectLeader', 'Update Allocation Group', '/updateAllocationGroup', 'edr_data_view', b'1'),
-	(3405, 'DataView', 'ProjectManager', 'Update Allocation Group', '/updateAllocationGroup', 'edr_data_view', b'1'),
-	(3420, 'DataView', 'ProjectLeader', 'Get Allocation Group', '/getAllocationGroup', 'edr_data_view', b'1'),
-	(3421, 'DataView', 'ProjectManager', 'Get Allocation Group', '/getAllocationGroup', 'edr_data_view', b'1'),
-	(3436, 'DataView', 'ProjectLeader', 'Get Process', '/getProcess', 'edr_data_view', b'1'),
-	(3437, 'DataView', 'ProjectManager', 'Get Process', '/getProcess', 'edr_data_view', b'1'),
-	(3452, 'DataView', 'ProjectLeader', 'Get Team List', '/getTeamUserList', 'edr_data_view', b'1'),
-	(3453, 'DataView', 'ProjectManager', 'Get Team List', '/getTeamUserList', 'edr_data_view', b'1'),
-	(3468, 'DataView', 'ProjectLeader', 'Map Users To Team', '/mapUsersToTeam', 'edr_data_view', b'1'),
-	(3469, 'DataView', 'ProjectManager', 'Map Users To Team', '/mapUsersToTeam', 'edr_data_view', b'1'),
-	(3478, 'CRUDUser', 'Admin', 'Resource Group By Employee', '/getAllGroupList/{type}', 'core_admin', b'1'),
-	(3491, 'CRUDUser', 'ProjectLeader', 'Resource Group By Employee', '/getAllGroupList/{type}', 'core_admin', b'1'),
-	(3492, 'CRUDUser', 'ProjectManager', 'Resource Group By Employee', '/getAllGroupList/{type}', 'core_admin', b'1'),
-	(3505, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee', '/getAllGroupList/{type}', 'core_admin', b'1'),
-	(3506, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee', '/getAllGroupList/{type}', 'core_admin', b'1'),
-	(3508, 'CRUDUser', 'Admin', 'Resource Team By Employee And Role', '/getTeamList/{skillId}', 'core_admin', b'1'),
-	(3519, 'CRUDUser', 'ProjectLeader', 'Resource Team By Employee And Role', '/getTeamList/{skillId}', 'core_admin', b'1'),
-	(3523, 'CRUDUser', 'ProjectManager', 'Resource Team By Employee And Role', '/getTeamList/{skillId}', 'core_admin', b'1'),
-	(3529, 'CRUDUser', 'GeneralManagerOperations', 'Resource Team By Employee And Role', '/getTeamList/{skillId}', 'core_admin', b'1'),
-	(3530, 'CRUDUser', 'GeneralManagerOperations', 'Resource Team By Employee And Role', '/getTeamList/{skillId}', 'core_admin', b'1'),
-	(3540, 'DataView', 'ProjectManager', 'Search Transfer', '/searchTransfer', 'edr_data_view', b'1'),
-	(3548, 'DataView', 'ProjectLeader', 'Search Transfer', '/searchTransfer', 'edr_data_view', b'1'),
-	(3556, 'DataView', 'ProjectManager', 'Transfer Users', '/transferUsers', 'edr_data_view', b'1'),
-	(3564, 'DataView', 'ProjectLeader', 'Transfer Users', '/transferUsers', 'edr_data_view', b'1'),
-	(3571, 'DataView', 'ProjectLeader', 'Download Project Template', '/downloadProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3572, 'DataView', 'ProjectManager', 'Download Project Template', '/downloadProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3587, 'DataView', 'ProjectLeader', 'Update Project Template', '/updateProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3588, 'DataView', 'ProjectManager', 'Update Project Template', '/updateProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3608, 'DataView', 'ProjectLeader', 'Search Sub Country', '/searchSubCountry', 'edr_data_view', b'1'),
-	(3609, 'DataView', 'ProjectManager', 'Search Sub Country', '/searchSubCountry', 'edr_data_view', b'1'),
-	(3613, 'CRUDUser', 'ProjectManager', 'Add User', '/addUser', 'core_admin', b'1'),
-	(3614, 'ITUpdate', 'Employee', 'Change Password', '/updatePassword', 'core_admin', b'1'),
-	(3621, 'DataView', 'ProjectLeader', 'Update Sub Country', '/updateSubCountry', 'edr_data_view', b'1'),
-	(3622, 'DataView', 'ProjectManager', 'Update Sub Country', '/updateSubCountry', 'edr_data_view', b'1'),
-	(3631, 'DataView', 'GeneralManagerOperations', 'Search Projects', '/searchProject', 'edr_data_view', b'1'),
-	(3632, 'DataView', 'GeneralManagerOperations', 'Block Projects', '/blockProject', 'edr_data_view', b'1'),
-	(3633, 'DataView', 'GeneralManagerOperations', 'Add Projects', '/addProject', 'edr_data_view', b'1'),
-	(3634, 'DataView', 'GeneralManagerOperations', 'Update Projects', '/updateProject', 'edr_data_view', b'1'),
-	(3635, 'DataView', 'GeneralManagerOperations', 'Add Sub Country', '/addSubCountry', 'edr_data_view', b'1'),
-	(3636, 'DataView', 'GeneralManagerOperations', 'Map Sub Country', '/mapSubCountry', 'edr_data_view', b'1'),
-	(3637, 'DataView', 'GeneralManagerOperations', 'Get Project', '/getProject/{projectId}', 'edr_data_view', b'1'),
-	(3638, 'DataView', 'GeneralManagerOperations', 'Road Type', '/addRoadType', 'edr_data_view', b'1'),
-	(3639, 'DataView', 'GeneralManagerOperations', 'Update Road Type', '/updateRoadType', 'edr_data_view', b'1'),
-	(3640, 'DataView', 'GeneralManagerOperations', 'Block Road Type', '/blockRoadType', 'edr_data_view', b'1'),
-	(3641, 'DataView', 'GeneralManagerOperations', 'Get Road Type', '/getRoadType', 'edr_data_view', b'1'),
-	(3642, 'DataView', 'GeneralManagerOperations', 'Search Road Type', '/searchRoadType', 'edr_data_view', b'1'),
-	(3643, 'DataView', 'GeneralManagerOperations', 'Get Project Template', '/getProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3644, 'DataView', 'GeneralManagerOperations', 'Search PO Limit', '/searchPOLimit', 'edr_data_view', b'1'),
-	(3645, 'DataView', 'GeneralManagerOperations', 'Add PO Limit', '/addPOLimit', 'edr_data_view', b'1'),
-	(3646, 'DataView', 'GeneralManagerOperations', 'Delete PO Limit', '/deletePOLimit', 'edr_data_view', b'1'),
-	(3647, 'DataView', 'GeneralManagerOperations', 'Add Process List', '/addProcess', 'edr_data_view', b'1'),
-	(3648, 'DataView', 'GeneralManagerOperations', 'Update Process List', '/updateProcess', 'edr_data_view', b'1'),
-	(3649, 'DataView', 'GeneralManagerOperations', 'Block Process List', '/blockProcess', 'edr_data_view', b'1'),
-	(3650, 'DataView', 'GeneralManagerOperations', 'Search  Process List', '/searchProcess', 'edr_data_view', b'1'),
-	(3651, 'DataView', 'GeneralManagerOperations', 'Add Process Project List', '/mapProcessProjectList', 'edr_data_view', b'1'),
-	(3652, 'DataView', 'GeneralManagerOperations', 'UnMap Process Project List', '/unmapProcessProjectList', 'edr_data_view', b'1'),
-	(3653, 'DataView', 'GeneralManagerOperations', 'UnMap Process Project', '/unmapProcessProject', 'edr_data_view', b'1'),
-	(3654, 'DataView', 'GeneralManagerOperations', 'Map Process Project', '/mapProcessProject', 'edr_data_view', b'1'),
-	(3655, 'DataView', 'GeneralManagerOperations', 'Add Group Team', '/addGroupTeam', 'edr_data_view', b'1'),
-	(3656, 'DataView', 'GeneralManagerOperations', 'Update Group Team', '/updateGroupTeam', 'edr_data_view', b'1'),
-	(3657, 'DataView', 'GeneralManagerOperations', 'Search Group Team', '/searchGroupTeam', 'edr_data_view', b'1'),
-	(3658, 'DataView', 'GeneralManagerOperations', 'Search Allocation Group', '/searchAllocationGroup', 'edr_data_view', b'1'),
-	(3659, 'DataView', 'GeneralManagerOperations', 'Add Allocation Group', '/addAllocationGroup', 'edr_data_view', b'1'),
-	(3660, 'DataView', 'GeneralManagerOperations', 'Update Allocation Group', '/updateAllocationGroup', 'edr_data_view', b'1'),
-	(3661, 'DataView', 'GeneralManagerOperations', 'Get Group Or Team', '/getGroupTeam', 'edr_data_view', b'1'),
-	(3662, 'DataView', 'GeneralManagerOperations', 'Block Group Or Team', '/blockGroupTeam', 'edr_data_view', b'1'),
-	(3663, 'DataView', 'GeneralManagerOperations', 'Search Allocation Group', '/searchAllocationGroup', 'edr_data_view', b'1'),
-	(3664, 'DataView', 'GeneralManagerOperations', 'Add Allocation Group', '/addAllocationGroup', 'edr_data_view', b'1'),
-	(3665, 'DataView', 'GeneralManagerOperations', 'Update Allocation Group', '/updateAllocationGroup', 'edr_data_view', b'1'),
-	(3666, 'DataView', 'GeneralManagerOperations', 'Get Allocation Group', '/getAllocationGroup', 'edr_data_view', b'1'),
-	(3667, 'DataView', 'GeneralManagerOperations', 'Get Process', '/getProcess', 'edr_data_view', b'1'),
-	(3668, 'DataView', 'GeneralManagerOperations', 'Get Team List', '/getTeamUserList', 'edr_data_view', b'1'),
-	(3669, 'DataView', 'GeneralManagerOperations', 'Map Users To Team', '/mapUsersToTeam', 'edr_data_view', b'1'),
-	(3670, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee', '/getAllGroupList/{type}', 'core_admin', b'1'),
-	(3671, 'CRUDUser', 'GeneralManagerOperations', 'Resource Team By Employee And Role', '/getTeamList/{skillId}', 'core_admin', b'1'),
-	(3672, 'DataView', 'GeneralManagerOperations', 'Search Transfer', '/searchTransfer', 'edr_data_view', b'1'),
-	(3673, 'DataView', 'GeneralManagerOperations', 'Transfer Users', '/transferUsers', 'edr_data_view', b'1'),
-	(3674, 'DataView', 'GeneralManagerOperations', 'Download Project Template', '/downloadProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3675, 'DataView', 'GeneralManagerOperations', 'Update Project Template', '/updateProjectTemplate/{projectId}', 'edr_data_view', b'1'),
-	(3676, 'DataView', 'GeneralManagerOperations', 'Search Sub Country', '/searchSubCountry', 'edr_data_view', b'1'),
-	(3677, 'CRUDUser', 'GeneralManagerOperations', 'Add User', '/addUser', 'core_admin', b'1'),
-	(3678, 'DataView', 'GeneralManagerOperations', 'Update Sub Country', '/updateSubCountry', 'edr_data_view', b'1');
+-- Dumping data for table data_process.access_privilege: ~458 rows (approximately)
+DELETE FROM `access_privilege`;
+INSERT INTO `access_privilege` (`accessId`, `groupName`, `requestName`, `requestPath`, `status`) VALUES
+	('AddUser', 'User', 'Add User', '/addUser', b'1'),
+	('AddUserSKills', 'Admin', 'Add User SKills', '/addUserSkill', b'1'),
+	('BlockUser', 'User', 'Block User', '/blockUser', b'1'),
+	('ActiveRoleList', 'Role', 'Active Role List', '/getActiveRoleList', b'1'),
+	('ActiveSkillSetList', 'Admin', 'Active Skill Set List', '/getActiveSkillSetList', b'1'),
+	('DepartmentList', 'Task', 'Department List', '/getDepartmentList/**', b'1'),
+	('ResourceGroupByEmployeeAndDivision', 'Task', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', b'1'),
+	('ResourceTeamByEmployeeAndRole', 'Task', 'Resource Team By Employee And Role', '/getTeamList/{skillId}/{groupId}', b'1'),
+	('GetUserByProducer', 'User', 'Get User By Producer', '/getUserByProducer', b'1'),
+	('UserRolesSearch', 'User', 'User Roles Search', '/getUserRoleList/{search}', b'1'),
+	('SearchRoles', 'Role', 'Search Roles', '/searchRole', b'1'),
+	('SearchUser', 'User', 'Search User', '/searchUser', b'1'),
+	('UpdateHRRecord', 'User', 'Update HR Record', '/updateHRRecord', b'1'),
+	('UpdateUser', 'User', 'Update User ', '/updateUser', b'1'),
+	('CityList', 'User', 'City List', '/searchCity', b'1'),
+	('OperationalSearch', 'Task', 'Operational Search', '/searchOperations', b'1'),
+	('UpdateOperationalRecord', 'Admin', 'Update Operational Record', '/updateOperationalRecord', b'1'),
+	('GetAssignedQueueList', 'Task', 'Get Assigned Queue List', '/getQueueList', b'1'),
+	('GetTasks', 'Task', 'Get Tasks', '/searchTask', b'1'),
+	('UpdateTask', 'Task', 'Update Task', '/updateTask', b'1'),
+	('CountryList', 'User', 'Country List', '/searchCountry', b'1'),
+	('StateList', 'User', 'State List', '/searchState', b'1'),
+	('ActiveRoleListDivisionId', 'Role', 'Active Role By Division', '/getActiveRoleList/{divisionId}', b'1'),
+	('DistrictList', 'User', 'DistrictList', '/searchDistrict', b'1'),
+	('ResourceGroupByEmployee', 'Task', 'Resource Group By Employee', '/getGroupList', b'1'),
+	('ReAllocateTask', 'Task', 'ReAllocate Task', '/reAllocateTask', b'1'),
+	('GetAllotedUserGroup', 'Admin', 'Get Assigned Queue List', '/getAllotedUserGroup', b'1'),
+	('GetDivisionList', 'Task', 'Get Division List', '/getDivisionList', b'1'),
+	('GetDivisionListDepartmentId', 'Task', 'Get Division List', '/getDivisionList/{departmentId}', b'1'),
+	('GetHRRecords', 'User', 'Get HR Records', '/getHRRecord', b'1'),
+	('GetProjectsList', 'Task', 'Get Projects List', '/getProjectList/{divisionId}', b'1'),
+	('GetTaskUsersList', 'Task', 'Get Task Users List', '/getTaskUsersList/{skillSet}', b'1'),
+	('GetUser', 'User', 'Get User', '/getUser', b'1'),
+	('GetUserSkillMatrix', 'Admin', 'Get User Skill Matrix', '/getSkillSetMatrixList', b'1'),
+	('GetUserSkillSet', 'Admin', 'Get User Skill Set', '/getSkillSetList/{search}', b'1'),
+	('UIHeaderMenu', 'Menu', 'UI Header Menu', '/getHeaderMenu', b'1'),
+	('SearchApprovalAttendance', 'Attendance', 'Search Approval Attendance', '/searchApprovalAttendance', b'1'),
+	('ApproveAttendance', 'Attendance', 'Approve Attendance ', '/approveAttendance', b'1'),
+	('MarkAttendance', 'Attendance', 'Mark Attendance', '/markAttendance', b'1'),
+	('AttendanceComboList', 'Attendance', 'Attendance Combo List', '/getAttendanceComboList', b'1'),
+	('SearchTimesheet', 'Timesheet', 'SearchTimesheet', '/searchTimesheet', b'1'),
+	('SaveDailyActivity', 'Timesheet', 'Save Daily Activity', '/saveDailyLog', b'1'),
+	('SubmitDailyActivityLogs', 'Timesheet', 'Submit Daily Activity Logs', '/submitDailyLog', b'1'),
+	('GetDailyActivity', 'Timesheet', 'Get Daily  Activity', '/getDailyActivities', b'1'),
+	('ApprovalTimesheet', 'Timesheet', 'Approval Timesheet', '/approveTimesheet', b'1'),
+	('DeleteDailyActivityLogs', 'Timesheet', 'Submit Daily Activity Logs', '/deleteDailyLog', b'1'),
+	('GetProcessList', 'Timesheet', 'Get Process List', '/getProcessList', b'1'),
+	('StartScheduler', 'Scheduler', 'StartScheduler', '/startScheduler', b'1'),
+	('SearchScheduler', 'Scheduler', 'Search Scheduler', '/searchScheduler', b'1'),
+	('GetHierarchcyUsersList', 'User', 'Get Hierarchcy Users List', '/getUserList', b'1'),
+	('SearchTimesheetApproval', 'Timesheet', 'Search Timesheet Approval', '/searchApprovalTimesheet', b'1'),
+	('ApprovalLeave', 'Leave', 'Approval Leave', '/approveLeave', b'1'),
+	('SearchLeave', 'Leave', 'Search Leave', '/searchLeave', b'1'),
+	('SelectedActiveRoleList', 'Role', 'Selected Active Role List', '/getSelectedRoleList/{divisionId}', b'1'),
+	('ResourceGroupByEmployee', 'Task', 'Resource Group By Employee', '/getAllGroupList/{type}', b'1'),
+	('ResourceTeamByEmployeeAndRole', 'Task', 'Resource Team By Employee And Role', '/getTeamList/{skillId}', b'1'),
+	('ChangePassword', 'User', 'Change Password', '/updatePassword', b'1'),
+	('ApplyLeave', 'Leave', 'Apply Leave', '/applyLeave', b'1'),
+	('CancelLeave', 'Leave', 'Cancel Leave', '/cancelLeave', b'1'),
+	('MarkAttendanceBehalf', 'Attendance', 'Mark Attendance On Behalf', '/markAttendanceOnBehalf', b'1'),
+	('SearchApprovalLeave', 'Leave', 'Search Approval Leave', '/searchApprovalLeave', b'1');
+
+-- Dumping structure for table data_process.access_privilege_role
+CREATE TABLE IF NOT EXISTS `access_privilege_role` (
+  `autoId` int NOT NULL AUTO_INCREMENT,
+  `accessId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `roleId` varchar(50) NOT NULL,
+  PRIMARY KEY (`autoId`)
+) ENGINE=InnoDB AUTO_INCREMENT=100082 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table data_process.access_privilege_role: ~0 rows (approximately)
+DELETE FROM `access_privilege_role`;
+INSERT INTO `access_privilege_role` (`autoId`, `accessId`, `roleId`) VALUES
+	(100000, 'ActiveSkillSetList', 'Admin'),
+	(100001, 'AddUserSKills', 'Admin'),
+	(100002, 'GetAllotedUserGroup', 'Admin'),
+	(100003, 'GetUserSkillMatrix', 'Admin'),
+	(100004, 'GetUserSkillSet', 'Admin'),
+	(100005, 'UpdateOperationalRecord', 'Admin'),
+	(100006, 'ApproveAttendance', 'Admin'),
+	(100007, 'AttendanceComboList', 'Admin'),
+	(100008, 'MarkAttendanceBehalf', 'Admin'),
+	(100009, 'SearchApprovalAttendance', 'Admin'),
+	(100011, 'ApprovalLeave', 'Admin'),
+	(100013, 'SearchApprovalLeave', 'Admin'),
+	(100015, 'ActiveRoleList', 'Admin'),
+	(100016, 'ActiveRoleListDivisionId', 'Admin'),
+	(100017, 'SearchRoles', 'Admin'),
+	(100018, 'SelectedActiveRoleList', 'Admin'),
+	(100019, 'SearchScheduler', 'Admin'),
+	(100020, 'StartScheduler', 'Admin'),
+	(100021, 'DepartmentList', 'Admin'),
+	(100022, 'GetAssignedQueueList', 'Admin'),
+	(100023, 'GetDivisionList', 'Admin'),
+	(100024, 'GetDivisionListDepartmentId', 'Admin'),
+	(100026, 'GetTasks', 'Admin'),
+	(100027, 'GetTaskUsersList', 'Admin'),
+	(100028, 'OperationalSearch', 'Admin'),
+	(100029, 'ReAllocateTask', 'Admin'),
+	(100030, 'ResourceGroupByEmployee', 'Admin'),
+	(100031, 'ResourceGroupByEmployee', 'Admin'),
+	(100032, 'ResourceGroupByEmployeeAndDivision', 'Admin'),
+	(100033, 'ResourceTeamByEmployeeAndRole', 'Admin'),
+	(100034, 'ResourceTeamByEmployeeAndRole', 'Admin'),
+	(100035, 'UpdateTask', 'Admin'),
+	(100036, 'ApprovalTimesheet', 'Admin'),
+	(100042, 'SearchTimesheetApproval', 'Admin'),
+	(100044, 'AddUser', 'Admin'),
+	(100045, 'BlockUser', 'Admin'),
+	(100050, 'GetHierarchcyUsersList', 'Admin'),
+	(100054, 'SearchUser', 'Admin'),
+	(100056, 'UpdateHRRecord', 'Admin'),
+	(100058, 'UserRolesSearch', 'Admin'),
+	(100061, 'UIHeaderMenu', 'Employee'),
+	(100062, 'ChangePassword', 'Employee'),
+	(100063, 'GetUser', 'Employee'),
+	(100064, 'GetUserByProducer', 'Employee'),
+	(100065, 'UpdateUser', 'Employee'),
+	(100066, 'CityList', 'Employee'),
+	(100067, 'DistrictList', 'Employee'),
+	(100068, 'StateList', 'Employee'),
+	(100069, 'CountryList', 'Employee'),
+	(100070, 'GetHRRecords', 'Employee'),
+	(100071, 'MarkAttendance', 'Employee'),
+	(100072, 'SearchLeave', 'Employee'),
+	(100073, 'ApplyLeave', 'Employee'),
+	(100074, 'CancelLeave', 'Employee'),
+	(100075, 'SearchTimesheet', 'Employee'),
+	(100076, 'GetProjectsList', 'Employee'),
+	(100077, 'GetProcessList', 'Employee'),
+	(100078, 'GetDailyActivity', 'Employee'),
+	(100079, 'SaveDailyActivity', 'Employee'),
+	(100080, 'SubmitDailyActivityLogs', 'Employee'),
+	(100081, 'DeleteDailyActivityLogs', 'Employee');
 
 -- Dumping structure for table data_process.app_schedulers
 CREATE TABLE IF NOT EXISTS `app_schedulers` (
@@ -498,14 +169,14 @@ CREATE TABLE IF NOT EXISTS `app_schedulers` (
   `batchStatus` varchar(50) NOT NULL,
   `batchEvent` varchar(50) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
-  `eventTrack` mediumtext,
+  `eventTrack` longtext,
   `executedBy` varchar(50) DEFAULT NULL,
   `lastExecutionTime` datetime DEFAULT NULL,
   `nextScheduledTime` datetime DEFAULT NULL,
   `retry` varchar(500) DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`schedulerId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.app_schedulers: ~6 rows (approximately)
 DELETE FROM `app_schedulers`;
@@ -524,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `assets` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`assetId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.assets: ~12 rows (approximately)
 DELETE FROM `assets`;
@@ -549,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `assets_brand` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`brandId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.assets_brand: ~5 rows (approximately)
 DELETE FROM `assets_brand`;
@@ -579,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `channel_messages` (
   `status` bit(1) NOT NULL DEFAULT b'1',
   `textHTML` bit(1) DEFAULT b'1',
   PRIMARY KEY (`messageId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.channel_messages: ~0 rows (approximately)
 DELETE FROM `channel_messages`;
@@ -591,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `citys` (
   `zipCode` varchar(10) DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`city`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.citys: ~18 rows (approximately)
 DELETE FROM `citys`;
@@ -626,8 +297,8 @@ CREATE TABLE IF NOT EXISTS `core_data_attachments` (
   `successCount` int NOT NULL DEFAULT '0',
   `failureCount` int NOT NULL DEFAULT '0',
   `totalCount` int NOT NULL DEFAULT '0',
-  `description` mediumtext,
-  `receivedWorkUnits` mediumtext,
+  `description` longtext,
+  `receivedWorkUnits` longtext,
   `duration` double NOT NULL DEFAULT '0',
   `incomingId` varchar(50) DEFAULT NULL,
   `uploadFileDate` datetime DEFAULT NULL,
@@ -643,9 +314,9 @@ CREATE TABLE IF NOT EXISTS `core_data_attachments` (
   `status` bit(1) NOT NULL DEFAULT b'1',
   `uploadResourceHandler` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=754 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=754 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.core_data_attachments: ~709 rows (approximately)
+-- Dumping data for table data_process.core_data_attachments: ~732 rows (approximately)
 DELETE FROM `core_data_attachments`;
 INSERT INTO `core_data_attachments` (`autoId`, `priority`, `dataURN`, `divisionId`, `trace`, `duplicateCount`, `successCount`, `failureCount`, `totalCount`, `description`, `receivedWorkUnits`, `duration`, `incomingId`, `uploadFileDate`, `uploadFileFolderURL`, `uploadFileLastModifiedDate`, `uploadFileName`, `uploadFileSize`, `uploadDocumentForType`, `createdDate`, `modifiedDate`, `createdBy`, `modifiedBy`, `status`, `uploadResourceHandler`) VALUES
 	(1, 'Normal', NULL, 'RFDB', 'Deleted', 0, 0, 0, 0, 'WorkUnits Excel Data File :\nReading started at : Fri Mar 11 07:18:48 IST 2022\nInitiating Duplicate Validation...\nDiscarding Uploaded File...\nData Issue Found In Uploaded Excel File.\nData Issues in Row Numbers : \n22,23,24,25,26,27,28,29,30,31\n32,33,34,35,36,37,38,39,40,41\n42,43,44,45,46,47,48,49,50,51\n52\n\nSolution: Correct The Data Issue or Delete The Rows From Excel File and ReUpload The Excel File.\n\n\nWorkUnit Extraction Completed on Fri Mar 11 07:18:48 IST 2022\n\nDeleted By P Jayaprakash (13944).', NULL, 0, NULL, '2022-03-11 07:18:48', 'C:/DataProcess/Upload/Excel/PRD000001/13944/20220311/0718/', '2022-03-11 07:18:48', 'WUP10-RFDB_CSAV3_CM_MAR11.xlsx', 7363, NULL, '2022-03-11 07:18:48', '2022-03-11 07:19:21', '13944', '13944', b'1', 'WebUpload'),
@@ -1914,7 +1585,7 @@ CREATE TABLE IF NOT EXISTS `countrys` (
   `status` bit(1) NOT NULL DEFAULT b'0',
   `displayOrder` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`country`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.countrys: ~474 rows (approximately)
 DELETE FROM `countrys`;
@@ -2014,9 +1685,9 @@ INSERT INTO `countrys` (`country`, `countryName`, `status`, `displayOrder`) VALU
 	('America/Eirunepe', 'America/Eirunepe', b'0', 0),
 	('America/El_Salvador', 'America/El_Salvador', b'0', 0),
 	('America/Ensenada', 'America/Ensenada', b'0', 0),
-	('America/Fortaleza', 'America/Fortaleza', b'0', 0),
 	('America/Fort_Nelson', 'America/Fort_Nelson', b'0', 0),
 	('America/Fort_Wayne', 'America/Fort_Wayne', b'0', 0),
+	('America/Fortaleza', 'America/Fortaleza', b'0', 0),
 	('America/Glace_Bay', 'America/Glace_Bay', b'0', 0),
 	('America/Godthab', 'America/Godthab', b'0', 0),
 	('America/Goose_Bay', 'America/Goose_Bay', b'0', 0),
@@ -2081,8 +1752,8 @@ INSERT INTO `countrys` (`country`, `countryName`, `status`, `displayOrder`) VALU
 	('America/Resolute', 'America/Resolute', b'0', 0),
 	('America/Rio_Branco', 'America/Rio_Branco', b'0', 0),
 	('America/Rosario', 'America/Rosario', b'0', 0),
-	('America/Santarem', 'America/Santarem', b'0', 0),
 	('America/Santa_Isabel', 'America/Santa_Isabel', b'0', 0),
+	('America/Santarem', 'America/Santarem', b'0', 0),
 	('America/Santiago', 'America/Santiago', b'0', 0),
 	('America/Sao_Paulo', 'America/Sao_Paulo', b'0', 0),
 	('America/Scoresbysund', 'America/Scoresbysund', b'0', 0),
@@ -2148,9 +1819,9 @@ INSERT INTO `countrys` (`country`, `countryName`, `status`, `displayOrder`) VALU
 	('Asia/Gaza', 'Asia/Gaza', b'0', 0),
 	('Asia/Harbin', 'Asia/Harbin', b'0', 0),
 	('Asia/Hebron', 'Asia/Hebron', b'0', 0),
+	('Asia/Ho_Chi_Minh', 'Asia/Ho_Chi_Minh', b'0', 0),
 	('Asia/Hong_Kong', 'Asia/Hong_Kong', b'0', 0),
 	('Asia/Hovd', 'Asia/Hovd', b'0', 0),
-	('Asia/Ho_Chi_Minh', 'Asia/Ho_Chi_Minh', b'0', 0),
 	('Asia/Irkutsk', 'Asia/Irkutsk', b'0', 0),
 	('Asia/Istanbul', 'Asia/Istanbul', b'0', 0),
 	('Asia/Jakarta', 'Indonesia', b'0', 4),
@@ -2222,8 +1893,8 @@ INSERT INTO `countrys` (`country`, `countryName`, `status`, `displayOrder`) VALU
 	('Atlantic/Jan_Mayen', 'Atlantic/Jan_Mayen', b'0', 0),
 	('Atlantic/Madeira', 'Atlantic/Madeira', b'0', 0),
 	('Atlantic/Reykjavik', 'Atlantic/Reykjavik', b'0', 0),
-	('Atlantic/Stanley', 'Atlantic/Stanley', b'0', 0),
 	('Atlantic/St_Helena', 'Atlantic/St_Helena', b'0', 0),
+	('Atlantic/Stanley', 'Atlantic/Stanley', b'0', 0),
 	('Australia/ACT', 'Australia/ACT', b'0', 0),
 	('Australia/Adelaide', 'Australia/Adelaide', b'0', 0),
 	('Australia/Brisbane', 'Australia/Brisbane', b'0', 0),
@@ -2405,7 +2076,7 @@ CREATE TABLE IF NOT EXISTS `data-extractor-pattern` (
   `regExpression` varchar(100) DEFAULT NULL,
   `sentenceCaps` bit(1) DEFAULT b'0',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.data-extractor-pattern: ~0 rows (approximately)
 DELETE FROM `data-extractor-pattern`;
@@ -2418,7 +2089,7 @@ CREATE TABLE IF NOT EXISTS `districts` (
   `displayOrder` int NOT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`district`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.districts: ~2 rows (approximately)
 DELETE FROM `districts`;
@@ -3901,8 +3572,7 @@ CREATE TEMPORARY TABLE IF NOT EXISTS temp_table
 	title VARCHAR(20),
 	color VARCHAR(20),
 	employeeId VARCHAR(50)
-); 
-
+)  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
 
 SET @color =''; 
 SET @title = '';
@@ -3936,7 +3606,7 @@ WHILE @currentDate <= @lastDate DO
 	END IF;
 
 	-- Check Colour Scheme For UsersAttendance LossOfPay Status - Red
-	SELECT UA.`status` INTO @LeaveType FROM usersattendance UA WHERE UA.`date` = @currentDate;
+	SELECT UA.`status` INTO @LeaveType FROM usersattendance UA WHERE employeeId = employeePrimaryId AND UA.`date` = @currentDate;
 	
 	IF @LeaveType = 'LossOfPay' THEN
 		SELECT `description` INTO @title FROM users_lms_color WHERE colorId = @LeaveType ;
@@ -3952,13 +3622,13 @@ WHILE @currentDate <= @lastDate DO
 END WHILE;
 
 -- Return Color Scheme Data Table
-SELECT cDate,title,color  FROM temp_table  ;
+SELECT cDate,title,color  FROM temp_table WHERE employeeId = employeePrimaryId ;
 
 -- Return Color Scheme Data Count Table
-SELECT title, color, COUNT(*) AS count FROM temp_table GROUP BY title, color;
+SELECT title, color, COUNT(*) AS count FROM temp_table WHERE employeeId = employeePrimaryId GROUP BY title, color;
 
 DROP TEMPORARY TABLE IF EXISTS temp_table;
- END//
+END//
 DELIMITER ;
 
 -- Dumping structure for procedure data_process.getWorkUnitsStatus
@@ -4052,7 +3722,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `bullet` varchar(50) DEFAULT NULL,
   `title` varchar(50) NOT NULL,
   PRIMARY KEY (`menuId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.menu: ~40 rows (approximately)
 DELETE FROM `menu`;
@@ -4109,7 +3779,7 @@ CREATE TABLE IF NOT EXISTS `menurole` (
   KEY `FK_mamenurole_producers` (`producerId`),
   KEY `FK_mamenurole_roles` (`roleId`),
   CONSTRAINT `FK_mamenurole_producers` FOREIGN KEY (`producerId`) REFERENCES `producers` (`producerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=1083 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1083 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.menurole: ~83 rows (approximately)
 DELETE FROM `menurole`;
@@ -4212,210 +3882,17 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `status` bit(1) NOT NULL DEFAULT b'1',
   `textHTML` bit(1) DEFAULT b'1',
   PRIMARY KEY (`messageId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.messages: ~4 rows (approximately)
+-- Dumping data for table data_process.messages: ~6 rows (approximately)
 DELETE FROM `messages`;
 INSERT INTO `messages` (`messageId`, `message`, `messageName`, `subject`, `media`, `producerId`, `dataMapTemplateName`, `createdDate`, `modifiedDate`, `status`, `textHTML`) VALUES
 	('Create_User_Admin', 'Hi ${user_producerName} <BR> <BR>  User ${user_userName} from ${user_country_countryName} has been created. Pls verify the user. <BR> Please click here <a href="${tokenURL}">Activation Link</a><BR><BR>By<BR> ${user_producerName}.', 'Create_User_Admin', 'Hi ${user_producerName} User Created Info Admin ', 'Email', 'PRD000001', NULL, '2021-01-01 00:00:00', '2021-01-01 00:00:00', b'1', b'1'),
 	('Create_User_Employee', 'data_process: Your Account has been created successfully', 'Create_User_Employee', 'User Created Info Employee', 'Email', 'PRD000001', NULL, '2021-01-01 00:00:00', '2021-01-01 00:00:00', b'1', b'1'),
 	('Create_User_Employee_SMS', 'data_process: Your Account has been created successfully', 'Create_User_Employee_SMS', 'User Created Info Employee SMS', 'SMS', 'PRD000001', NULL, '2021-01-01 00:00:00', '2021-01-01 00:00:00', b'1', b'1'),
-	('User_Reset_Password', 'Hi ${user_userName} <BR> <BR>  Pls click the link to reset the password. <BR> Please click here <a href="${tokenURL}">Password Reset Link</a><BR><BR>By<BR> ${user_producerName}.', 'Create_User_Employee', '[${user_userName}] Your data_process Account Password Reset Link', 'Email', 'PRD000001', NULL, '2021-01-01 00:00:00', '2021-01-01 00:00:00', b'1', b'1');
-
--- Dumping structure for table data_process.old_accessprivilege
-CREATE TABLE IF NOT EXISTS `old_accessprivilege` (
-  `autoId` int NOT NULL AUTO_INCREMENT,
-  `preAuthorize` varchar(50) NOT NULL,
-  `roleId` varchar(50) NOT NULL,
-  `requestName` varchar(50) NOT NULL,
-  `requestPath` varchar(50) NOT NULL,
-  `serviceName` varchar(50) NOT NULL,
-  `status` bit(1) NOT NULL DEFAULT b'1',
-  PRIMARY KEY (`autoId`),
-  KEY `FK_accessprivilege_roles` (`roleId`)
-) ENGINE=InnoDB AUTO_INCREMENT=1398 DEFAULT CHARSET=utf8mb3;
-
--- Dumping data for table data_process.old_accessprivilege: ~178 rows (approximately)
-DELETE FROM `old_accessprivilege`;
-INSERT INTO `old_accessprivilege` (`autoId`, `preAuthorize`, `roleId`, `requestName`, `requestPath`, `serviceName`, `status`) VALUES
-	(36, 'General', 'Employee', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(37, 'General', 'Employee', 'State List', '/searchState', 'core_admin', b'1'),
-	(38, 'General', 'Employee', 'City List', '/searchCity', 'core_admin', b'1'),
-	(43, 'ITUpdate', 'ITManager', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(48, 'ITUpdate', 'ITManager', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(275, 'General', 'Employee', 'DistrictList', '/searchDistrict', 'core_admin', b'1'),
-	(281, 'ITUpdate', 'ITManager', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(286, 'ITUpdate', 'ITManager', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(292, 'ITUpdate', 'ITManager', 'Create User Assets', '/createUserAssets', 'core_admin', b'1'),
-	(401, 'CRUDUser', 'HRAdminManager', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(406, 'CRUDUser', 'HRAdminManager', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(425, 'CRUDUser', 'HRAdminManager', 'Add User', '/addUser', 'core_admin', b'1'),
-	(450, 'CRUDUser', 'HRAdminManager', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(455, 'General', 'HRAdminManager', 'DistrictList', '/searchDistrict', 'core_admin', b'1'),
-	(523, 'CRUDUser', 'HRAdminManager', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(527, 'CRUDUser', 'ITManager', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(553, 'CRUDUser', 'HRAdminManager', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(557, 'CRUDUser', 'ITManager', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(564, 'CRUDUser', 'HRAdminManager', 'Get HR Records', '/getHRRecord', 'core_admin', b'1'),
-	(607, 'CRUDUser', 'ITManager', 'Get Projects List', '/getProjectList/{divisionId}', 'core_admin', b'1'),
-	(703, 'CRUDUser', 'HRAdminManager', 'Get User', '/getUser', 'core_admin', b'1'),
-	(707, 'CRUDUser', 'ITManager', 'Get User', '/getUser', 'core_admin', b'1'),
-	(803, 'CRUDUser', 'HRAdminManager', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(807, 'CRUDUser', 'ITManager', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(814, 'CRUDUser', 'HRAdminManager', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(817, 'CRUDUser', 'ITManager', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(823, 'CRUDUser', 'HRAdminManager', 'Resource Team By Employee And Role', '/getTeamList/{groupId}', 'core_admin', b'1'),
-	(827, 'CRUDUser', 'ITManager', 'Resource Team By Employee And Role', '/getTeamList/{groupId}', 'core_admin', b'1'),
-	(832, 'CRUDUser', 'HRAdminManager', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(838, 'CRUDUser', 'HRAdminManager', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(953, 'General', 'HRAdminManager', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(957, 'General', 'ITManager', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1004, 'CRUDUser', 'HRAdminManager', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(1006, 'CRUDUser', 'AccountsAssistant', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(1014, 'CRUDUser', 'HRAdminManager', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1198, 'CRUDUser', 'ITManager', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1203, 'CRUDUser', 'ITManager', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1209, 'CRUDUser', 'ITManager', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1213, 'CRUDUser', 'ITManager', 'Get Projects List', '/getProjectList/{divisionId}', 'core_admin', b'1'),
-	(1244, 'CRUDUser', 'Employee', 'Mark Attendance ', '/getAttendanceComboList', 'core_admin', b'1'),
-	(1246, 'CRUDUser', 'Employee', 'Mark Attendance ', '/searchTimesheet', 'core_admin', b'1'),
-	(1247, 'DataView', 'Employee', 'Update Daily Activity Logs', '/saveDailyLog', 'edr_data_view', b'1'),
-	(1248, 'DataView', 'Employee', 'Submit Daily Activity Logs', '/submitDailyLog', 'edr_data_view', b'1'),
-	(1249, 'DataView', 'Employee', 'Update Daily Activity Logs', '/getDailyActivities', 'edr_data_view', b'1'),
-	(1264, 'DataView', 'Employee', 'Submit Daily Activity Logs', '/deleteDailyLog', 'edr_data_view', b'1'),
-	(1265, 'CRUDUser', 'GeneralManagerOperations', 'Add User', '/addUser', 'core_admin', b'1'),
-	(1266, 'CRUDUser', 'GeneralManagerOperations', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(1267, 'CRUDUser', 'GeneralManagerOperations', 'Block User', '/blockUser', 'core_admin', b'1'),
-	(1268, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(1269, 'CRUDUser', 'GeneralManagerOperations', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(1270, 'CRUDUser', 'GeneralManagerOperations', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1271, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1272, 'CRUDUser', 'GeneralManagerOperations', 'Resource Team By Employee And Role', '/getTeamList/{groupId}', 'core_admin', b'1'),
-	(1273, 'CRUDUser', 'GeneralManagerOperations', 'Get User By Producer', '/getUserByProducer', 'core_admin', b'1'),
-	(1274, 'CRUDUser', 'GeneralManagerOperations', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1275, 'CRUDUser', 'GeneralManagerOperations', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(1276, 'CRUDUser', 'GeneralManagerOperations', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1277, 'CRUDUser', 'GeneralManagerOperations', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(1278, 'CRUDUser', 'GeneralManagerOperations', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(1279, 'General', 'GeneralManagerOperations', 'City List', '/searchCity', 'core_admin', b'1'),
-	(1280, 'General', 'GeneralManagerOperations', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(1281, 'General', 'GeneralManagerOperations', 'State List', '/searchState', 'core_admin', b'1'),
-	(1282, 'ITUpdate', 'GeneralManagerOperations', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(1283, 'ITUpdate', 'GeneralManagerOperations', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(1284, 'OperUpdate', 'GeneralManagerOperations', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(1285, 'OperUpdate', 'GeneralManagerOperations', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(1286, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(1287, 'DataView', 'GeneralManagerOperations', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(1288, 'DataProcess', 'GeneralManagerOperations', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(1289, 'DataView', 'GeneralManagerOperations', 'Update Task', '/updateTask', 'edr_data_view', b'1'),
-	(1290, 'DataProcess', 'GeneralManagerOperations', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(1291, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(1292, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(1293, 'ITUpdate', 'GeneralManagerOperations', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(1294, 'ITUpdate', 'GeneralManagerOperations', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(1295, 'ITUpdate', 'GeneralManagerOperations', 'Create User Assets', '/createUserAssets', 'core_admin', b'1'),
-	(1296, 'DataView', 'GeneralManagerOperations', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(1297, 'DataView', 'GeneralManagerOperations', 'ReAllocate Task', '/reAllocateTask', 'edr_data_view', b'1'),
-	(1298, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(1299, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(1300, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1301, 'CRUDUser', 'GeneralManagerOperations', 'Get HR Records', '/getHRRecord', 'core_admin', b'1'),
-	(1302, 'CRUDUser', 'GeneralManagerOperations', 'Get Projects List', '/getProjectList/{divisionId}', 'core_admin', b'1'),
-	(1303, 'DataView', 'GeneralManagerOperations', 'Get Task Users List', '/getTaskUsersList', 'core_admin', b'1'),
-	(1304, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getUser', 'core_admin', b'1'),
-	(1305, 'DataView', 'GeneralManagerOperations', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(1306, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(1307, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(1308, 'General', 'GeneralManagerOperations', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1309, 'CRUDUser', 'GeneralManagerOperations', 'Add User', '/addUser', 'core_admin', b'1'),
-	(1310, 'CRUDUser', 'GeneralManagerOperations', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(1311, 'CRUDUser', 'GeneralManagerOperations', 'Block User', '/blockUser', 'core_admin', b'1'),
-	(1312, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(1313, 'CRUDUser', 'GeneralManagerOperations', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(1314, 'CRUDUser', 'GeneralManagerOperations', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1315, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1316, 'CRUDUser', 'GeneralManagerOperations', 'Resource Team By Employee And Role', '/getTeamList/{groupId}', 'core_admin', b'1'),
-	(1317, 'CRUDUser', 'GeneralManagerOperations', 'Get User By Producer', '/getUserByProducer', 'core_admin', b'1'),
-	(1318, 'CRUDUser', 'GeneralManagerOperations', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1319, 'CRUDUser', 'GeneralManagerOperations', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(1320, 'CRUDUser', 'GeneralManagerOperations', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1321, 'CRUDUser', 'GeneralManagerOperations', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(1322, 'CRUDUser', 'GeneralManagerOperations', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(1323, 'General', 'GeneralManagerOperations', 'City List', '/searchCity', 'core_admin', b'1'),
-	(1324, 'General', 'GeneralManagerOperations', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(1325, 'General', 'GeneralManagerOperations', 'State List', '/searchState', 'core_admin', b'1'),
-	(1326, 'ITUpdate', 'GeneralManagerOperations', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(1327, 'ITUpdate', 'GeneralManagerOperations', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(1328, 'OperUpdate', 'GeneralManagerOperations', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(1329, 'OperUpdate', 'GeneralManagerOperations', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(1330, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(1331, 'DataView', 'GeneralManagerOperations', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(1332, 'DataProcess', 'GeneralManagerOperations', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(1333, 'DataView', 'GeneralManagerOperations', 'Update Task', '/updateTask', 'edr_data_view', b'1'),
-	(1334, 'DataProcess', 'GeneralManagerOperations', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(1335, 'CRUDUser', 'GeneralManagerOperations', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(1336, 'CRUDUser', 'GeneralManagerOperations', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(1337, 'ITUpdate', 'GeneralManagerOperations', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(1338, 'ITUpdate', 'GeneralManagerOperations', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(1339, 'ITUpdate', 'GeneralManagerOperations', 'Create User Assets', '/createUserAssets', 'core_admin', b'1'),
-	(1340, 'DataView', 'GeneralManagerOperations', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(1341, 'DataView', 'GeneralManagerOperations', 'ReAllocate Task', '/reAllocateTask', 'edr_data_view', b'1'),
-	(1342, 'DataView', 'GeneralManagerOperations', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(1343, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(1344, 'CRUDUser', 'GeneralManagerOperations', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1345, 'CRUDUser', 'GeneralManagerOperations', 'Get HR Records', '/getHRRecord', 'core_admin', b'1'),
-	(1346, 'CRUDUser', 'GeneralManagerOperations', 'Get Projects List', '/getProjectList/{divisionId}', 'core_admin', b'1'),
-	(1347, 'DataView', 'GeneralManagerOperations', 'Get Task Users List', '/getTaskUsersList', 'core_admin', b'1'),
-	(1348, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getUser', 'core_admin', b'1'),
-	(1349, 'DataView', 'GeneralManagerOperations', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(1350, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(1351, 'CRUDUser', 'GeneralManagerOperations', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(1352, 'General', 'GeneralManagerOperations', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1353, 'CRUDUser', 'GeneralManagerAdministration', 'Add User', '/addUser', 'core_admin', b'1'),
-	(1354, 'CRUDUser', 'GeneralManagerAdministration', 'Add User SKills', '/addUserSkill', 'core_admin', b'1'),
-	(1355, 'CRUDUser', 'GeneralManagerAdministration', 'Block User', '/blockUser', 'core_admin', b'1'),
-	(1356, 'CRUDUser', 'GeneralManagerAdministration', 'Active Role List', '/getActiveRoleList', 'core_admin', b'1'),
-	(1357, 'CRUDUser', 'GeneralManagerAdministration', 'Active Skill Set List', '/getActiveSkillSetList', 'core_admin', b'1'),
-	(1358, 'CRUDUser', 'GeneralManagerAdministration', 'Department List', '/getDepartmentList/**', 'core_admin', b'1'),
-	(1359, 'CRUDUser', 'GeneralManagerAdministration', 'Resource Group By Employee And Division', '/getGroupList/{divisionId}', 'core_admin', b'1'),
-	(1360, 'CRUDUser', 'GeneralManagerAdministration', 'Resource Team By Employee And Role', '/getTeamList/{groupId}', 'core_admin', b'1'),
-	(1361, 'CRUDUser', 'GeneralManagerAdministration', 'Get User By Producer', '/getUserByProducer', 'core_admin', b'1'),
-	(1362, 'CRUDUser', 'GeneralManagerAdministration', 'User Roles Search', '/getUserRoleList/{search}', 'core_admin', b'1'),
-	(1363, 'CRUDUser', 'GeneralManagerAdministration', 'Search Roles', '/searchRole', 'core_admin', b'1'),
-	(1364, 'CRUDUser', 'GeneralManagerAdministration', 'Search User', '/searchUser', 'core_admin', b'1'),
-	(1365, 'CRUDUser', 'GeneralManagerAdministration', 'Update HR Record', '/updateHRRecord', 'core_admin', b'1'),
-	(1366, 'CRUDUser', 'GeneralManagerAdministration', 'Update User ', '/updateUser', 'core_admin', b'1'),
-	(1367, 'General', 'GeneralManagerAdministration', 'City List', '/searchCity', 'core_admin', b'1'),
-	(1368, 'General', 'GeneralManagerAdministration', 'Country List', '/searchCountry', 'core_admin', b'1'),
-	(1369, 'General', 'GeneralManagerAdministration', 'State List', '/searchState', 'core_admin', b'1'),
-	(1370, 'ITUpdate', 'GeneralManagerAdministration', 'Get IT Record', '/getITRecord', 'core_admin', b'1'),
-	(1371, 'ITUpdate', 'GeneralManagerAdministration', 'Update IT Record', '/updateITRecord', 'core_admin', b'1'),
-	(1372, 'OperUpdate', 'GeneralManagerAdministration', 'Operational Search', '/searchOperations', 'core_admin', b'1'),
-	(1373, 'OperUpdate', 'GeneralManagerAdministration', 'Update Operational Record', '/updateOperationalRecord', 'core_admin', b'1'),
-	(1374, 'DataView', 'GeneralManagerAdministration', 'Get Assigned Queue List', '/getQueueList', 'edr_data_view', b'1'),
-	(1375, 'DataView', 'GeneralManagerAdministration', 'Get Tasks', '/searchTask', 'edr_data_view', b'1'),
-	(1376, 'DataProcess', 'GeneralManagerAdministration', 'Search Web Upload', '/searchWebUpload', 'edr_reader', b'1'),
-	(1377, 'DataView', 'GeneralManagerAdministration', 'Update Task', '/updateTask', 'edr_data_view', b'1'),
-	(1378, 'DataProcess', 'GeneralManagerAdministration', 'Data Web Upload', '/webUpload/{uploadFileType}', 'edr_reader', b'1'),
-	(1379, 'CRUDUser', 'GeneralManagerAdministration', 'Active Role List', '/getActiveRoleList/{divisionId}', 'core_admin', b'1'),
-	(1380, 'CRUDUser', 'GeneralManagerAdministration', 'Resource Group By Employee', '/getGroupList', 'core_admin', b'1'),
-	(1381, 'ITUpdate', 'GeneralManagerAdministration', 'Get User Assets', '/getUserAssets', 'core_admin', b'1'),
-	(1382, 'ITUpdate', 'GeneralManagerAdministration', 'Update User Assets', '/updateUserAssets', 'core_admin', b'1'),
-	(1383, 'ITUpdate', 'GeneralManagerAdministration', 'Create User Assets', '/createUserAssets', 'core_admin', b'1'),
-	(1384, 'DataView', 'GeneralManagerAdministration', 'Get Batch List', '/getBatchList', 'edr_data_view', b'1'),
-	(1385, 'DataView', 'GeneralManagerAdministration', 'ReAllocate Task', '/reAllocateTask', 'edr_data_view', b'1'),
-	(1386, 'DataView', 'GeneralManagerAdministration', 'Get Assigned Queue List', '/getAllotedUserGroup', 'edr_data_view', b'1'),
-	(1387, 'CRUDUser', 'GeneralManagerAdministration', 'Get Division List', '/getDivisionList', 'core_admin', b'1'),
-	(1388, 'CRUDUser', 'GeneralManagerAdministration', 'Get Division List', '/getDivisionList/{departmentId}', 'core_admin', b'1'),
-	(1389, 'CRUDUser', 'GeneralManagerAdministration', 'Get HR Records', '/getHRRecord', 'core_admin', b'1'),
-	(1390, 'CRUDUser', 'GeneralManagerAdministration', 'Get Projects List', '/getProjectList/{divisionId}', 'core_admin', b'1'),
-	(1391, 'DataView', 'GeneralManagerAdministration', 'Get Task Users List', '/getTaskUsersList', 'core_admin', b'1'),
-	(1392, 'CRUDUser', 'GeneralManagerAdministration', 'Get User', '/getUser', 'core_admin', b'1'),
-	(1393, 'DataView', 'GeneralManagerAdministration', 'Get WorkUnits Count ', '/getWorkUnitsStatusList', 'edr_data_view', b'1'),
-	(1394, 'CRUDUser', 'GeneralManagerAdministration', 'Get User', '/getSkillSetMatrixList', 'core_admin', b'1'),
-	(1395, 'CRUDUser', 'GeneralManagerAdministration', 'Get User', '/getSkillSetList/{search}', 'core_admin', b'1'),
-	(1396, 'General', 'GeneralManagerAdministration', 'UI Header Menu', '/getHeaderMenu', 'core_admin', b'1'),
-	(1397, 'DataView', 'Employee', 'Get Process List', '/getProcessList', 'edr_data_view', b'1');
+	('CreateIncidentEmail', '<style>\r\n	.details {\r\n		font-family:"Calibri (Body)", sans-serif;\r\n		margin: 10px 0;\r\n		padding: 10px;\r\n		background-color: #fff;\r\n		border: 1px solid #ddd;\r\n		border-radius: 5px;\r\n	}\r\n	.details p {\r\n		margin: 5px 0;\r\n	}\r\n	.footer {\r\n		margin-top: 20px;\r\n		font-size: 0.9em;\r\n		color: #777;\r\n	}\r\n</style>\r\n\r\n<div style="font-family:Arial,Helvetica,sans-serif; line-height: 1.5; font-weight: normal; font-size: 15px; color: #2F3044; min-height: 100%; margin:0; padding:0; width:100%; background-color:#edf2f7">\r\n\r\n    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 auto; padding:0; max-width:600px">\r\n        <tbody>\r\n            <tr>\r\n                <td align="center" valign="center" style="text-align:center; padding: 40px">\r\n                    <a href="https://stashook.com" rel="noopener" target="_blank">\r\n                        <img alt="Logo" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=224,fit=crop,q=95/mk38qrkq0WcJX2p5/focus_main-Y4LV7rbvoxtGZ2e3.png"/>\r\n                    </a>\r\n                </td>\r\n            </tr>\r\n\r\n            <tr>\r\n                <td align="left" valign="center">\r\n                    <div style="text-align:left; margin: 0 20px; padding: 40px; background-color:#ffffff; border-radius: 6px">\r\n                        <h3 style="color: #0056b3">New Incident Report</h3>\r\n						<p>Dear {{incident.customerName}},</p>\r\n						<p>I am writing to report an incident that requires attention in our ticketing system. Below are the details:</p>\r\n						\r\n						<div class="details">\r\n							<p><strong>Description:</strong> {{incident.description}}</p>\r\n							<p><strong>Priority Level:</strong> {{incident.supportType}}/{{incident.priority}}</p>\r\n							<p><strong>Date and Time of Occurrence:</strong> {{incident.modifiedDate}}</p>\r\n							<p><strong>Steps Taken So Far:</strong> {{incident.cookBookName}}</p>\r\n						</div>\r\n\r\n						<p>Attachments: Not Available</p>\r\n						\r\n						<p>Please confirm receipt of this email and let me know if further details are needed. I look forward to your assistance in resolving this matter promptly.</p>\r\n						\r\n						<p>Thank you for your support.</p>\r\n						\r\n						<p>Best regards,<br>Focus Support Team.<br><br>Mobile: +91 9999999999</p>\r\n						<div class="footer">\r\n							<p>Note: This email is intended for the designated recipient(s) only. Please do not share or forward without permission.</p>\r\n						</div>\r\n                    </div>\r\n					\r\n                </td>\r\n            </tr>\r\n\r\n            <tr>\r\n                <td align="center" valign="center" style="font-size: 13px; text-align:center;padding: 20px; color: #6d6e7c;">\r\n                    <p>Floor 5, 450 Avenue of the Red Field, Chennai, 601110, INDIA.</p>\r\n                    <p>  Copyright &copy; <a href="https://stashook.com" rel="noopener" target="_blank">Stashook.com</a>.</p>\r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>', 'CreateIncidentEmail', 'Incident Created {{incident.incidentId}} - Status - {{incident.taskStatus}}', 'Email', 'PRD000001', NULL, '2024-12-29 17:59:29', '2024-12-29 17:59:30', b'1', b'1'),
+	('User_Change_Password', '<style>\r\n    html,body {\r\n        padding: 0;\r\n        margin:0;\r\n    }\r\n</style>\r\n\r\n<div style="font-family:Arial,Helvetica,sans-serif; line-height: 1.5; font-weight: normal; font-size: 15px; color: #2F3044; min-height: 100%; margin:0; padding:0; width:100%; background-color:#edf2f7">\r\n    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 auto; padding:0; max-width:600px">\r\n        <tbody>\r\n            <tr>\r\n                <td align="center" valign="center" style="text-align:center; padding: 40px">\r\n                    <a href="https://stashook.com" rel="noopener" target="_blank">\r\n                        <img alt="Logo" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=224,fit=crop,q=95/mk38qrkq0WcJX2p5/focus_main-Y4LV7rbvoxtGZ2e3.png"/>\r\n                    </a>\r\n                </td>\r\n            </tr>\r\n\r\n            <tr>\r\n                <td align="left" valign="center">\r\n                    <div style="text-align:left; margin: 0 20px; padding: 40px; background-color:#ffffff; border-radius: 6px">\r\n\r\n                            <!--begin:Email content-->\r\n    <div style="padding-bottom: 30px; font-size: 17px;">\r\n        <strong>Hello {{user.userName}}!</strong>\r\n    </div>\r\n\r\n    <div style="padding-bottom: 30px">\r\n        You are receiving this email because we received a password reset request for your account. To proceed with the password reset, use this one time passcode.\r\n    </div>\r\n\r\n    <div style="padding-bottom: 40px; text-align:center;">\r\n        <p\r\n           style="text-decoration:none;display:inline-block;text-align:center;padding:0.75575rem 1.3rem;font-size:0.925rem;line-height:1.5;border-radius:0.35rem;color:#ffffff;background-color:#009ef7;border:0px;margin-right:0.75rem!important;font-weight:600!important;outline:none!important;vertical-align:middle"\r\n           >\r\n            {{user.otp}}\r\n        </p>\r\n    </div>\r\n\r\n    <div style="padding-bottom: 30px">\r\n        This One Time Passcode will expire in {{expiresIn}} minutes.\r\n        If you did not request a password reset, no further action is required.\r\n    </div>\r\n\r\n    <div style="border-bottom: 1px solid #eeeeee; margin: 15px 0"></div>\r\n\r\n    \r\n    <!--end:Email content-->\r\n                        \r\n                        <div style="padding-bottom: 10px">\r\n                            Kind Regards,<br>\r\n                            The Focus Application Team.\r\n                        </div>\r\n                    </div>\r\n                </td>\r\n            </tr>\r\n\r\n            <tr>\r\n                <td align="center" valign="center" style="font-size: 13px; text-align:center;padding: 20px; color: #6d6e7c;">\r\n                    <p>Floor 5, 450 Avenue of the Red Field, Chennai, 601110, INDIA.</p>\r\n                    <p>  Copyright &copy; <a href="https://stashook.com" rel="noopener" target="_blank">Stashook.com</a>.</p>\r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>', 'User_Change_Password', 'Focus Application Password Reset Email OTP Code', 'Email', 'PRD000001', NULL, '2021-01-01 00:00:00', '2021-01-01 00:00:00', b'1', b'1'),
+	('User_Reset_Password', 'Hi ${user_userName} <BR> <BR>  Pls click the link to reset the password. <BR> Please click here <a href="${tokenURL}">Password Reset Link</a><BR><BR>By<BR> ${user_producerName}.', 'User_Reset_Password', '[${user_userName}] Your data_process Account Password Reset Link', 'Email', 'PRD000001', NULL, '2021-01-01 00:00:00', '2021-01-01 00:00:00', b'1', b'1');
 
 -- Dumping structure for table data_process.operational_allocation_group
 CREATE TABLE IF NOT EXISTS `operational_allocation_group` (
@@ -4427,7 +3904,7 @@ CREATE TABLE IF NOT EXISTS `operational_allocation_group` (
   `readyForDelivery` varchar(50) NOT NULL,
   `deliveryToClient` varchar(50) NOT NULL,
   PRIMARY KEY (`allotmentId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_allocation_group: ~0 rows (approximately)
 DELETE FROM `operational_allocation_group`;
@@ -4438,7 +3915,7 @@ CREATE TABLE IF NOT EXISTS `operational_data` (
   `batchId` varchar(50) DEFAULT NULL,
   `dataURN` varchar(50) DEFAULT NULL,
   `allotmentId` varchar(50) DEFAULT NULL,
-  `roadType` text,
+  `roadType` mediumtext,
   `workUnitId` varchar(50) DEFAULT NULL,
   `wuMiles` float DEFAULT NULL,
   `subCountry` varchar(50) DEFAULT NULL,
@@ -4447,7 +3924,7 @@ CREATE TABLE IF NOT EXISTS `operational_data` (
   `projectId` varchar(50) DEFAULT NULL,
   `remarks` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`dataId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_data: ~0 rows (approximately)
 DELETE FROM `operational_data`;
@@ -4456,7 +3933,7 @@ DELETE FROM `operational_data`;
 CREATE TABLE IF NOT EXISTS `operational_miles_percent` (
   `autoId` bigint NOT NULL AUTO_INCREMENT,
   `projectId` varchar(50) NOT NULL,
-  `roadId` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `roadId` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `units` varchar(50) NOT NULL DEFAULT 'Mins/Mile',
   `benchMark` int NOT NULL DEFAULT '0',
   `production` double NOT NULL DEFAULT '0',
@@ -4465,7 +3942,7 @@ CREATE TABLE IF NOT EXISTS `operational_miles_percent` (
   `modifiedDate` datetime DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_miles_percent: ~0 rows (approximately)
 DELETE FROM `operational_miles_percent`;
@@ -4479,7 +3956,7 @@ CREATE TABLE IF NOT EXISTS `operational_po_detail` (
   `pendingWork` double DEFAULT NULL,
   `receivedInput` double DEFAULT NULL,
   PRIMARY KEY (`poDetailId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_po_detail: ~0 rows (approximately)
 DELETE FROM `operational_po_detail`;
@@ -4492,7 +3969,7 @@ CREATE TABLE IF NOT EXISTS `operational_po_limit` (
   `poLimit` double NOT NULL DEFAULT '0',
   `poDate` datetime NOT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_po_limit: ~0 rows (approximately)
 DELETE FROM `operational_po_limit`;
@@ -4506,7 +3983,7 @@ CREATE TABLE IF NOT EXISTS `operational_process` (
   `createdDate` datetime DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`dataURN`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_process: ~0 rows (approximately)
 DELETE FROM `operational_process`;
@@ -4515,7 +3992,7 @@ DELETE FROM `operational_process`;
 CREATE TABLE IF NOT EXISTS `operational_process_producers` (
   `producerId` varchar(50) NOT NULL,
   `dataURN` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_process_producers: ~0 rows (approximately)
 DELETE FROM `operational_process_producers`;
@@ -4530,7 +4007,7 @@ CREATE TABLE IF NOT EXISTS `operational_queue` (
   `status` bit(1) NOT NULL DEFAULT b'1',
   `reAllocate` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`queueId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_queue: ~10 rows (approximately)
 DELETE FROM `operational_queue`;
@@ -4554,7 +4031,7 @@ CREATE TABLE IF NOT EXISTS `operational_queue_skill_role` (
   `roleSkill` varchar(100) DEFAULT NULL,
   `editable` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_queue_skill_role: ~22 rows (approximately)
 DELETE FROM `operational_queue_skill_role`;
@@ -4592,7 +4069,7 @@ CREATE TABLE IF NOT EXISTS `operational_queue_status_reason` (
   `displayOrder` int NOT NULL DEFAULT '1',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_queue_status_reason: ~0 rows (approximately)
 DELETE FROM `operational_queue_status_reason`;
@@ -4605,7 +4082,7 @@ CREATE TABLE IF NOT EXISTS `operational_reason` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`reasonId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_reason: ~0 rows (approximately)
 DELETE FROM `operational_reason`;
@@ -4617,13 +4094,16 @@ CREATE TABLE IF NOT EXISTS `operational_resource_department` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`departmentId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.operational_resource_department: ~2 rows (approximately)
+-- Dumping data for table data_process.operational_resource_department: ~5 rows (approximately)
 DELETE FROM `operational_resource_department`;
 INSERT INTO `operational_resource_department` (`departmentId`, `departmentName`, `displayOrder`, `status`) VALUES
-	('Administration', 'Administration', 1, b'1'),
-	('Operations', 'Operations', 2, b'1');
+	('Administration', 'Solar Panel', 1, b'1'),
+	('Installation', 'Installation', 3, b'1'),
+	('Marketing', 'Marketing', 0, b'1'),
+	('Operations', 'RO', 2, b'1'),
+	('Service', 'Service', 0, b'1');
 
 -- Dumping structure for table data_process.operational_resource_division
 CREATE TABLE IF NOT EXISTS `operational_resource_division` (
@@ -4633,7 +4113,7 @@ CREATE TABLE IF NOT EXISTS `operational_resource_division` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`divisionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_resource_division: ~5 rows (approximately)
 DELETE FROM `operational_resource_division`;
@@ -4656,7 +4136,7 @@ CREATE TABLE IF NOT EXISTS `operational_resource_group` (
   `parentGroupId` varchar(50) DEFAULT NULL,
   `reportingTo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`groupId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_resource_group: ~13 rows (approximately)
 DELETE FROM `operational_resource_group`;
@@ -4682,7 +4162,7 @@ CREATE TABLE IF NOT EXISTS `operational_resource_project` (
   `divisionId` varchar(50) NOT NULL,
   `displayOrder` int DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
-  `template` text,
+  `template` mediumtext,
   `mode` varchar(50) NOT NULL DEFAULT 'Info',
   `templateUploadDate` datetime DEFAULT NULL,
   `clientName` varchar(50) DEFAULT NULL,
@@ -4714,7 +4194,7 @@ CREATE TABLE IF NOT EXISTS `operational_resource_project` (
   `modifiedBy` varchar(50) DEFAULT NULL,
   `modifiedDate` datetime DEFAULT NULL,
   PRIMARY KEY (`projectId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_resource_project: ~8 rows (approximately)
 DELETE FROM `operational_resource_project`;
@@ -4730,32 +4210,18 @@ INSERT INTO `operational_resource_project` (`projectId`, `projectName`, `divisio
 
 -- Dumping structure for table data_process.operational_road_type
 CREATE TABLE IF NOT EXISTS `operational_road_type` (
-  `roadId` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `roadId` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `projectId` varchar(50) NOT NULL,
   `poDetailId` varchar(50) DEFAULT NULL,
-  `roadName` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `roadName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `roadMap` varchar(1000) DEFAULT NULL,
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`roadId`,`projectId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_road_type: ~0 rows (approximately)
 DELETE FROM `operational_road_type`;
-
--- Dumping structure for table data_process.operational_road_type_bkp
-CREATE TABLE IF NOT EXISTS `operational_road_type_bkp` (
-  `roadId` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `projectId` varchar(50) NOT NULL,
-  `roadName` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `roadMap` varchar(1000) DEFAULT NULL,
-  `displayOrder` int NOT NULL DEFAULT '0',
-  `status` bit(1) NOT NULL DEFAULT b'1',
-  PRIMARY KEY (`roadId`,`projectId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- Dumping data for table data_process.operational_road_type_bkp: ~0 rows (approximately)
-DELETE FROM `operational_road_type_bkp`;
 
 -- Dumping structure for table data_process.operational_status
 CREATE TABLE IF NOT EXISTS `operational_status` (
@@ -4764,7 +4230,7 @@ CREATE TABLE IF NOT EXISTS `operational_status` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`statusId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_status: ~7 rows (approximately)
 DELETE FROM `operational_status`;
@@ -4779,13 +4245,13 @@ INSERT INTO `operational_status` (`statusId`, `statusName`, `displayOrder`, `sta
 
 -- Dumping structure for table data_process.operational_subcountry
 CREATE TABLE IF NOT EXISTS `operational_subcountry` (
-  `country` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `country` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `countryName` varchar(50) NOT NULL,
   `priority` varchar(50) NOT NULL DEFAULT 'Medium',
   `status` bit(1) NOT NULL DEFAULT b'0',
   `displayOrder` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`country`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_subcountry: ~0 rows (approximately)
 DELETE FROM `operational_subcountry`;
@@ -4796,7 +4262,7 @@ CREATE TABLE IF NOT EXISTS `operational_subcountry_mapping` (
   `projectId` varchar(50) NOT NULL,
   `country` varchar(50) NOT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_subcountry_mapping: ~0 rows (approximately)
 DELETE FROM `operational_subcountry_mapping`;
@@ -4805,7 +4271,7 @@ DELETE FROM `operational_subcountry_mapping`;
 CREATE TABLE IF NOT EXISTS `operational_task` (
   `allocationId` varchar(50) NOT NULL,
   `nextAllocationId` varchar(50) DEFAULT NULL,
-  `processId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `processId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `dataId` varchar(50) NOT NULL,
   `groupId` varchar(50) DEFAULT NULL,
   `teamId` varchar(50) DEFAULT NULL,
@@ -4820,10 +4286,10 @@ CREATE TABLE IF NOT EXISTS `operational_task` (
   `startTime` datetime DEFAULT NULL,
   `endTime` datetime DEFAULT NULL,
   `duration` float DEFAULT NULL,
-  `eventTrack` mediumtext,
-  `remarks` mediumtext,
+  `eventTrack` longtext,
+  `remarks` longtext,
   PRIMARY KEY (`allocationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.operational_task: ~0 rows (approximately)
 DELETE FROM `operational_task`;
@@ -4840,7 +4306,7 @@ CREATE TABLE IF NOT EXISTS `portlets` (
   `modifiedDate` datetime DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
   PRIMARY KEY (`portletId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.portlets: ~0 rows (approximately)
 DELETE FROM `portlets`;
@@ -4853,7 +4319,7 @@ CREATE TABLE IF NOT EXISTS `portletsroles` (
   `status` bit(1) DEFAULT b'1',
   `displayOrder` int NOT NULL,
   PRIMARY KEY (`prAutoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.portletsroles: ~0 rows (approximately)
 DELETE FROM `portletsroles`;
@@ -4866,7 +4332,7 @@ CREATE TABLE IF NOT EXISTS `portletsusers` (
   `employeeId` varchar(50) DEFAULT NULL,
   `portletId` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ptAutoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.portletsusers: ~0 rows (approximately)
 DELETE FROM `portletsusers`;
@@ -4893,9 +4359,9 @@ CREATE TABLE IF NOT EXISTS `producers` (
   `registrationDate` varchar(20) DEFAULT NULL,
   `customerStatus` varchar(25) DEFAULT 'Pending',
   PRIMARY KEY (`producerId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.producers: ~0 rows (approximately)
+-- Dumping data for table data_process.producers: ~1 rows (approximately)
 DELETE FROM `producers`;
 INSERT INTO `producers` (`producerId`, `producerType`, `producerName`, `pwdExpiryDays`, `domainContext`, `employeeId`, `createdBy`, `createdDate`, `modifiedDate`, `modifiedBy`, `status`, `isPrimary`, `emailId`, `mobileNo`, `phoneNo`, `whatsAppNo`, `description`, `registrationDate`, `customerStatus`) VALUES
 	('PRD000001', 'Producer', 'Main Branch', '2021-07-03 21:24:36', '/data_process', 'PRODUCERUSER', 'PRODUCERUSER', '2021-01-01 00:00:00', '2021-07-20 17:54:22', 'PRODUCERUSER', b'1', b'0', NULL, NULL, NULL, NULL, NULL, NULL, 'Pending');
@@ -4920,7 +4386,7 @@ CREATE TABLE IF NOT EXISTS `producersattachments` (
   `modifiedBy` varchar(50) DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.producersattachments: ~0 rows (approximately)
 DELETE FROM `producersattachments`;
@@ -4936,7 +4402,7 @@ CREATE TABLE IF NOT EXISTS `producerscollabrate` (
   `modifiedDate` datetime NOT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.producerscollabrate: ~0 rows (approximately)
 DELETE FROM `producerscollabrate`;
@@ -4948,7 +4414,7 @@ CREATE TABLE IF NOT EXISTS `producersproperty` (
   `groupName` varchar(50) NOT NULL,
   `enumKey` varchar(50) NOT NULL,
   `property` varchar(200) NOT NULL,
-  `value` text NOT NULL,
+  `value` mediumtext NOT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   `createdBy` varchar(50) DEFAULT NULL,
   `modifiedBy` varchar(50) DEFAULT NULL,
@@ -4959,7 +4425,7 @@ CREATE TABLE IF NOT EXISTS `producersproperty` (
   `mediaMode` varchar(50) NOT NULL,
   `mediaType` varchar(50) NOT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.producersproperty: ~4 rows (approximately)
 DELETE FROM `producersproperty`;
@@ -5037,7 +4503,7 @@ CREATE TABLE IF NOT EXISTS `projectstatus` (
   `QARemarks` varchar(500) DEFAULT NULL,
   `DeliveryStatus` varchar(50) DEFAULT NULL,
   `DeliveredDate` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.projectstatus: ~0 rows (approximately)
 DELETE FROM `projectstatus`;
@@ -5061,7 +4527,7 @@ CREATE TABLE IF NOT EXISTS `projectstatussummary` (
   `DeliveredMiles` float DEFAULT NULL,
   `OnHoldMiles` float DEFAULT NULL,
   `UndeliveredMiles` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.projectstatussummary: ~0 rows (approximately)
 DELETE FROM `projectstatussummary`;
@@ -5089,7 +4555,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `modifiedBy` varchar(50) DEFAULT NULL,
   `modifiedDate` datetime DEFAULT NULL,
   PRIMARY KEY (`roleId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.roles: ~22 rows (approximately)
 DELETE FROM `roles`;
@@ -5125,7 +4591,7 @@ CREATE TABLE IF NOT EXISTS `sequence` (
   `sequenceKey` varchar(50) NOT NULL,
   `format` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.sequence: ~3 rows (approximately)
 DELETE FROM `sequence`;
@@ -5141,7 +4607,7 @@ CREATE TABLE IF NOT EXISTS `states` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) DEFAULT NULL,
   PRIMARY KEY (`state`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.states: ~35 rows (approximately)
 DELETE FROM `states`;
@@ -5189,7 +4655,7 @@ CREATE TABLE IF NOT EXISTS `task_delivery_mode` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`modeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.task_delivery_mode: ~4 rows (approximately)
 DELETE FROM `task_delivery_mode`;
@@ -5206,7 +4672,7 @@ CREATE TABLE IF NOT EXISTS `task_delivery_type` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`deliveryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.task_delivery_type: ~3 rows (approximately)
 DELETE FROM `task_delivery_type`;
@@ -5222,7 +4688,7 @@ CREATE TABLE IF NOT EXISTS `task_units_measurements` (
   `displayOrder` int NOT NULL DEFAULT '0',
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`unitId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.task_units_measurements: ~7 rows (approximately)
 DELETE FROM `task_units_measurements`;
@@ -5298,7 +4764,7 @@ CREATE TABLE IF NOT EXISTS `timesheetprocess` (
   `status` bit(1) NOT NULL DEFAULT b'1',
   `description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`processId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.timesheetprocess: ~47 rows (approximately)
 DELETE FROM `timesheetprocess`;
@@ -5363,7 +4829,7 @@ CREATE TABLE IF NOT EXISTS `timesheetprocessproject` (
   KEY `FK_timesheetprocessproject_operational_resource_project` (`projectId`),
   CONSTRAINT `FK_timesheetprocessproject_operational_resource_project` FOREIGN KEY (`projectId`) REFERENCES `operational_resource_project` (`projectId`),
   CONSTRAINT `FK_timesheetprocessproject_timesheetprocess` FOREIGN KEY (`processId`) REFERENCES `timesheetprocess` (`processId`)
-) ENGINE=InnoDB AUTO_INCREMENT=1074 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1074 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.timesheetprocessproject: ~66 rows (approximately)
 DELETE FROM `timesheetprocessproject`;
@@ -5435,27 +4901,6 @@ INSERT INTO `timesheetprocessproject` (`autoId`, `processId`, `projectId`, `disp
 	(1072, 'TechnicalSupport', 'NoProjectDEV', 33, b'1'),
 	(1073, 'PCS1725293137960', 'NoProjectDEV', 34, b'1');
 
--- Dumping structure for table data_process.tix_address
-CREATE TABLE IF NOT EXISTS `tix_address` (
-  `addressId` varchar(50) NOT NULL,
-  `addressStreet` varchar(50) NOT NULL,
-  `addressDistric` varchar(50) NOT NULL,
-  `addressState` varchar(50) NOT NULL,
-  `addressPincode` varchar(50) NOT NULL,
-  `status` bit(1) NOT NULL DEFAULT (1),
-  PRIMARY KEY (`addressId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table data_process.tix_address: ~6 rows (approximately)
-DELETE FROM `tix_address`;
-INSERT INTO `tix_address` (`addressId`, `addressStreet`, `addressDistric`, `addressState`, `addressPincode`, `status`) VALUES
-	('AID100001', 'No : 41 Subramaniyapuram', 'Namakkal', 'TamilNadu', '637015', b'1'),
-	('AID100002', 'No 21 VAC Nagar,Pugalur', 'Namakkal', 'TamilNadu', '637202', b'1'),
-	('AID100003', 'No 19, 80 Feet Rdm', 'Karur', 'TamilNadu', '639002', b'1'),
-	('AID100004', 'No 22/1 Belukurichi', 'Namakkal', 'TamilNadu', '637402', b'1'),
-	('AID100005', 'No 45 Near HP Pertol Bunk ,Adayar', 'Chennai', 'TamilNadu', '600002', b'1'),
-	('AID100006', 'SF56, Nellur', 'Guntur', 'Andra', '522001', b'1');
-
 -- Dumping structure for table data_process.tix_answer
 CREATE TABLE IF NOT EXISTS `tix_answer` (
   `answerId` varchar(50) NOT NULL,
@@ -5470,28 +4915,31 @@ DELETE FROM `tix_answer`;
 -- Dumping structure for table data_process.tix_category
 CREATE TABLE IF NOT EXISTS `tix_category` (
   `categoryId` varchar(50) NOT NULL,
-  `caegoryParentId` varchar(50) NOT NULL,
+  `parentCategoryId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `categoryName` varchar(50) NOT NULL,
+  `displayOrder` tinyint NOT NULL,
   `status` bit(1) NOT NULL DEFAULT (1),
   PRIMARY KEY (`categoryId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.tix_category: ~6 rows (approximately)
 DELETE FROM `tix_category`;
-INSERT INTO `tix_category` (`categoryId`, `caegoryParentId`, `categoryName`, `status`) VALUES
-	('CID1000001', 'CID1000001', 'Solar', b'1'),
-	('CID1000002', 'CID1000002', 'RO', b'1'),
-	('CID1000003', 'CID1000002', 'RO250LPH', b'1'),
-	('CID1000004', 'CID1000002', 'RO500LPH', b'1'),
-	('CID1000005', 'CID1000002', 'RO1000LPH', b'1'),
-	('CID1000006', 'CID1000001', 'Inverter', b'1');
+INSERT INTO `tix_category` (`categoryId`, `parentCategoryId`, `categoryName`, `displayOrder`, `status`) VALUES
+	('CID1000001', 'CID1000001', 'Solar', 1, b'1'),
+	('CID1000002', 'CID1000002', 'RO', 2, b'1'),
+	('CID1000003', 'CID1000002', 'RO250LPH', 3, b'1'),
+	('CID1000004', 'CID1000002', 'RO500LPH', 4, b'1'),
+	('CID1000005', 'CID1000002', 'RO1000LPH', 5, b'1'),
+	('CID1000006', 'CID1000001', 'Inverter', 6, b'1');
 
 -- Dumping structure for table data_process.tix_cook_book
 CREATE TABLE IF NOT EXISTS `tix_cook_book` (
   `cookId` varchar(50) NOT NULL,
-  `productSupportId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `keywords` tinytext,
+  `cookBookName` varchar(50) NOT NULL,
+  `categoryId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `goLinks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `keywords` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `createdBy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `createdDate` datetime NOT NULL,
   `modifiedBy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -5500,17 +4948,21 @@ CREATE TABLE IF NOT EXISTS `tix_cook_book` (
   PRIMARY KEY (`cookId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.tix_cook_book: ~0 rows (approximately)
+-- Dumping data for table data_process.tix_cook_book: ~4 rows (approximately)
 DELETE FROM `tix_cook_book`;
-INSERT INTO `tix_cook_book` (`cookId`, `productSupportId`, `description`, `keywords`, `createdBy`, `createdDate`, `modifiedBy`, `modifiedDate`, `status`) VALUES
-	('CB10001', 'P10001', 'solar', 'redlight Eroor Blink Sound ', '10504', '2024-09-22 16:34:47', '10504', '2024-09-22 16:34:54', b'1');
+INSERT INTO `tix_cook_book` (`cookId`, `cookBookName`, `categoryId`, `goLinks`, `description`, `keywords`, `createdBy`, `createdDate`, `modifiedBy`, `modifiedDate`, `status`) VALUES
+	('CB10001', 'SOLAR_BLINKER', 'CID1000001', 'www.google.com', 'Inverter-specific:\r\nDifferent inverter brands will have their own set of error codes, so consult the manufacturer\'s manual for accurate interpretations. \r\nCommon errors:\r\nGrid issues: Codes related to grid voltage, frequency, or connection problems. \r\nPanel faults: Insulation faults, hot spots, shading issues. \r\nCommunication errors: Issues with data transfer between panels and inverter. \r\nInternal faults: Inverter malfunctioning due to internal components. \r\nExamples of solar panel error codes:\r\nE018 (Leak Fault): Indicates a leakage current issue within the system \r\nE025 (Riso Low): Potential insulation fault on the solar array \r\nE031 (Error Read V): Incorrect voltage reading from the panels \r\nW003 (Grid Voltage Error): Issue with the grid voltage \r\nEvent 301 (Grid Fault): Inverter detects a problem with the grid connection \r\nError Code 3501 (Insulation Failure): Ground fault detected within the PV array \r\nWhat to do when you encounter a solar panel error code:\r\nConsult the manual: Refer to your inverter\'s user manual to understand the meaning of the specific error code. \r\nCheck connections: Ensure all connections between panels and the inverter are secure. \r\nInspect panels: Visually check the panels for damage, dirt, or shading issues \r\nMonitor system performance: Use the inverter display to observe if the error persists \r\nContact a professional: If you cannot identify the cause or resolve the issue, contact a qualified solar technician', 'inverter, Incorrect voltage, malfunction, hot, Panel E025', '10504', '2024-09-22 16:34:47', '10504', '2024-09-22 16:34:54', b'1'),
+	('CBK1733061459464', 'Solar Panel Beep Sound', 'CID1000001', 'https://www.anewsolar.com.au/solar-inverter-error-codes/', 'Error Code 314\nError Code 314 on a Fronius inverter means that there is a current sensor calibration timeout or there is an internal system error. Usually, this problem just fixes itself as the inverter repeats its startup routine. If the problem persists, you should contact us on (08) 7078-7620 to investigate the issue.\n\nError Code 509\nIf your Fronius inverter encounters Error Code or State Code 509, it means that there is no energy fed into the grid in the last 24 hours. There could be a lot of reasons for this and one of them is that the solar panels are covered in dirt. One of Anew Solarâ€™s service is solar panel cleaning so you might want to contact us to solve this problem. If it still does not work, we will inspect your inverter further.\n\nGrowatt Inverter Error Codes\nWhenever a Growatt solar inverter experiences faults, it will display the fault or error code. These codes indicate a particular problem or fault that the inverter is in. Listed below are some common error and fault codes that Growatt inverter users may face in the future and how it can be fixed:\n\nError Code 102\nWhen your Growatt solar inverter displays the Error Code 102, it means that the two CPU sampling date is inconsistent. To fix this problem, turn off the DC switch and wait until the inverter is totally shut down. Turn the inverter on again and observe if it still displays the same error.\n\nError Code 111\nAn Error Code 111 usually happens with a Growatt TL3 inverter series. When this error shows up, it means that there is an IGBT drive fault and that you should already contact your solar inverter installer for a checkup.\n\nError Code 117\nAn Error Code 117 on a Growatt solar inverter means that there is a problem in the relay circuit. Try to restart the inverter and if the problem persists, you should already contact your solar inverter installer.\n\nError Code 120\nWhen a Growatt solar inverter displays the Error Code 120, it means that there is a problem with the current sensor. This Error Code is also known as an HCT Fault.\n\nFault Codes\nGrowatt solar inverters can experience two types of faults: system faults and inverter faults.\n\nHCT Fault\nAs stated above, an HCT Fault means that the inverter is having problems with its current sensor. To repair this, simply restart the inverter and if it still isnâ€™t fixed, contact your solar inverter installer.\n\nPV Isolation Low\nPV Isolation Low is a system fault on a Growatt solar inverter. This means that the inverterâ€™s PV insulation impedance is too low or out of range.', 'PV insulation Growatt UpdateUpdateUpdate Test', '10504', '2024-12-01 19:27:39', '10504', '2024-12-01 21:02:01', b'0'),
+	('CBK1735368444135', 'Solar Panel Beep Sound', 'CID1000001', 'https://www.anewsolar.com.au/solar-inverter-error-codes/', 'Error Code 314\nError Code 314 on a Fronius inverter means that there is a current sensor calibration timeout or there is an internal system error. Usually, this problem just fixes itself as the inverter repeats its startup routine. If the problem persists, you should contact us on (08) 7078-7620 to investigate the issue.\n\nError Code 509\nIf your Fronius inverter encounters Error Code or State Code 509, it means that there is no energy fed into the grid in the last 24 hours. There could be a lot of reasons for this and one of them is that the solar panels are covered in dirt. One of Anew Solar’s service is solar panel cleaning so you might want to contact us to solve this problem. If it still does not work, we will inspect your inverter further.\n\nGrowatt Inverter Error Codes\nWhenever a Growatt solar inverter experiences faults, it will display the fault or error code. These codes indicate a particular problem or fault that the inverter is in. Listed below are some common error and fault codes that Growatt inverter users may face in the future and how it can be fixed:\n\nError Code 102\nWhen your Growatt solar inverter displays the Error Code 102, it means that the two CPU sampling date is inconsistent. To fix this problem, turn off the DC switch and wait until the inverter is totally shut down. Turn the inverter on again and observe if it still displays the same error.\n\nError Code 111\nAn Error Code 111 usually happens with a Growatt TL3 inverter series. When this error shows up, it means that there is an IGBT drive fault and that you should already contact your solar inverter installer for a checkup.\n\nError Code 117\nAn Error Code 117 on a Growatt solar inverter means that there is a problem in the relay circuit. Try to restart the inverter and if the problem persists, you should already contact your solar inverter installer.\n\nError Code 120\nWhen a Growatt solar inverter displays the Error Code 120, it means that there is a problem with the current sensor. This Error Code is also known as an HCT Fault.\n\nFault Codes\nGrowatt solar inverters can experience two types of faults: system faults and inverter faults.\n\nHCT Fault\nAs stated above, an HCT Fault means that the inverter is having problems with its current sensor. To repair this, simply restart the inverter and if it still isn’t fixed, contact your solar inverter installer.\n\nPV Isolation Low\nPV Isolation Low is a system fault on a Growatt solar inverter. This means that the inverter’s PV insulation impedance is too low or out of range.', 'PV insulation Growatt', '15006', '2024-12-28 12:17:24', '15006', '2024-12-28 12:17:24', b'0'),
+	('CBK1735368450638', 'Solar Panel Beep Sound1', 'CID1000001', 'https://www.anewsolar.com.au/solar-inverter-error-codes/', 'Error Code 314\nError Code 314 on a Fronius inverter means that there is a current sensor calibration timeout or there is an internal system error. Usually, this problem just fixes itself as the inverter repeats its startup routine. If the problem persists, you should contact us on (08) 7078-7620 to investigate the issue.\n\nError Code 509\nIf your Fronius inverter encounters Error Code or State Code 509, it means that there is no energy fed into the grid in the last 24 hours. There could be a lot of reasons for this and one of them is that the solar panels are covered in dirt. One of Anew Solar’s service is solar panel cleaning so you might want to contact us to solve this problem. If it still does not work, we will inspect your inverter further.\n\nGrowatt Inverter Error Codes\nWhenever a Growatt solar inverter experiences faults, it will display the fault or error code. These codes indicate a particular problem or fault that the inverter is in. Listed below are some common error and fault codes that Growatt inverter users may face in the future and how it can be fixed:\n\nError Code 102\nWhen your Growatt solar inverter displays the Error Code 102, it means that the two CPU sampling date is inconsistent. To fix this problem, turn off the DC switch and wait until the inverter is totally shut down. Turn the inverter on again and observe if it still displays the same error.\n\nError Code 111\nAn Error Code 111 usually happens with a Growatt TL3 inverter series. When this error shows up, it means that there is an IGBT drive fault and that you should already contact your solar inverter installer for a checkup.\n\nError Code 117\nAn Error Code 117 on a Growatt solar inverter means that there is a problem in the relay circuit. Try to restart the inverter and if the problem persists, you should already contact your solar inverter installer.\n\nError Code 120\nWhen a Growatt solar inverter displays the Error Code 120, it means that there is a problem with the current sensor. This Error Code is also known as an HCT Fault.\n\nFault Codes\nGrowatt solar inverters can experience two types of faults: system faults and inverter faults.\n\nHCT Fault\nAs stated above, an HCT Fault means that the inverter is having problems with its current sensor. To repair this, simply restart the inverter and if it still isn’t fixed, contact your solar inverter installer.\n\nPV Isolation Low\nPV Isolation Low is a system fault on a Growatt solar inverter. This means that the inverter’s PV insulation impedance is too low or out of range.', 'PV insulation Growatt', '15006', '2024-12-28 12:17:30', '15006', '2024-12-28 12:17:30', b'0');
 
 -- Dumping structure for table data_process.tix_customer
 CREATE TABLE IF NOT EXISTS `tix_customer` (
   `customerId` varchar(50) NOT NULL,
   `customerName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `mobileNumber` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `customerAddressId` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `alternateNumber` varchar(20) DEFAULT NULL,
+  `address` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `createdBy` varchar(50) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
   `status` bit(1) DEFAULT NULL,
@@ -5518,29 +4970,45 @@ CREATE TABLE IF NOT EXISTS `tix_customer` (
   UNIQUE KEY `phoneNumber` (`mobileNumber`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.tix_customer: ~6 rows (approximately)
+-- Dumping data for table data_process.tix_customer: ~7 rows (approximately)
 DELETE FROM `tix_customer`;
-INSERT INTO `tix_customer` (`customerId`, `customerName`, `mobileNumber`, `customerAddressId`, `createdBy`, `createdDate`, `status`) VALUES
-	('CID10001', 'Muthu', '9884080613', 'AID100001', '10504', '2024-09-28 21:48:08', b'1'),
-	('CID10002', 'Kalai', '9003925051', 'AID100002', '10504', '2024-09-28 21:48:11', b'1'),
-	('CID10003', 'Tamil', '9790756096', 'AID100003', '10504', '2024-09-28 21:48:13', b'1'),
-	('CID10004', 'Ravi', '9003925054', 'AID100004', '10504', '2024-09-28 21:48:14', b'1'),
-	('CID10005', 'Arjun', '9003925059', 'AID100005', '10504', '2024-09-28 21:48:16', b'1'),
-	('CID10006', 'Kumar', '9003925058', 'AID100006', '10504', '2024-09-28 21:48:18', b'1');
+INSERT INTO `tix_customer` (`customerId`, `customerName`, `mobileNumber`, `alternateNumber`, `address`, `createdBy`, `createdDate`, `status`) VALUES
+	('CID10001', 'Muthu', '9884080613', NULL, 'AID100001', '15006', '2024-09-28 21:48:08', b'1'),
+	('CID10002', 'Muthu', '9003925051', NULL, 'AID100002', '15006', '2024-09-28 21:48:11', b'1'),
+	('CID10003', 'Tamil', '9790756096', NULL, 'AID100003', '15006', '2024-09-28 21:48:13', b'1'),
+	('CID10004', 'Ravi', '9003925054', NULL, 'AID100004', '15006', '2024-09-28 21:48:14', b'1'),
+	('CID10005', 'Arjun', '9003925059', NULL, 'AID100005', '15006', '2024-09-28 21:48:16', b'1'),
+	('CID10006', 'Kumar', '9003925058', NULL, 'AID100006', '15006', '2024-09-28 21:48:18', b'1'),
+	('CST1735125454274', 'Hariharan', '9677101113', '9500395591', '77/1 Sannathi Street, TPK, Madurai - 625005', '15006', '2024-12-25 16:47:34', b'1'),
+	('CST1735130898518', 'Hariharan', '9677101112', '9500395591', '77/1 Sannathi Street, TPK, Madurai - 625005', '15006', '2024-12-25 18:18:18', b'1');
 
 -- Dumping structure for table data_process.tix_incident
 CREATE TABLE IF NOT EXISTS `tix_incident` (
   `incidentId` varchar(50) NOT NULL,
   `cookId` varchar(50) DEFAULT NULL,
-  `createdBy` varchar(50) DEFAULT NULL,
-  `createdDate` datetime DEFAULT NULL,
-  `supportType` varchar(50) DEFAULT NULL,
+  `customerId` varchar(50) DEFAULT NULL,
+  `priority` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'Low' COMMENT 'Low/Medium/High/Urgent',
+  `supportType` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Internal/ External',
   `description` varchar(500) DEFAULT NULL,
+  `taskStatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Accepted, Transformed',
+  `taskDuration` int DEFAULT '0',
+  `eventTrack` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `createdBy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `createdDate` datetime DEFAULT NULL,
+  `modifiedBy` varchar(50) DEFAULT NULL,
+  `modifiedDate` datetime DEFAULT NULL,
   PRIMARY KEY (`incidentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.tix_incident: ~0 rows (approximately)
+-- Dumping data for table data_process.tix_incident: ~4 rows (approximately)
 DELETE FROM `tix_incident`;
+INSERT INTO `tix_incident` (`incidentId`, `cookId`, `customerId`, `priority`, `supportType`, `description`, `taskStatus`, `taskDuration`, `eventTrack`, `createdBy`, `createdDate`, `modifiedBy`, `modifiedDate`) VALUES
+	('INC1234567890', 'CBK1733061459464', 'CST1735130898518', 'Low', 'Internal', 'Red Light Beep Sound', 'Accepted', NULL, NULL, '15006', '2024-12-25 21:33:23', '15006', '2024-12-25 21:33:24'),
+	('INC1735201490927', 'CBK1733061459464', 'CST1735130898518', 'Low', 'Internal', 'Red Light Beep Sound', 'Accepted', NULL, NULL, '15006', '2024-12-26 13:54:50', '15006', '2024-12-26 13:54:50'),
+	('INC1735203757661', 'CBK1733061459464', 'CST1735130898518', 'Low', 'Internal', 'Red Light Beep Sound', 'Accepted', NULL, NULL, '15006', '2024-12-26 14:32:37', '15006', '2024-12-26 14:32:37'),
+	('INC1735203926295', 'CBK1733061459464', 'CST1735130898518', 'Medium', 'Internal', 'This is Accepted by Client', 'Accepted', 13814, NULL, '15006', '2024-12-26 14:35:26', '15006', '2024-12-30 10:18:52'),
+	('INC1735533668477', NULL, 'CST1735130898518', 'Low', 'Internal', NULL, 'Open', 0, NULL, '15006', '2024-12-30 10:11:08', '15006', '2024-12-30 10:11:08'),
+	('INC1735533681471', NULL, 'CST1735130898518', 'Low', 'Internal', NULL, 'Open', 0, NULL, '15006', '2024-12-30 10:11:21', '15006', '2024-12-30 10:11:21');
 
 -- Dumping structure for table data_process.tix_media
 CREATE TABLE IF NOT EXISTS `tix_media` (
@@ -5560,6 +5028,24 @@ INSERT INTO `tix_media` (`mediaId`, `mediaUrl`, `mediaType`, `createdBy`, `creat
 	('MT1729010767580', 'images_1729010767573.jpg', '1', 'Muthalagan', '2024-10-15 22:10:58', b'1'),
 	('MT1729010868451', 'images_1729010868446.jpg', '1', 'Muthalagan', '2024-10-15 22:17:48', b'1'),
 	('MT1729010920539', 'images_1729010920529.jpg', '1', 'Muthalagan', '2024-10-15 22:18:40', b'1');
+
+-- Dumping structure for table data_process.tix_media_group
+CREATE TABLE IF NOT EXISTS `tix_media_group` (
+  `groupId` varchar(50) NOT NULL DEFAULT '',
+  `groupName` varchar(50) DEFAULT NULL,
+  `mediaType` varchar(50) DEFAULT NULL COMMENT 'Email/SMS/WhatsApp',
+  `messageId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Message  Id From Messages Table',
+  `toGroup` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `ccGroup` mediumtext,
+  `bccGroup` mediumtext,
+  `status` bit(1) NOT NULL DEFAULT (0x01),
+  PRIMARY KEY (`groupId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table data_process.tix_media_group: ~1 rows (approximately)
+DELETE FROM `tix_media_group`;
+INSERT INTO `tix_media_group` (`groupId`, `groupName`, `mediaType`, `messageId`, `toGroup`, `ccGroup`, `bccGroup`, `status`) VALUES
+	('NTN1234567890', 'IncidentEmailGroup', 'Email', 'CreateIncidentEmail', 'anandb.hbs@gmail.com, soundaravalli2021@gmail.com', 'muthuslm@gmail.com', 'tamils1978@gmail.com', b'1');
 
 -- Dumping structure for table data_process.tix_question
 CREATE TABLE IF NOT EXISTS `tix_question` (
@@ -5582,26 +5068,30 @@ INSERT INTO `tix_question` (`questionId`, `categoryId`, `questionName`, `status`
 CREATE TABLE IF NOT EXISTS `tix_ticket` (
   `ticketId` varchar(50) NOT NULL,
   `parentTicketId` varchar(50) NOT NULL,
+  `incidentId` varchar(50) DEFAULT NULL,
   `customerId` varchar(50) DEFAULT NULL,
   `cookId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `productSupportId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `supportType` varchar(50) DEFAULT NULL,
-  `ticketStatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `queueId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `assignedTo` varchar(50) DEFAULT NULL,
-  `createdBy` varchar(50) DEFAULT NULL,
+  `ticketStatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `assignedTo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `assignedDate` datetime DEFAULT NULL,
+  `processedBy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `processedDate` datetime DEFAULT NULL,
+  `createdBy` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
-  `modifiedBy` varchar(50) DEFAULT NULL,
-  `modifiedDate` datetime DEFAULT NULL,
-  `status` bit(1) NOT NULL DEFAULT ((_utf8mb4'b' / 1)),
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`ticketId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table data_process.tix_ticket: ~0 rows (approximately)
+-- Dumping data for table data_process.tix_ticket: ~2 rows (approximately)
 DELETE FROM `tix_ticket`;
-INSERT INTO `tix_ticket` (`ticketId`, `parentTicketId`, `customerId`, `cookId`, `productSupportId`, `supportType`, `ticketStatus`, `description`, `queueId`, `assignedTo`, `createdBy`, `createdDate`, `modifiedBy`, `modifiedDate`, `status`) VALUES
-	('T10001', 'T10001', 'CID10005', 'CB10001', 'P10001', 'External', 'Open', 'Will Assigned', 'Group', '10504', NULL, NULL, NULL, NULL, b'1');
+INSERT INTO `tix_ticket` (`ticketId`, `parentTicketId`, `incidentId`, `customerId`, `cookId`, `queueId`, `ticketStatus`, `assignedTo`, `assignedDate`, `processedBy`, `processedDate`, `createdBy`, `createdDate`, `description`) VALUES
+	('T10001', 'T10001', NULL, 'CID10005', 'CB10001', 'Group', 'Open', '10504', '2024-12-28 17:12:15', NULL, '2024-11-27 16:53:28', NULL, '2024-11-27 16:53:25', 'Will Assigned'),
+	('TKT1735388355812', 'TKT1735388355812', 'INC1735377866641', 'CST1735130898518', NULL, 'Initial', 'Open', NULL, NULL, NULL, NULL, '15006', '2024-12-28 17:49:15', 'This is a External Ticket'),
+	('TKT1735527512434', 'TKT1735527512434', 'INC1735377866641', 'CST1735130898518', NULL, 'Initial', 'Open', NULL, NULL, NULL, NULL, '15006', '2024-12-30 08:28:32', 'This is a External Ticket'),
+	('TKT1735527726076', 'TKT1735527726076', 'INC1735377866641', 'CST1735130898518', NULL, 'Initial', 'Open', NULL, NULL, NULL, NULL, '15006', '2024-12-30 08:32:06', 'This is a External Ticket'),
+	('TKT1735527853158', 'TKT1735527853158', 'INC1735377866641', 'CST1735130898518', NULL, 'Initial', 'Open', NULL, NULL, NULL, NULL, '15006', '2024-12-30 08:34:13', 'This is a External Ticket'),
+	('TKT1735528276933', 'TKT1735528276933', 'INC1735377866641', 'CST1735130898518', NULL, 'Initial', 'Open', NULL, NULL, NULL, NULL, '15006', '2024-12-30 08:41:16', 'This is a External Ticket');
 
 -- Dumping structure for table data_process.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -5621,7 +5111,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `dob` datetime DEFAULT NULL,
   `sex` varchar(50) DEFAULT NULL,
   `martial` varchar(50) DEFAULT NULL,
-  `bloodGroup` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `bloodGroup` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `userStatus` varchar(50) DEFAULT 'Pending',
   `token` varchar(200) DEFAULT NULL,
   `tokenExpiryDate` datetime DEFAULT NULL,
@@ -5631,8 +5121,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `modifiedBy` varchar(50) DEFAULT NULL,
   `modifiedDate` datetime DEFAULT NULL,
   `status` bit(1) DEFAULT b'1',
-  `projectId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `groupId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `projectId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `groupId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `teamId` varchar(50) DEFAULT NULL,
   `reportingTo` varchar(50) DEFAULT NULL,
   `departmentId` varchar(50) DEFAULT NULL,
@@ -5643,7 +5133,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `FK_users_producers` (`producerId`),
   KEY `FK_users_country` (`country`),
   CONSTRAINT `FK_users_producers` FOREIGN KEY (`producerId`) REFERENCES `producers` (`producerId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.users: ~16 rows (approximately)
 DELETE FROM `users`;
@@ -5651,7 +5141,7 @@ INSERT INTO `users` (`employeeId`, `producerId`, `parentProducerId`, `userType`,
 	('15001', 'PRD000001', 'PRD000001', 'Employee', '15001', '15001@1968', 'Soundaravalli', '', '', NULL, '$2a$10$z/h4gKgrVrSp9C1LQhxpPec0TT/EIa1FyDMKvP/xe7NOCnG3Qiv8q', b'0', NULL, '1978-01-13 00:00:00', 'Female', 'NoToSpecify', 'B_Positive', 'Activated', '', NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2021-11-28 00:00:00', b'1', 'NoProjectDEV', 'GRP0003', 'TM00001', 'Admin', 'Operations', 'DEV', NULL, ''),
 	('15002', 'PRD000001', 'PRD000001', 'Employee', '15002', '15235@1973', 'Muthalagan', '', 'Navakodi', NULL, '$2a$10$z/h4gKgrVrSp9C1LQhxpPec0TT/EIa1FyDMKvP/xe7NOCnG3Qiv8q', b'0', '2022-07-06 21:15:53', '1983-02-26 00:00:00', 'Male', 'NoToSpecify', 'O_Positive', 'Activated', NULL, NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2023-03-29 15:27:17', b'1', 'NoProjectDEV', 'GRP0003', 'TM00002', '15003', 'Operations', 'DEV', NULL, ''),
 	('15003', 'PRD000001', 'PRD000001', 'Employee', '15003', '13600@1985', 'Tamilselvan', '', 'Kadirvel Murugan', NULL, '$2a$10$z/h4gKgrVrSp9C1LQhxpPec0TT/EIa1FyDMKvP/xe7NOCnG3Qiv8q', b'0', NULL, '2006-09-13 00:00:00', 'Male', 'NoToSpecify', 'B_Positive', 'Activated', '', NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2023-05-24 17:24:02', b'1', 'NoProjectDEV', 'GRP0003', 'TM00002', '15001', 'Operations', 'DEV', NULL, ''),
-	('15006', 'PRD000001', 'PRD000001', 'Employee', '15006', '10504@1982', 'Ananthi', '', '', NULL, '$2a$10$z/h4gKgrVrSp9C1LQhxpPec0TT/EIa1FyDMKvP/xe7NOCnG3Qiv8q', b'0', NULL, '1982-06-29 00:00:00', 'Female', 'NoToSpecify', 'B_Positive', 'Activated', '', NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2023-03-29 15:04:02', b'1', 'NoProjectDEV', 'GRP0003', 'TM00002', '15003', 'Operations', 'DEV', NULL, ''),
+	('15006', 'PRD000001', 'PRD000001', 'Employee', '15006', '10504@1982', 'Ananthi', '', '', NULL, '$2a$10$W9SPFkE7Lb0sPgtCXFzZbeXkh5dr5KbO3FrfYPQxA0r7qhyj8cjFC', b'0', '2024-12-16 10:57:48', '1982-06-29 00:00:00', 'Female', 'NoToSpecify', 'B_Positive', 'Activated', '', NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2023-03-29 15:04:02', b'1', 'NoProjectDEV', 'GRP0003', 'TM00002', '15003', 'Operations', 'DEV', NULL, ''),
 	('15007', 'PRD000001', 'PRD000001', 'Employee', '15007', '12501@1984', 'Anupama', '', '', NULL, '$2a$10$z/h4gKgrVrSp9C1LQhxpPec0TT/EIa1FyDMKvP/xe7NOCnG3Qiv8q', b'0', NULL, '1984-12-20 00:00:00', 'Female', 'NoToSpecify', 'O_Positive', 'Activated', '', NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2023-03-29 15:04:58', b'1', 'NoProjectDEV', 'GRP0003', 'TM00002', '15003', 'Operations', 'DEV', NULL, ''),
 	('15008', 'PRD000001', 'PRD000001', 'Employee', '15008', '13944@1996', 'Hari', '', '', NULL, '$2a$10$z/h4gKgrVrSp9C1LQhxpPec0TT/EIa1FyDMKvP/xe7NOCnG3Qiv8q', b'0', '2023-01-07 12:27:47', '1996-06-07 00:00:00', 'Male', 'NoToSpecify', 'A1B_Positive', 'Activated', NULL, NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2023-03-29 15:08:31', b'1', 'NoProjectDEV', 'GRP0003', 'TM00005', '15002', 'Operations', 'DEV', NULL, 'React'),
 	('15009', 'PRD000001', 'PRD000001', 'Employee', '15009', '15254@1994', 'Radhika', '', '', NULL, '$2a$10$z/h4gKgrVrSp9C1LQhxpPec0TT/EIa1FyDMKvP/xe7NOCnG3Qiv8q', b'0', NULL, '1995-05-18 00:00:00', 'Female', 'NoToSpecify', 'O_Positive', 'Activated', '', NULL, 'Asia/Kolkata', 'Admin', '2021-11-28 00:00:00', 'Admin', '2023-05-23 19:43:00', b'1', 'NoProjectDEV', 'GRP0003', 'TM00004', '15006', 'Operations', 'DEV', NULL, 'Angular'),
@@ -5673,7 +5163,7 @@ CREATE TABLE IF NOT EXISTS `usersassignedtasks` (
   PRIMARY KEY (`autoId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.usersassignedtasks: ~1 rows (approximately)
+-- Dumping data for table data_process.usersassignedtasks: ~0 rows (approximately)
 DELETE FROM `usersassignedtasks`;
 INSERT INTO `usersassignedtasks` (`autoId`, `employeeId`, `processInfo`) VALUES
 	('AST1733832807338', '15006', '[{"projectName":"Acco","tasks":[{"taskId":1003,"processId":"ClientMeeting","processName":"Client Meeting"},{"taskId":1004,"processId":"KnowledgeTransfer","processName":"Knowledge Transfer"},{"taskId":1007,"processId":"KnowledgeTransfer","processName":"Knowledge Transfer"},{"taskId":1008,"processId":"Meeting","processName":"Meeting"},{"taskId":1009,"processId":"Meeting","processName":"Meeting"},{"taskId":1010,"processId":"Meeting","processName":"Meeting"},{"taskId":1011,"processId":"Meeting","processName":"Meeting"},{"taskId":1012,"processId":"PCS1725291694033","processName":"FrontEnd(FE)"},{"taskId":1013,"processId":"PCS1725291707667","processName":"BackEnd(BE)"},{"taskId":1014,"processId":"PCS1725291726165","processName":"Database(DB)"},{"taskId":1015,"processId":"PCS1725291661267","processName":"Discussion"},{"taskId":1016,"processId":"EarlyGoing","processName":"Early Going"},{"taskId":1017,"processId":"IdleNoWork","processName":"Idle No Work"},{"taskId":1018,"processId":"InternetProblem","processName":"Internet Problem"},{"taskId":1019,"processId":"Permission","processName":"Permission"}]},{"projectName":"Focus","tasks":[{"taskId":1020,"processId":"PCS1725291707667","processName":"BackEnd(BE)"},{"taskId":1021,"processId":"PCS1725291726165","processName":"Database(DB)"},{"taskId":1022,"processId":"PCS1725291661267","processName":"Discussion"},{"taskId":1023,"processId":"PCS1725291694033","processName":"FrontEnd(FE)"},{"taskId":1024,"processId":"Meeting","processName":"Meeting"},{"taskId":1025,"processId":"KnowledgeTransfer","processName":"Knowledge Transfer"},{"taskId":1026,"processId":"ClientMeeting","processName":"Client Meeting"},{"taskId":1027,"processId":"EarlyGoing","processName":"Early Going"},{"taskId":1028,"processId":"IdleNoWork","processName":"Idle No Work"},{"taskId":1029,"processId":"LateComing","processName":"Late Coming"},{"taskId":1030,"processId":"Permission","processName":"Permission"},{"taskId":1031,"processId":"TeamMeeting","processName":"Team Meeting"}]}]');
@@ -5697,7 +5187,7 @@ CREATE TABLE IF NOT EXISTS `usersattachments` (
   PRIMARY KEY (`autoId`),
   KEY `FK_userattachments_users` (`employeeId`),
   CONSTRAINT `FK_userattachments_users` FOREIGN KEY (`employeeId`) REFERENCES `users` (`employeeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersattachments: ~0 rows (approximately)
 DELETE FROM `usersattachments`;
@@ -5705,13 +5195,13 @@ DELETE FROM `usersattachments`;
 -- Dumping structure for table data_process.usersattendance
 CREATE TABLE IF NOT EXISTS `usersattendance` (
   `attendanceId` varchar(50) NOT NULL,
-  `leaveId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `leaveId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `employeeId` varchar(50) NOT NULL,
   `markedBy` varchar(50) DEFAULT NULL,
   `approvedBy` varchar(50) DEFAULT NULL,
   `symbol` varchar(50) NOT NULL,
   `mode` varchar(50) NOT NULL,
-  `holidayName` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `holidayName` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `date` datetime NOT NULL,
   `markedTime` datetime DEFAULT NULL,
   `approvedTime` datetime DEFAULT NULL,
@@ -5720,12 +5210,12 @@ CREATE TABLE IF NOT EXISTS `usersattendance` (
   `ipAddress` varchar(50) DEFAULT NULL,
   `comments` varchar(500) DEFAULT NULL,
   `tamper` varchar(200) DEFAULT NULL,
-  `eventTrack` mediumtext,
+  `eventTrack` longtext,
   `lockStatus` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`attendanceId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.usersattendance: ~605 rows (approximately)
+-- Dumping data for table data_process.usersattendance: ~607 rows (approximately)
 DELETE FROM `usersattendance`;
 INSERT INTO `usersattendance` (`attendanceId`, `leaveId`, `employeeId`, `markedBy`, `approvedBy`, `symbol`, `mode`, `holidayName`, `date`, `markedTime`, `approvedTime`, `status`, `approvalStatus`, `ipAddress`, `comments`, `tamper`, `eventTrack`, `lockStatus`) VALUES
 	('AT1680546602189', NULL, '15006', NULL, 'SystemUser', 'Absent', 'None', NULL, '2023-04-04 00:00:00', NULL, '2023-05-03 00:21:34', 'LossOfPay', 'None', NULL, NULL, '', NULL, 'PayRoll'),
@@ -6333,7 +5823,8 @@ INSERT INTO `usersattendance` (`attendanceId`, `leaveId`, `employeeId`, `markedB
 	('AT1730701800217', NULL, '15013', NULL, NULL, 'Working_Day', 'None', NULL, '2024-11-04 00:00:00', NULL, NULL, 'None', 'None', NULL, NULL, '', NULL, 'None'),
 	('AT1730701800232', NULL, '15014', NULL, NULL, 'Working_Day', 'None', NULL, '2024-11-04 00:00:00', NULL, NULL, 'None', 'None', NULL, NULL, '', NULL, 'None'),
 	('AT1730701800248', NULL, '15015', NULL, NULL, 'Working_Day', 'None', NULL, '2024-11-04 00:00:00', NULL, NULL, 'None', 'None', NULL, NULL, '', NULL, 'None'),
-	('AT1733807952722', NULL, '15006', '15006', '15006', 'P12', 'WFO', NULL, '2024-12-10 00:00:00', '2024-12-10 10:50:15', '2024-12-10 15:49:13', 'LossOfPay', 'Approved', NULL, 'ReferBack Approved', NULL, NULL, 'None');
+	('AT1733807952722', NULL, '15006', '15006', '15006', 'P12', 'WFO', NULL, '2024-12-10 00:00:00', '2024-12-10 10:50:15', '2024-12-10 15:49:13', 'LossOfPay', 'Approved', NULL, 'ReferBack Approved', NULL, NULL, 'None'),
+	('AT1733900127122', NULL, '15006', '15006', NULL, 'P8', 'WFO', NULL, '2024-12-11 00:00:00', '2024-12-11 12:25:27', NULL, 'Marked', NULL, NULL, NULL, NULL, NULL, 'None');
 
 -- Dumping structure for table data_process.usersdailylog
 CREATE TABLE IF NOT EXISTS `usersdailylog` (
@@ -6351,7 +5842,7 @@ CREATE TABLE IF NOT EXISTS `usersdailylog` (
   `billType` varchar(5) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersdailylog: ~117 rows (approximately)
 DELETE FROM `usersdailylog`;
@@ -6485,9 +5976,9 @@ CREATE TABLE IF NOT EXISTS `usersholidayscalendar` (
   `symbol` varchar(50) NOT NULL DEFAULT '0',
   `zoneArea` varchar(50) DEFAULT NULL,
   `approvedBy` varchar(50) DEFAULT NULL,
-  `approvalStatus` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `approvalStatus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `approvedDate` datetime DEFAULT NULL,
-  `comments` tinytext,
+  `comments` text,
   `createdBy` varchar(50) DEFAULT NULL,
   `createdDate` datetime DEFAULT NULL,
   `modifiedBy` varchar(50) DEFAULT NULL,
@@ -6496,7 +5987,7 @@ CREATE TABLE IF NOT EXISTS `usersholidayscalendar` (
   PRIMARY KEY (`autoId`),
   KEY `FK_user_holidays_calendar_countrys` (`country`),
   CONSTRAINT `FK_user_holidays_calendar_countrys` FOREIGN KEY (`country`) REFERENCES `countrys` (`country`)
-) ENGINE=InnoDB AUTO_INCREMENT=1733835933059 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1733835933059 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersholidayscalendar: ~25 rows (approximately)
 DELETE FROM `usersholidayscalendar`;
@@ -6543,7 +6034,7 @@ CREATE TABLE IF NOT EXISTS `usershrrecords` (
   `toNoticePeriod` datetime DEFAULT NULL,
   `lastWorkDay` datetime DEFAULT NULL,
   `accountNo` varchar(50) DEFAULT NULL COMMENT 'BankAccounts',
-  `bankName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT ' ' COMMENT 'BankAccounts',
+  `bankName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT ' ' COMMENT 'BankAccounts',
   `bankBranch` varchar(50) DEFAULT NULL COMMENT 'BankAccounts',
   `ifscCode` varchar(50) DEFAULT NULL COMMENT 'BankAccounts',
   `aadharNo` varchar(50) DEFAULT NULL COMMENT 'TaxInfo',
@@ -6551,7 +6042,7 @@ CREATE TABLE IF NOT EXISTS `usershrrecords` (
   `panNo` varchar(50) DEFAULT NULL COMMENT 'TaxInfo',
   `providentFund` varchar(50) DEFAULT NULL COMMENT 'TaxInfo',
   `uanNo` varchar(50) DEFAULT ' ' COMMENT 'TaxInfo',
-  `highestGraduate` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'EducationalInfo',
+  `highestGraduate` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'EducationalInfo',
   `institution` varchar(50) DEFAULT NULL COMMENT 'EducationalInfo',
   `year` varchar(50) DEFAULT NULL COMMENT 'EducationalInfo',
   `markGrade` varchar(50) DEFAULT ' ' COMMENT 'EducationalInfo',
@@ -6572,7 +6063,7 @@ CREATE TABLE IF NOT EXISTS `usershrrecords` (
   `lastDrawnSalary` varchar(50) DEFAULT NULL,
   `nativeDistrict` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usershrrecords: ~15 rows (approximately)
 DELETE FROM `usershrrecords`;
@@ -6605,7 +6096,7 @@ CREATE TABLE IF NOT EXISTS `usersitassets` (
   `remarks` varchar(500) DEFAULT NULL,
   `active` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersitassets: ~6 rows (approximately)
 DELETE FROM `usersitassets`;
@@ -6632,7 +6123,7 @@ CREATE TABLE IF NOT EXISTS `usersitrecords` (
   `isDowngraded` bit(1) NOT NULL DEFAULT b'0',
   `downGradedPlan` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersitrecords: ~14 rows (approximately)
 DELETE FROM `usersitrecords`;
@@ -6658,7 +6149,7 @@ CREATE TABLE IF NOT EXISTS `usersleavemanagement` (
   `employeeId` varchar(50) NOT NULL,
   `noOfDays` double NOT NULL DEFAULT '0',
   `detectedLeave` double NOT NULL DEFAULT '0',
-  `leaveDates` varchar(2500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `leaveDates` varchar(2500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `symbol` varchar(50) NOT NULL,
   `fromDate` datetime NOT NULL,
   `toDate` datetime NOT NULL,
@@ -6671,9 +6162,9 @@ CREATE TABLE IF NOT EXISTS `usersleavemanagement` (
   `modifiedBy` varchar(50) NOT NULL,
   `modifiedDate` datetime NOT NULL,
   PRIMARY KEY (`leaveId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.usersleavemanagement: ~10 rows (approximately)
+-- Dumping data for table data_process.usersleavemanagement: ~12 rows (approximately)
 DELETE FROM `usersleavemanagement`;
 INSERT INTO `usersleavemanagement` (`leaveId`, `employeeId`, `noOfDays`, `detectedLeave`, `leaveDates`, `symbol`, `fromDate`, `toDate`, `activeToDate`, `status`, `reason`, `comments`, `createdBy`, `createdDate`, `modifiedBy`, `modifiedDate`) VALUES
 	('101', '15006', 1, 0, '{2024-08-14}', 'Leave', '2024-08-14 00:00:00', '2024-08-14 00:00:00', '2024-08-14 00:00:00', 'Approved', 'function', NULL, '10500', '2024-08-14 00:00:00', '10500', '2024-08-14 16:19:14'),
@@ -6699,9 +6190,9 @@ CREATE TABLE IF NOT EXISTS `userslog` (
   `fetchBlock` bit(1) DEFAULT b'0',
   PRIMARY KEY (`autoId`),
   KEY `FK_LogUser_User_idx` (`employeeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=579 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.userslog: ~0 rows (approximately)
+-- Dumping data for table data_process.userslog: ~479 rows (approximately)
 DELETE FROM `userslog`;
 INSERT INTO `userslog` (`autoId`, `employeeId`, `userLoginTime`, `userLogoutTime`, `ipAddress`, `fetchBlock`) VALUES
 	(12, '15006', '2024-12-10 10:41:30', '0000-00-00 00:00:00', '0', b'1'),
@@ -6838,7 +6329,439 @@ INSERT INTO `userslog` (`autoId`, `employeeId`, `userLoginTime`, `userLogoutTime
 	(143, '15006', '2024-12-10 19:01:46', '0000-00-00 00:00:00', '0', b'1'),
 	(144, '15006', '2024-12-10 19:02:09', '0000-00-00 00:00:00', '0', b'1'),
 	(145, '15006', '2024-12-10 19:02:14', '0000-00-00 00:00:00', '0', b'1'),
-	(146, '15006', '2024-12-10 19:02:24', '0000-00-00 00:00:00', '0', b'1');
+	(146, '15006', '2024-12-10 19:02:24', '0000-00-00 00:00:00', '0', b'1'),
+	(147, '15006', '2024-12-10 22:34:06', '0000-00-00 00:00:00', '0', b'1'),
+	(148, '15006', '2024-12-10 22:34:59', '0000-00-00 00:00:00', '0', b'1'),
+	(149, '15006', '2024-12-10 22:37:33', '0000-00-00 00:00:00', '0', b'1'),
+	(150, '15006', '2024-12-10 22:39:34', '0000-00-00 00:00:00', '0', b'1'),
+	(151, '15006', '2024-12-10 22:40:46', '0000-00-00 00:00:00', '0', b'1'),
+	(152, '15006', '2024-12-10 22:41:36', '0000-00-00 00:00:00', '0', b'1'),
+	(153, '15006', '2024-12-10 22:42:08', '0000-00-00 00:00:00', '0', b'1'),
+	(154, '15006', '2024-12-10 22:42:28', '0000-00-00 00:00:00', '0', b'1'),
+	(155, '15006', '2024-12-10 22:42:55', '0000-00-00 00:00:00', '0', b'1'),
+	(156, '15006', '2024-12-10 22:43:10', '0000-00-00 00:00:00', '0', b'1'),
+	(157, '15006', '2024-12-10 22:44:01', '0000-00-00 00:00:00', '0', b'1'),
+	(158, '15006', '2024-12-10 22:44:41', '0000-00-00 00:00:00', '0', b'1'),
+	(159, '15006', '2024-12-10 22:46:47', '0000-00-00 00:00:00', '0', b'1'),
+	(160, '15006', '2024-12-11 12:12:12', '0000-00-00 00:00:00', '0', b'1'),
+	(161, '15006', '2024-12-11 12:12:26', '0000-00-00 00:00:00', '0', b'1'),
+	(162, '15006', '2024-12-11 12:12:34', '0000-00-00 00:00:00', '0', b'1'),
+	(163, '15006', '2024-12-11 12:24:57', '0000-00-00 00:00:00', '0', b'1'),
+	(164, '15006', '2024-12-11 12:25:06', '0000-00-00 00:00:00', '0', b'1'),
+	(165, '15006', '2024-12-11 12:25:26', '0000-00-00 00:00:00', '0', b'1'),
+	(166, '15006', '2024-12-11 12:25:30', '0000-00-00 00:00:00', '0', b'1'),
+	(167, '15006', '2024-12-14 12:22:49', '0000-00-00 00:00:00', '0', b'1'),
+	(168, '15006', '2024-12-14 12:23:23', '0000-00-00 00:00:00', '0', b'1'),
+	(169, '15006', '2024-12-14 12:25:37', '0000-00-00 00:00:00', '0', b'1'),
+	(170, '15006', '2024-12-14 12:42:09', '0000-00-00 00:00:00', '0', b'1'),
+	(171, '15006', '2024-12-22 18:05:46', '0000-00-00 00:00:00', '0', b'1'),
+	(172, '15006', '2024-12-22 18:06:38', '0000-00-00 00:00:00', '0', b'1'),
+	(173, '15006', '2024-12-22 18:06:59', '0000-00-00 00:00:00', '0', b'1'),
+	(174, '15006', '2024-12-22 18:07:14', '0000-00-00 00:00:00', '0', b'1'),
+	(175, '15006', '2024-12-22 18:07:21', '0000-00-00 00:00:00', '0', b'1'),
+	(176, '15006', '2024-12-22 18:07:34', '0000-00-00 00:00:00', '0', b'1'),
+	(177, '15006', '2024-12-22 18:18:46', '0000-00-00 00:00:00', '0', b'1'),
+	(178, '15006', '2024-12-22 18:18:50', '0000-00-00 00:00:00', '0', b'1'),
+	(179, '15006', '2024-12-22 18:19:07', '0000-00-00 00:00:00', '0', b'1'),
+	(180, '15006', '2024-12-22 18:21:04', '0000-00-00 00:00:00', '0', b'1'),
+	(181, '15006', '2024-12-22 18:21:12', '0000-00-00 00:00:00', '0', b'1'),
+	(182, '15006', '2024-12-22 18:21:30', '0000-00-00 00:00:00', '0', b'1'),
+	(183, '15006', '2024-12-22 18:22:10', '0000-00-00 00:00:00', '0', b'1'),
+	(184, '15006', '2024-12-22 18:30:45', '0000-00-00 00:00:00', '0', b'1'),
+	(185, '15006', '2024-12-22 18:30:58', '0000-00-00 00:00:00', '0', b'1'),
+	(186, '15006', '2024-12-22 18:40:33', '0000-00-00 00:00:00', '0', b'1'),
+	(187, '15006', '2024-12-22 18:40:40', '0000-00-00 00:00:00', '0', b'1'),
+	(188, '15006', '2024-12-22 18:40:49', '0000-00-00 00:00:00', '0', b'1'),
+	(189, '15006', '2024-12-22 18:41:00', '0000-00-00 00:00:00', '0', b'1'),
+	(190, '15006', '2024-12-22 18:41:02', '0000-00-00 00:00:00', '0', b'1'),
+	(191, '15006', '2024-12-22 18:41:05', '0000-00-00 00:00:00', '0', b'1'),
+	(192, '15006', '2024-12-22 19:01:26', '0000-00-00 00:00:00', '0', b'1'),
+	(193, '15006', '2024-12-22 19:02:55', '0000-00-00 00:00:00', '0', b'1'),
+	(194, '15006', '2024-12-22 19:03:42', '0000-00-00 00:00:00', '0', b'1'),
+	(195, '15006', '2024-12-22 19:04:08', '0000-00-00 00:00:00', '0', b'1'),
+	(196, '15006', '2024-12-22 19:04:52', '0000-00-00 00:00:00', '0', b'1'),
+	(197, '15006', '2024-12-22 19:06:17', '0000-00-00 00:00:00', '0', b'1'),
+	(198, '15006', '2024-12-22 19:07:19', '0000-00-00 00:00:00', '0', b'1'),
+	(199, '15006', '2024-12-22 19:07:27', '0000-00-00 00:00:00', '0', b'1'),
+	(200, '15006', '2024-12-22 19:07:32', '0000-00-00 00:00:00', '0', b'1'),
+	(201, '15006', '2024-12-22 19:07:40', '0000-00-00 00:00:00', '0', b'1'),
+	(202, '15006', '2024-12-22 19:08:07', '0000-00-00 00:00:00', '0', b'1'),
+	(203, '15006', '2024-12-22 19:08:12', '0000-00-00 00:00:00', '0', b'1'),
+	(204, '15006', '2024-12-22 19:08:18', '0000-00-00 00:00:00', '0', b'1'),
+	(205, '15006', '2024-12-22 19:08:39', '0000-00-00 00:00:00', '0', b'1'),
+	(206, '15006', '2024-12-22 19:08:47', '0000-00-00 00:00:00', '0', b'1'),
+	(207, '15006', '2024-12-22 19:08:55', '0000-00-00 00:00:00', '0', b'1'),
+	(208, '15006', '2024-12-22 19:09:09', '0000-00-00 00:00:00', '0', b'1'),
+	(209, '15006', '2024-12-22 19:09:17', '0000-00-00 00:00:00', '0', b'1'),
+	(210, '15006', '2024-12-22 19:09:23', '0000-00-00 00:00:00', '0', b'1'),
+	(211, '15006', '2024-12-22 19:09:34', '0000-00-00 00:00:00', '0', b'1'),
+	(212, '15006', '2024-12-22 19:10:11', '0000-00-00 00:00:00', '0', b'1'),
+	(213, '15006', '2024-12-22 19:10:17', '0000-00-00 00:00:00', '0', b'1'),
+	(214, '15006', '2024-12-25 15:31:08', '0000-00-00 00:00:00', '0', b'1'),
+	(215, '15006', '2024-12-25 15:36:20', '0000-00-00 00:00:00', '0', b'1'),
+	(216, '15006', '2024-12-25 15:39:06', '0000-00-00 00:00:00', '0', b'1'),
+	(217, '15006', '2024-12-25 15:41:10', '0000-00-00 00:00:00', '0', b'1'),
+	(218, '15006', '2024-12-25 15:42:56', '0000-00-00 00:00:00', '0', b'1'),
+	(219, '15006', '2024-12-25 15:43:53', '0000-00-00 00:00:00', '0', b'1'),
+	(220, '15006', '2024-12-25 15:48:36', '0000-00-00 00:00:00', '0', b'1'),
+	(221, '15006', '2024-12-25 15:49:40', '0000-00-00 00:00:00', '0', b'1'),
+	(222, '15006', '2024-12-25 15:52:19', '0000-00-00 00:00:00', '0', b'1'),
+	(223, '15006', '2024-12-25 16:01:38', '0000-00-00 00:00:00', '0', b'1'),
+	(224, '15006', '2024-12-25 16:05:10', '0000-00-00 00:00:00', '0', b'1'),
+	(225, '15006', '2024-12-25 16:07:06', '0000-00-00 00:00:00', '0', b'1'),
+	(226, '15006', '2024-12-25 16:33:48', '0000-00-00 00:00:00', '0', b'1'),
+	(227, '15006', '2024-12-25 16:43:05', '0000-00-00 00:00:00', '0', b'1'),
+	(228, '15006', '2024-12-25 16:43:34', '0000-00-00 00:00:00', '0', b'1'),
+	(229, '15006', '2024-12-25 16:44:02', '0000-00-00 00:00:00', '0', b'1'),
+	(230, '15006', '2024-12-25 16:46:46', '0000-00-00 00:00:00', '0', b'1'),
+	(231, '15006', '2024-12-25 16:47:08', '0000-00-00 00:00:00', '0', b'1'),
+	(232, '15006', '2024-12-25 16:47:34', '0000-00-00 00:00:00', '0', b'1'),
+	(233, '15006', '2024-12-25 17:09:08', '0000-00-00 00:00:00', '0', b'1'),
+	(234, '15006', '2024-12-25 17:09:33', '0000-00-00 00:00:00', '0', b'1'),
+	(235, '15006', '2024-12-25 17:10:34', '0000-00-00 00:00:00', '0', b'1'),
+	(236, '15006', '2024-12-25 17:11:14', '0000-00-00 00:00:00', '0', b'1'),
+	(237, '15006', '2024-12-25 17:12:13', '0000-00-00 00:00:00', '0', b'1'),
+	(238, '15006', '2024-12-25 17:12:37', '0000-00-00 00:00:00', '0', b'1'),
+	(239, '15006', '2024-12-25 17:13:16', '0000-00-00 00:00:00', '0', b'1'),
+	(240, '15006', '2024-12-25 17:14:19', '0000-00-00 00:00:00', '0', b'1'),
+	(241, '15006', '2024-12-25 17:14:37', '0000-00-00 00:00:00', '0', b'1'),
+	(242, '15006', '2024-12-25 17:15:33', '0000-00-00 00:00:00', '0', b'1'),
+	(243, '15006', '2024-12-25 17:17:59', '0000-00-00 00:00:00', '0', b'1'),
+	(244, '15006', '2024-12-25 18:16:54', '0000-00-00 00:00:00', '0', b'1'),
+	(245, '15006', '2024-12-25 18:17:01', '0000-00-00 00:00:00', '0', b'1'),
+	(246, '15006', '2024-12-25 18:17:06', '0000-00-00 00:00:00', '0', b'1'),
+	(247, '15006', '2024-12-25 18:17:19', '0000-00-00 00:00:00', '0', b'1'),
+	(248, '15006', '2024-12-25 18:17:27', '0000-00-00 00:00:00', '0', b'1'),
+	(249, '15006', '2024-12-25 18:17:58', '0000-00-00 00:00:00', '0', b'1'),
+	(250, '15006', '2024-12-25 18:18:18', '0000-00-00 00:00:00', '0', b'1'),
+	(251, '15006', '2024-12-25 21:31:12', '0000-00-00 00:00:00', '0', b'1'),
+	(252, '15006', '2024-12-25 21:32:04', '0000-00-00 00:00:00', '0', b'1'),
+	(253, '15006', '2024-12-25 21:33:29', '0000-00-00 00:00:00', '0', b'1'),
+	(254, '15006', '2024-12-25 21:36:10', '0000-00-00 00:00:00', '0', b'1'),
+	(255, '15006', '2024-12-25 21:36:35', '0000-00-00 00:00:00', '0', b'1'),
+	(256, '15006', '2024-12-25 21:38:18', '0000-00-00 00:00:00', '0', b'1'),
+	(257, '15006', '2024-12-25 21:39:29', '0000-00-00 00:00:00', '0', b'1'),
+	(258, '15006', '2024-12-25 21:40:27', '0000-00-00 00:00:00', '0', b'1'),
+	(259, '15006', '2024-12-25 21:42:01', '0000-00-00 00:00:00', '0', b'1'),
+	(260, '15006', '2024-12-25 21:43:10', '0000-00-00 00:00:00', '0', b'1'),
+	(261, '15006', '2024-12-25 21:44:40', '0000-00-00 00:00:00', '0', b'1'),
+	(262, '15006', '2024-12-25 21:45:44', '0000-00-00 00:00:00', '0', b'1'),
+	(263, '15006', '2024-12-25 21:45:57', '0000-00-00 00:00:00', '0', b'1'),
+	(264, '15006', '2024-12-25 21:46:04', '0000-00-00 00:00:00', '0', b'1'),
+	(265, '15006', '2024-12-25 21:46:16', '0000-00-00 00:00:00', '0', b'1'),
+	(266, '15006', '2024-12-25 21:46:27', '0000-00-00 00:00:00', '0', b'1'),
+	(267, '15006', '2024-12-25 21:46:38', '0000-00-00 00:00:00', '0', b'1'),
+	(268, '15006', '2024-12-25 21:46:44', '0000-00-00 00:00:00', '0', b'1'),
+	(269, '15006', '2024-12-25 21:48:46', '0000-00-00 00:00:00', '0', b'1'),
+	(270, '15006', '2024-12-25 21:49:44', '0000-00-00 00:00:00', '0', b'1'),
+	(271, '15006', '2024-12-25 21:50:12', '0000-00-00 00:00:00', '0', b'1'),
+	(272, '15006', '2024-12-25 21:51:49', '0000-00-00 00:00:00', '0', b'1'),
+	(273, '15006', '2024-12-25 21:51:56', '0000-00-00 00:00:00', '0', b'1'),
+	(274, '15006', '2024-12-25 21:52:02', '0000-00-00 00:00:00', '0', b'1'),
+	(275, '15006', '2024-12-25 21:52:08', '0000-00-00 00:00:00', '0', b'1'),
+	(276, '15006', '2024-12-25 21:52:12', '0000-00-00 00:00:00', '0', b'1'),
+	(277, '15006', '2024-12-25 21:52:17', '0000-00-00 00:00:00', '0', b'1'),
+	(278, '15006', '2024-12-25 21:52:24', '0000-00-00 00:00:00', '0', b'1'),
+	(279, '15006', '2024-12-26 11:37:06', '0000-00-00 00:00:00', '0', b'1'),
+	(280, '15006', '2024-12-26 12:36:29', '0000-00-00 00:00:00', '0', b'1'),
+	(281, '15006', '2024-12-26 13:17:29', '0000-00-00 00:00:00', '0', b'1'),
+	(282, '15006', '2024-12-26 13:18:33', '0000-00-00 00:00:00', '0', b'1'),
+	(283, '15006', '2024-12-26 13:18:47', '0000-00-00 00:00:00', '0', b'1'),
+	(284, '15006', '2024-12-26 13:20:15', '0000-00-00 00:00:00', '0', b'1'),
+	(285, '15006', '2024-12-26 13:21:11', '0000-00-00 00:00:00', '0', b'1'),
+	(286, '15006', '2024-12-26 13:21:23', '0000-00-00 00:00:00', '0', b'1'),
+	(287, '15006', '2024-12-26 13:22:32', '0000-00-00 00:00:00', '0', b'1'),
+	(288, '15006', '2024-12-26 13:31:47', '0000-00-00 00:00:00', '0', b'1'),
+	(289, '15006', '2024-12-26 13:33:17', '0000-00-00 00:00:00', '0', b'1'),
+	(290, '15006', '2024-12-26 13:33:35', '0000-00-00 00:00:00', '0', b'1'),
+	(291, '15006', '2024-12-26 13:35:57', '0000-00-00 00:00:00', '0', b'1'),
+	(292, '15006', '2024-12-26 13:36:23', '0000-00-00 00:00:00', '0', b'1'),
+	(293, '15006', '2024-12-26 13:36:26', '0000-00-00 00:00:00', '0', b'1'),
+	(294, '15006', '2024-12-26 13:54:50', '0000-00-00 00:00:00', '0', b'1'),
+	(295, '15006', '2024-12-26 14:32:37', '0000-00-00 00:00:00', '0', b'1'),
+	(296, '15006', '2024-12-26 14:35:26', '0000-00-00 00:00:00', '0', b'1'),
+	(297, '15006', '2024-12-26 17:06:28', '0000-00-00 00:00:00', '0', b'1'),
+	(298, '15006', '2024-12-26 17:10:27', '0000-00-00 00:00:00', '0', b'1'),
+	(299, '15006', '2024-12-26 17:11:27', '0000-00-00 00:00:00', '0', b'1'),
+	(300, '15006', '2024-12-26 17:12:38', '0000-00-00 00:00:00', '0', b'1'),
+	(301, '15006', '2024-12-26 17:13:50', '0000-00-00 00:00:00', '0', b'1'),
+	(302, '15006', '2024-12-26 17:14:39', '0000-00-00 00:00:00', '0', b'1'),
+	(303, '15006', '2024-12-26 17:15:24', '0000-00-00 00:00:00', '0', b'1'),
+	(304, '15006', '2024-12-26 17:16:10', '0000-00-00 00:00:00', '0', b'1'),
+	(305, '15006', '2024-12-26 17:17:48', '0000-00-00 00:00:00', '0', b'1'),
+	(306, '15006', '2024-12-26 17:19:27', '0000-00-00 00:00:00', '0', b'1'),
+	(307, '15006', '2024-12-26 17:21:33', '0000-00-00 00:00:00', '0', b'1'),
+	(308, '15006', '2024-12-26 17:23:30', '0000-00-00 00:00:00', '0', b'1'),
+	(309, '15006', '2024-12-26 17:23:50', '0000-00-00 00:00:00', '0', b'1'),
+	(310, '15006', '2024-12-26 17:24:37', '0000-00-00 00:00:00', '0', b'1'),
+	(311, '15006', '2024-12-26 17:24:47', '0000-00-00 00:00:00', '0', b'1'),
+	(312, '15006', '2024-12-26 17:25:20', '0000-00-00 00:00:00', '0', b'1'),
+	(313, '15006', '2024-12-26 17:25:30', '0000-00-00 00:00:00', '0', b'1'),
+	(314, '15006', '2024-12-26 17:27:53', '0000-00-00 00:00:00', '0', b'1'),
+	(315, '15006', '2024-12-26 17:28:08', '0000-00-00 00:00:00', '0', b'1'),
+	(316, '15006', '2024-12-26 17:28:32', '0000-00-00 00:00:00', '0', b'1'),
+	(317, '15006', '2024-12-26 17:30:45', '0000-00-00 00:00:00', '0', b'1'),
+	(318, '15006', '2024-12-26 17:31:08', '0000-00-00 00:00:00', '0', b'1'),
+	(319, '15006', '2024-12-26 17:31:46', '0000-00-00 00:00:00', '0', b'1'),
+	(320, '15006', '2024-12-26 17:32:46', '0000-00-00 00:00:00', '0', b'1'),
+	(321, '15006', '2024-12-26 17:32:57', '0000-00-00 00:00:00', '0', b'1'),
+	(322, '15006', '2024-12-26 17:33:48', '0000-00-00 00:00:00', '0', b'1'),
+	(323, '15006', '2024-12-26 17:35:25', '0000-00-00 00:00:00', '0', b'1'),
+	(324, '15006', '2024-12-26 17:37:27', '0000-00-00 00:00:00', '0', b'1'),
+	(325, '15006', '2024-12-26 17:38:06', '0000-00-00 00:00:00', '0', b'1'),
+	(326, '15006', '2024-12-26 17:38:35', '0000-00-00 00:00:00', '0', b'1'),
+	(327, '15006', '2024-12-26 17:40:01', '0000-00-00 00:00:00', '0', b'1'),
+	(328, '15006', '2024-12-26 17:40:17', '0000-00-00 00:00:00', '0', b'1'),
+	(329, '15006', '2024-12-26 17:43:13', '0000-00-00 00:00:00', '0', b'1'),
+	(330, '15006', '2024-12-26 17:45:29', '0000-00-00 00:00:00', '0', b'1'),
+	(331, '15006', '2024-12-26 17:46:43', '0000-00-00 00:00:00', '0', b'1'),
+	(332, '15006', '2024-12-26 17:46:59', '0000-00-00 00:00:00', '0', b'1'),
+	(333, '15006', '2024-12-26 17:47:52', '0000-00-00 00:00:00', '0', b'1'),
+	(334, '15006', '2024-12-26 17:48:29', '0000-00-00 00:00:00', '0', b'1'),
+	(335, '15006', '2024-12-26 17:49:24', '0000-00-00 00:00:00', '0', b'1'),
+	(336, '15006', '2024-12-26 17:49:32', '0000-00-00 00:00:00', '0', b'1'),
+	(337, '15006', '2024-12-26 17:49:38', '0000-00-00 00:00:00', '0', b'1'),
+	(338, '15006', '2024-12-26 17:49:43', '0000-00-00 00:00:00', '0', b'1'),
+	(339, '15006', '2024-12-26 17:49:51', '0000-00-00 00:00:00', '0', b'1'),
+	(340, '15006', '2024-12-26 17:51:32', '0000-00-00 00:00:00', '0', b'1'),
+	(341, '15006', '2024-12-26 17:51:58', '0000-00-00 00:00:00', '0', b'1'),
+	(342, '15006', '2024-12-26 17:52:38', '0000-00-00 00:00:00', '0', b'1'),
+	(343, '15006', '2024-12-26 17:52:53', '0000-00-00 00:00:00', '0', b'1'),
+	(344, '15006', '2024-12-26 17:53:23', '0000-00-00 00:00:00', '0', b'1'),
+	(345, '15006', '2024-12-26 17:54:15', '0000-00-00 00:00:00', '0', b'1'),
+	(346, '15006', '2024-12-26 17:55:15', '0000-00-00 00:00:00', '0', b'1'),
+	(347, '15006', '2024-12-26 17:55:38', '0000-00-00 00:00:00', '0', b'1'),
+	(348, '15006', '2024-12-26 17:55:49', '0000-00-00 00:00:00', '0', b'1'),
+	(349, '15006', '2024-12-26 17:56:05', '0000-00-00 00:00:00', '0', b'1'),
+	(350, '15006', '2024-12-26 17:56:30', '0000-00-00 00:00:00', '0', b'1'),
+	(351, '15006', '2024-12-26 17:57:43', '0000-00-00 00:00:00', '0', b'1'),
+	(352, '15006', '2024-12-26 17:57:55', '0000-00-00 00:00:00', '0', b'1'),
+	(353, '15006', '2024-12-26 17:58:18', '0000-00-00 00:00:00', '0', b'1'),
+	(354, '15006', '2024-12-26 17:58:32', '0000-00-00 00:00:00', '0', b'1'),
+	(355, '15006', '2024-12-26 17:58:43', '0000-00-00 00:00:00', '0', b'1'),
+	(356, '15006', '2024-12-26 18:00:20', '0000-00-00 00:00:00', '0', b'1'),
+	(357, '15006', '2024-12-26 18:00:35', '0000-00-00 00:00:00', '0', b'1'),
+	(358, '15006', '2024-12-26 18:00:51', '0000-00-00 00:00:00', '0', b'1'),
+	(359, '15006', '2024-12-26 18:01:10', '0000-00-00 00:00:00', '0', b'1'),
+	(360, '15006', '2024-12-26 18:01:34', '0000-00-00 00:00:00', '0', b'1'),
+	(361, '15006', '2024-12-26 18:02:19', '0000-00-00 00:00:00', '0', b'1'),
+	(362, '15006', '2024-12-26 18:02:57', '0000-00-00 00:00:00', '0', b'1'),
+	(363, '15006', '2024-12-26 18:03:15', '0000-00-00 00:00:00', '0', b'1'),
+	(364, '15006', '2024-12-26 18:03:33', '0000-00-00 00:00:00', '0', b'1'),
+	(365, '15006', '2024-12-26 18:04:06', '0000-00-00 00:00:00', '0', b'1'),
+	(366, '15006', '2024-12-26 18:04:18', '0000-00-00 00:00:00', '0', b'1'),
+	(367, '15006', '2024-12-26 18:04:42', '0000-00-00 00:00:00', '0', b'1'),
+	(368, '15006', '2024-12-26 18:05:18', '0000-00-00 00:00:00', '0', b'1'),
+	(369, '15006', '2024-12-26 18:06:15', '0000-00-00 00:00:00', '0', b'1'),
+	(370, '15006', '2024-12-26 18:06:34', '0000-00-00 00:00:00', '0', b'1'),
+	(371, '15006', '2024-12-26 18:06:50', '0000-00-00 00:00:00', '0', b'1'),
+	(372, '15006', '2024-12-26 18:07:22', '0000-00-00 00:00:00', '0', b'1'),
+	(373, '15006', '2024-12-26 18:07:30', '0000-00-00 00:00:00', '0', b'1'),
+	(374, '15006', '2024-12-26 18:07:43', '0000-00-00 00:00:00', '0', b'1'),
+	(375, '15006', '2024-12-26 18:08:00', '0000-00-00 00:00:00', '0', b'1'),
+	(376, '15006', '2024-12-26 18:08:24', '0000-00-00 00:00:00', '0', b'1'),
+	(377, '15006', '2024-12-26 18:08:37', '0000-00-00 00:00:00', '0', b'1'),
+	(378, '15006', '2024-12-26 18:08:45', '0000-00-00 00:00:00', '0', b'1'),
+	(379, '15006', '2024-12-26 18:09:04', '0000-00-00 00:00:00', '0', b'1'),
+	(380, '15006', '2024-12-26 18:09:21', '0000-00-00 00:00:00', '0', b'1'),
+	(381, '15006', '2024-12-26 18:09:31', '0000-00-00 00:00:00', '0', b'1'),
+	(382, '15006', '2024-12-26 18:11:50', '0000-00-00 00:00:00', '0', b'1'),
+	(383, '15006', '2024-12-26 18:11:59', '0000-00-00 00:00:00', '0', b'1'),
+	(384, '15006', '2024-12-26 18:13:06', '0000-00-00 00:00:00', '0', b'1'),
+	(385, '15006', '2024-12-26 18:13:14', '0000-00-00 00:00:00', '0', b'1'),
+	(386, '15006', '2024-12-26 18:13:29', '0000-00-00 00:00:00', '0', b'1'),
+	(387, '15006', '2024-12-26 18:14:22', '0000-00-00 00:00:00', '0', b'1'),
+	(388, '15006', '2024-12-27 21:55:05', '0000-00-00 00:00:00', '0', b'1'),
+	(389, '15006', '2024-12-27 21:55:08', '0000-00-00 00:00:00', '0', b'1'),
+	(390, '15006', '2024-12-27 21:57:53', '0000-00-00 00:00:00', '0', b'1'),
+	(391, '15006', '2024-12-27 21:58:28', '0000-00-00 00:00:00', '0', b'1'),
+	(392, '15006', '2024-12-27 21:58:33', '0000-00-00 00:00:00', '0', b'1'),
+	(393, '15006', '2024-12-27 22:00:35', '0000-00-00 00:00:00', '0', b'1'),
+	(394, '15006', '2024-12-27 22:00:38', '0000-00-00 00:00:00', '0', b'1'),
+	(395, '15006', '2024-12-27 22:04:03', '0000-00-00 00:00:00', '0', b'1'),
+	(396, '15006', '2024-12-27 22:04:30', '0000-00-00 00:00:00', '0', b'1'),
+	(397, '15006', '2024-12-27 22:04:33', '0000-00-00 00:00:00', '0', b'1'),
+	(398, '15006', '2024-12-27 22:05:34', '0000-00-00 00:00:00', '0', b'1'),
+	(399, '15006', '2024-12-27 22:06:10', '0000-00-00 00:00:00', '0', b'1'),
+	(400, '15006', '2024-12-27 22:06:17', '0000-00-00 00:00:00', '0', b'1'),
+	(401, '15006', '2024-12-27 22:07:29', '0000-00-00 00:00:00', '0', b'1'),
+	(402, '15006', '2024-12-27 22:07:43', '0000-00-00 00:00:00', '0', b'1'),
+	(403, '15006', '2024-12-27 22:07:46', '0000-00-00 00:00:00', '0', b'1'),
+	(404, '15006', '2024-12-27 22:08:22', '0000-00-00 00:00:00', '0', b'1'),
+	(405, '15006', '2024-12-27 22:16:49', '0000-00-00 00:00:00', '0', b'1'),
+	(406, '15006', '2024-12-27 22:17:30', '0000-00-00 00:00:00', '0', b'1'),
+	(407, '15006', '2024-12-27 22:17:32', '0000-00-00 00:00:00', '0', b'1'),
+	(408, '15006', '2024-12-27 22:17:52', '0000-00-00 00:00:00', '0', b'1'),
+	(409, '15006', '2024-12-27 22:17:56', '0000-00-00 00:00:00', '0', b'1'),
+	(410, '15006', '2024-12-27 22:18:22', '0000-00-00 00:00:00', '0', b'1'),
+	(411, '15006', '2024-12-27 22:18:24', '0000-00-00 00:00:00', '0', b'1'),
+	(412, '15006', '2024-12-27 22:18:36', '0000-00-00 00:00:00', '0', b'1'),
+	(413, '15006', '2024-12-27 22:18:42', '0000-00-00 00:00:00', '0', b'1'),
+	(414, '15006', '2024-12-28 11:09:34', '0000-00-00 00:00:00', '0', b'1'),
+	(415, '15006', '2024-12-28 11:09:56', '0000-00-00 00:00:00', '0', b'1'),
+	(416, '15006', '2024-12-28 11:09:58', '0000-00-00 00:00:00', '0', b'1'),
+	(417, '15006', '2024-12-28 11:10:27', '0000-00-00 00:00:00', '0', b'1'),
+	(418, '15006', '2024-12-28 11:24:50', '0000-00-00 00:00:00', '0', b'1'),
+	(419, '15006', '2024-12-28 11:25:02', '0000-00-00 00:00:00', '0', b'1'),
+	(420, '15006', '2024-12-28 11:25:40', '0000-00-00 00:00:00', '0', b'1'),
+	(421, '15006', '2024-12-28 11:25:51', '0000-00-00 00:00:00', '0', b'1'),
+	(422, '15006', '2024-12-28 11:26:12', '0000-00-00 00:00:00', '0', b'1'),
+	(423, '15006', '2024-12-28 12:00:55', '0000-00-00 00:00:00', '0', b'1'),
+	(424, '15006', '2024-12-28 12:01:27', '0000-00-00 00:00:00', '0', b'1'),
+	(425, '15006', '2024-12-28 12:04:14', '0000-00-00 00:00:00', '0', b'1'),
+	(426, '15006', '2024-12-28 12:04:26', '0000-00-00 00:00:00', '0', b'1'),
+	(427, '15006', '2024-12-28 12:04:59', '0000-00-00 00:00:00', '0', b'1'),
+	(428, '15006', '2024-12-28 12:10:23', '0000-00-00 00:00:00', '0', b'1'),
+	(429, '15006', '2024-12-28 12:10:26', '0000-00-00 00:00:00', '0', b'1'),
+	(430, '15006', '2024-12-28 12:10:42', '0000-00-00 00:00:00', '0', b'1'),
+	(431, '15006', '2024-12-28 12:16:32', '0000-00-00 00:00:00', '0', b'1'),
+	(432, '15006', '2024-12-28 12:16:44', '0000-00-00 00:00:00', '0', b'1'),
+	(433, '15006', '2024-12-28 12:17:01', '0000-00-00 00:00:00', '0', b'1'),
+	(434, '15006', '2024-12-28 12:17:13', '0000-00-00 00:00:00', '0', b'1'),
+	(435, '15006', '2024-12-28 12:17:24', '0000-00-00 00:00:00', '0', b'1'),
+	(436, '15006', '2024-12-28 12:17:30', '0000-00-00 00:00:00', '0', b'1'),
+	(437, '15006', '2024-12-28 12:17:58', '0000-00-00 00:00:00', '0', b'1'),
+	(438, '15006', '2024-12-28 12:20:05', '0000-00-00 00:00:00', '0', b'1'),
+	(439, '15006', '2024-12-28 12:20:17', '0000-00-00 00:00:00', '0', b'1'),
+	(440, '15006', '2024-12-28 12:20:19', '0000-00-00 00:00:00', '0', b'1'),
+	(441, '15006', '2024-12-28 12:50:39', '0000-00-00 00:00:00', '0', b'1'),
+	(442, '15006', '2024-12-28 12:51:05', '0000-00-00 00:00:00', '0', b'1'),
+	(443, '15006', '2024-12-28 12:55:32', '0000-00-00 00:00:00', '0', b'1'),
+	(444, '15006', '2024-12-28 13:03:16', '0000-00-00 00:00:00', '0', b'1'),
+	(445, '15006', '2024-12-28 13:03:57', '0000-00-00 00:00:00', '0', b'1'),
+	(446, '15006', '2024-12-28 13:04:06', '0000-00-00 00:00:00', '0', b'1'),
+	(447, '15006', '2024-12-28 13:04:12', '0000-00-00 00:00:00', '0', b'1'),
+	(448, '15006', '2024-12-28 13:04:50', '0000-00-00 00:00:00', '0', b'1'),
+	(449, '15006', '2024-12-28 13:05:10', '0000-00-00 00:00:00', '0', b'1'),
+	(450, '15006', '2024-12-28 13:05:35', '0000-00-00 00:00:00', '0', b'1'),
+	(451, '15006', '2024-12-28 13:09:20', '0000-00-00 00:00:00', '0', b'1'),
+	(452, '15006', '2024-12-28 13:10:12', '0000-00-00 00:00:00', '0', b'1'),
+	(453, '15006', '2024-12-28 13:14:38', '0000-00-00 00:00:00', '0', b'1'),
+	(454, '15006', '2024-12-28 13:18:59', '0000-00-00 00:00:00', '0', b'1'),
+	(455, '15006', '2024-12-28 13:58:16', '0000-00-00 00:00:00', '0', b'1'),
+	(456, '15006', '2024-12-28 13:59:32', '0000-00-00 00:00:00', '0', b'1'),
+	(457, '15006', '2024-12-28 13:59:45', '0000-00-00 00:00:00', '0', b'1'),
+	(458, '15006', '2024-12-28 14:00:10', '0000-00-00 00:00:00', '0', b'1'),
+	(459, '15006', '2024-12-28 14:29:45', '0000-00-00 00:00:00', '0', b'1'),
+	(460, '15006', '2024-12-28 14:29:48', '0000-00-00 00:00:00', '0', b'1'),
+	(461, '15006', '2024-12-28 14:30:37', '0000-00-00 00:00:00', '0', b'1'),
+	(462, '15006', '2024-12-28 14:32:01', '0000-00-00 00:00:00', '0', b'1'),
+	(463, '15006', '2024-12-28 14:35:16', '0000-00-00 00:00:00', '0', b'1'),
+	(464, '15006', '2024-12-28 14:35:43', '0000-00-00 00:00:00', '0', b'1'),
+	(465, '15006', '2024-12-28 14:39:16', '0000-00-00 00:00:00', '0', b'1'),
+	(466, '15006', '2024-12-28 14:41:11', '0000-00-00 00:00:00', '0', b'1'),
+	(467, '15006', '2024-12-28 14:41:47', '0000-00-00 00:00:00', '0', b'1'),
+	(468, '15006', '2024-12-28 14:42:13', '0000-00-00 00:00:00', '0', b'1'),
+	(469, '15006', '2024-12-28 14:42:17', '0000-00-00 00:00:00', '0', b'1'),
+	(470, '15006', '2024-12-28 14:43:27', '0000-00-00 00:00:00', '0', b'1'),
+	(471, '15006', '2024-12-28 14:43:34', '0000-00-00 00:00:00', '0', b'1'),
+	(472, '15006', '2024-12-28 14:45:27', '0000-00-00 00:00:00', '0', b'1'),
+	(473, '15006', '2024-12-28 14:46:08', '0000-00-00 00:00:00', '0', b'1'),
+	(474, '15006', '2024-12-28 14:47:04', '0000-00-00 00:00:00', '0', b'1'),
+	(475, '15006', '2024-12-28 14:47:54', '0000-00-00 00:00:00', '0', b'1'),
+	(476, '15006', '2024-12-28 14:50:04', '0000-00-00 00:00:00', '0', b'1'),
+	(477, '15006', '2024-12-28 14:50:14', '0000-00-00 00:00:00', '0', b'1'),
+	(478, '15006', '2024-12-28 14:50:51', '0000-00-00 00:00:00', '0', b'1'),
+	(479, '15006', '2024-12-28 14:51:00', '0000-00-00 00:00:00', '0', b'1'),
+	(480, '15006', '2024-12-28 14:52:19', '0000-00-00 00:00:00', '0', b'1'),
+	(481, '15006', '2024-12-28 14:52:30', '0000-00-00 00:00:00', '0', b'1'),
+	(482, '15006', '2024-12-28 14:52:35', '0000-00-00 00:00:00', '0', b'1'),
+	(483, '15006', '2024-12-28 14:54:22', '0000-00-00 00:00:00', '0', b'1'),
+	(484, '15006', '2024-12-28 14:54:26', '0000-00-00 00:00:00', '0', b'1'),
+	(485, '15006', '2024-12-28 17:33:42', '0000-00-00 00:00:00', '0', b'1'),
+	(486, '15006', '2024-12-28 17:39:06', '0000-00-00 00:00:00', '0', b'1'),
+	(487, '15006', '2024-12-28 17:40:34', '0000-00-00 00:00:00', '0', b'1'),
+	(488, '15006', '2024-12-28 17:42:18', '0000-00-00 00:00:00', '0', b'1'),
+	(489, '15006', '2024-12-28 17:42:38', '0000-00-00 00:00:00', '0', b'1'),
+	(490, '15006', '2024-12-28 17:49:15', '0000-00-00 00:00:00', '0', b'1'),
+	(491, '15006', '2024-12-29 21:38:41', '0000-00-00 00:00:00', '0', b'1'),
+	(492, '15006', '2024-12-29 21:39:32', '0000-00-00 00:00:00', '0', b'1'),
+	(493, '15006', '2024-12-29 21:39:57', '0000-00-00 00:00:00', '0', b'1'),
+	(494, '15006', '2024-12-29 21:40:58', '0000-00-00 00:00:00', '0', b'1'),
+	(495, '15006', '2024-12-29 21:41:30', '0000-00-00 00:00:00', '0', b'1'),
+	(496, '15006', '2024-12-29 21:43:10', '0000-00-00 00:00:00', '0', b'1'),
+	(497, '15006', '2024-12-29 21:44:11', '0000-00-00 00:00:00', '0', b'1'),
+	(498, '15006', '2024-12-29 21:45:48', '0000-00-00 00:00:00', '0', b'1'),
+	(499, '15006', '2024-12-29 21:46:01', '0000-00-00 00:00:00', '0', b'1'),
+	(500, '15006', '2024-12-29 21:46:23', '0000-00-00 00:00:00', '0', b'1'),
+	(501, '15006', '2024-12-29 21:46:37', '0000-00-00 00:00:00', '0', b'1'),
+	(502, '15006', '2024-12-29 21:46:45', '0000-00-00 00:00:00', '0', b'1'),
+	(503, '15006', '2024-12-29 21:48:08', '0000-00-00 00:00:00', '0', b'1'),
+	(504, '15006', '2024-12-29 21:49:02', '0000-00-00 00:00:00', '0', b'1'),
+	(505, '15006', '2024-12-29 21:51:49', '0000-00-00 00:00:00', '0', b'1'),
+	(506, '15006', '2024-12-29 21:52:41', '0000-00-00 00:00:00', '0', b'1'),
+	(507, '15006', '2024-12-29 21:53:18', '0000-00-00 00:00:00', '0', b'1'),
+	(508, '15006', '2024-12-29 21:54:01', '0000-00-00 00:00:00', '0', b'1'),
+	(509, '15006', '2024-12-29 22:00:01', '0000-00-00 00:00:00', '0', b'1'),
+	(510, '15006', '2024-12-29 22:00:51', '0000-00-00 00:00:00', '0', b'1'),
+	(511, '15006', '2024-12-29 22:02:25', '0000-00-00 00:00:00', '0', b'1'),
+	(512, '15006', '2024-12-29 22:02:38', '0000-00-00 00:00:00', '0', b'1'),
+	(513, '15006', '2024-12-29 22:07:09', '0000-00-00 00:00:00', '0', b'1'),
+	(514, '15006', '2024-12-29 22:07:16', '0000-00-00 00:00:00', '0', b'1'),
+	(515, '15006', '2024-12-29 22:08:23', '0000-00-00 00:00:00', '0', b'1'),
+	(516, '15006', '2024-12-29 22:09:07', '0000-00-00 00:00:00', '0', b'1'),
+	(517, '15006', '2024-12-29 22:09:17', '0000-00-00 00:00:00', '0', b'1'),
+	(518, '15006', '2024-12-29 22:09:34', '0000-00-00 00:00:00', '0', b'1'),
+	(519, '15006', '2024-12-29 22:12:29', '0000-00-00 00:00:00', '0', b'1'),
+	(520, '15006', '2024-12-29 22:19:56', '0000-00-00 00:00:00', '0', b'1'),
+	(521, '15006', '2024-12-29 22:21:03', '0000-00-00 00:00:00', '0', b'1'),
+	(522, '15006', '2024-12-29 22:21:10', '0000-00-00 00:00:00', '0', b'1'),
+	(523, '15006', '2024-12-29 22:26:10', '0000-00-00 00:00:00', '0', b'1'),
+	(524, '15006', '2024-12-29 22:27:31', '0000-00-00 00:00:00', '0', b'1'),
+	(525, '15006', '2024-12-29 22:28:30', '0000-00-00 00:00:00', '0', b'1'),
+	(526, '15006', '2024-12-29 22:29:35', '0000-00-00 00:00:00', '0', b'1'),
+	(527, '15006', '2024-12-29 22:30:36', '0000-00-00 00:00:00', '0', b'1'),
+	(528, '15006', '2024-12-29 22:32:32', '0000-00-00 00:00:00', '0', b'1'),
+	(529, '15006', '2024-12-29 22:35:30', '0000-00-00 00:00:00', '0', b'1'),
+	(530, '15006', '2024-12-29 22:36:42', '0000-00-00 00:00:00', '0', b'1'),
+	(531, '15006', '2024-12-29 22:38:27', '0000-00-00 00:00:00', '0', b'1'),
+	(532, '15006', '2024-12-29 22:40:47', '0000-00-00 00:00:00', '0', b'1'),
+	(533, '15006', '2024-12-29 22:43:03', '0000-00-00 00:00:00', '0', b'1'),
+	(534, '15006', '2024-12-29 22:44:16', '0000-00-00 00:00:00', '0', b'1'),
+	(535, '15006', '2024-12-29 22:49:01', '0000-00-00 00:00:00', '0', b'1'),
+	(536, '15006', '2024-12-29 22:51:18', '0000-00-00 00:00:00', '0', b'1'),
+	(537, '15006', '2024-12-30 07:56:01', '0000-00-00 00:00:00', '0', b'1'),
+	(538, '15006', '2024-12-30 07:56:07', '0000-00-00 00:00:00', '0', b'1'),
+	(539, '15006', '2024-12-30 07:56:32', '0000-00-00 00:00:00', '0', b'1'),
+	(540, '15006', '2024-12-30 07:57:45', '0000-00-00 00:00:00', '0', b'1'),
+	(541, '15006', '2024-12-30 07:58:03', '0000-00-00 00:00:00', '0', b'1'),
+	(542, '15006', '2024-12-30 08:04:20', '0000-00-00 00:00:00', '0', b'1'),
+	(543, '15006', '2024-12-30 08:05:09', '0000-00-00 00:00:00', '0', b'1'),
+	(544, '15006', '2024-12-30 08:24:39', '0000-00-00 00:00:00', '0', b'1'),
+	(545, '15006', '2024-12-30 08:24:52', '0000-00-00 00:00:00', '0', b'1'),
+	(546, '15006', '2024-12-30 08:25:13', '0000-00-00 00:00:00', '0', b'1'),
+	(547, '15006', '2024-12-30 08:28:21', '0000-00-00 00:00:00', '0', b'1'),
+	(548, '15006', '2024-12-30 08:28:32', '0000-00-00 00:00:00', '0', b'1'),
+	(549, '15006', '2024-12-30 08:31:50', '0000-00-00 00:00:00', '0', b'1'),
+	(550, '15006', '2024-12-30 08:32:06', '0000-00-00 00:00:00', '0', b'1'),
+	(551, '15006', '2024-12-30 08:34:13', '0000-00-00 00:00:00', '0', b'1'),
+	(552, '15006', '2024-12-30 08:41:16', '0000-00-00 00:00:00', '0', b'1'),
+	(553, '15006', '2024-12-30 08:41:27', '0000-00-00 00:00:00', '0', b'1'),
+	(554, '15006', '2024-12-30 08:41:48', '0000-00-00 00:00:00', '0', b'1'),
+	(555, '15006', '2024-12-30 08:42:08', '0000-00-00 00:00:00', '0', b'1'),
+	(556, '15006', '2024-12-30 09:25:27', '0000-00-00 00:00:00', '0', b'1'),
+	(557, '15006', '2024-12-30 09:28:03', '0000-00-00 00:00:00', '0', b'1'),
+	(558, '15006', '2024-12-30 09:30:46', '0000-00-00 00:00:00', '0', b'1'),
+	(559, '15006', '2024-12-30 09:33:52', '0000-00-00 00:00:00', '0', b'1'),
+	(560, '15006', '2024-12-30 09:34:08', '0000-00-00 00:00:00', '0', b'1'),
+	(561, '15006', '2024-12-30 09:34:31', '0000-00-00 00:00:00', '0', b'1'),
+	(562, '15006', '2024-12-30 09:35:33', '0000-00-00 00:00:00', '0', b'1'),
+	(563, '15006', '2024-12-30 09:39:17', '0000-00-00 00:00:00', '0', b'1'),
+	(564, '15006', '2024-12-30 09:40:30', '0000-00-00 00:00:00', '0', b'1'),
+	(565, '15006', '2024-12-30 09:43:41', '0000-00-00 00:00:00', '0', b'1'),
+	(566, '15006', '2024-12-30 09:45:22', '0000-00-00 00:00:00', '0', b'1'),
+	(567, '15006', '2024-12-30 09:47:15', '0000-00-00 00:00:00', '0', b'1'),
+	(568, '15006', '2024-12-30 10:04:15', '0000-00-00 00:00:00', '0', b'1'),
+	(569, '15006', '2024-12-30 10:11:08', '0000-00-00 00:00:00', '0', b'1'),
+	(570, '15006', '2024-12-30 10:11:21', '0000-00-00 00:00:00', '0', b'1'),
+	(571, '15006', '2024-12-30 10:11:41', '0000-00-00 00:00:00', '0', b'1'),
+	(572, '15006', '2024-12-30 10:12:32', '0000-00-00 00:00:00', '0', b'1'),
+	(573, '15006', '2024-12-30 10:14:36', '0000-00-00 00:00:00', '0', b'1'),
+	(574, '15006', '2024-12-30 10:15:42', '0000-00-00 00:00:00', '0', b'1'),
+	(575, '15006', '2024-12-30 10:16:43', '0000-00-00 00:00:00', '0', b'1'),
+	(576, '15006', '2024-12-30 10:18:33', '0000-00-00 00:00:00', '0', b'1'),
+	(577, '15006', '2024-12-30 10:18:52', '0000-00-00 00:00:00', '0', b'1'),
+	(578, '15006', '2024-12-30 10:22:14', '0000-00-00 00:00:00', '0', b'1');
 
 -- Dumping structure for table data_process.usersmedia
 CREATE TABLE IF NOT EXISTS `usersmedia` (
@@ -6854,7 +6777,7 @@ CREATE TABLE IF NOT EXISTS `usersmedia` (
   `permanentAddress` varchar(500) DEFAULT NULL,
   `district` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mediaId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersmedia: ~14 rows (approximately)
 DELETE FROM `usersmedia`;
@@ -6862,7 +6785,7 @@ INSERT INTO `usersmedia` (`mediaId`, `employeeId`, `mediaType`, `emailId`, `pers
 	('15001', '15001', 'Primary', 'NULL', '', '9790756096', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL'),
 	('15002', '15002', 'Primary', 'NULL', '', '9790756096', 'NULL', 'NULL', 'NULL', 'NULL', 'Kancheepuram'),
 	('15003', '15003', 'Primary', 'NULL', '', '9790756096', 'NULL', 'NULL', 'NULL', 'NULL', 'Chennai'),
-	('15006', '15006', 'Primary', 'ananthee89@gmail.com', '', '9790756096', NULL, 'NULL', 'NULL', 'NULL', 'Chennai'),
+	('15006', '15006', 'Primary', 'anandb.hbs@gmail.com', 'ananthee89@gmail.com', '9790756096', NULL, 'NULL', 'NULL', 'NULL', 'Chennai'),
 	('15007', '15007', 'Primary', 'NULL', '', '9790756096', 'NULL', 'NULL', 'NULL', 'NULL', 'Thiruvallur'),
 	('15008', '15008', 'Primary', 'NULL', '', '9790756096', 'NULL', 'NULL', 'NULL', 'NULL', 'Chennai'),
 	('15009', '15009', 'Primary', 'NULL', '', '9790756096', 'NULL', 'NULL', 'NULL', 'NULL', 'Chennai'),
@@ -6883,7 +6806,7 @@ CREATE TABLE IF NOT EXISTS `usersresourceproject` (
   `endDate` datetime NOT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersresourceproject: ~2 rows (approximately)
 DELETE FROM `usersresourceproject`;
@@ -6903,7 +6826,7 @@ CREATE TABLE IF NOT EXISTS `usersroles` (
   `modifiedDate` datetime DEFAULT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`autoId`)
-) ENGINE=InnoDB AUTO_INCREMENT=21362 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=21362 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.usersroles: ~65 rows (approximately)
 DELETE FROM `usersroles`;
@@ -6989,12 +6912,12 @@ CREATE TABLE IF NOT EXISTS `userstimesheet` (
   `status` varchar(50) DEFAULT NULL,
   `comments` varchar(500) DEFAULT NULL,
   `tamper` varchar(200) DEFAULT NULL,
-  `eventTrack` mediumtext,
+  `eventTrack` longtext,
   `lockStatus` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`timesheetId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.userstimesheet: ~605 rows (approximately)
+-- Dumping data for table data_process.userstimesheet: ~607 rows (approximately)
 DELETE FROM `userstimesheet`;
 INSERT INTO `userstimesheet` (`timesheetId`, `attendanceId`, `approvedBy`, `hoursBillable`, `hoursNBNP`, `hoursNBP`, `hoursOTApproved`, `hoursOTLocked`, `markedTime`, `approvedTime`, `status`, `comments`, `tamper`, `eventTrack`, `lockStatus`) VALUES
 	('TS0000000001', 'AT1684434601109', NULL, 0, 360, 0, 0, b'0', '2024-08-05 13:49:51', NULL, 'Marked', 'Leave', NULL, NULL, 'PayRoll'),
@@ -7602,7 +7525,8 @@ INSERT INTO `userstimesheet` (`timesheetId`, `attendanceId`, `approvedBy`, `hour
 	('TS1730701800499', 'AT1730701800217', NULL, 0, 0, 0, 0, b'0', NULL, NULL, 'None', '', NULL, NULL, 'None'),
 	('TS1730701800515', 'AT1730701800232', NULL, 0, 0, 0, 0, b'0', NULL, NULL, 'None', '', NULL, NULL, 'None'),
 	('TS1730701800531', 'AT1730701800248', NULL, 0, 0, 0, 0, b'0', NULL, NULL, 'None', '', NULL, NULL, 'None'),
-	('TS1733807952727', 'AT1733807952722', '15006', 125, 100, 70, 0, b'0', '2024-12-10 15:48:33', '2024-12-10 15:49:13', 'Approved', 'ReferBack Approved', NULL, NULL, 'None');
+	('TS1733807952727', 'AT1733807952722', '15006', 125, 100, 70, 0, b'0', '2024-12-10 15:48:33', '2024-12-10 15:49:13', 'Approved', 'ReferBack Approved', NULL, NULL, 'None'),
+	('TS1733900127130', 'AT1733900127122', NULL, 0, 0, 0, 0, b'0', NULL, NULL, 'None', NULL, NULL, NULL, 'None');
 
 -- Dumping structure for table data_process.users_leave_type
 CREATE TABLE IF NOT EXISTS `users_leave_type` (
@@ -7664,7 +7588,7 @@ CREATE TABLE IF NOT EXISTS `wu_delivery_overall` (
   `Status` varchar(50) DEFAULT NULL,
   `BPSPlannedCompletionDate` varchar(50) DEFAULT NULL,
   `ActualCompletedDate` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.wu_delivery_overall: ~0 rows (approximately)
 DELETE FROM `wu_delivery_overall`;
@@ -7676,7 +7600,7 @@ CREATE TABLE IF NOT EXISTS `wu_delivery_total` (
   `projectId` varchar(50) DEFAULT NULL,
   `ReceivedMonth` varchar(50) DEFAULT NULL,
   `TotalReceivedMiles` float DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table data_process.wu_delivery_total: ~0 rows (approximately)
 DELETE FROM `wu_delivery_total`;
