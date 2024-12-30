@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `access_privilege` (
   `status` bit(1) NOT NULL DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.access_privilege: ~458 rows (approximately)
+-- Dumping data for table data_process.access_privilege: ~61 rows (approximately)
 DELETE FROM `access_privilege`;
 INSERT INTO `access_privilege` (`accessId`, `groupName`, `requestName`, `requestPath`, `status`) VALUES
 	('AddUser', 'User', 'Add User', '/addUser', b'1'),
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `access_privilege_role` (
   PRIMARY KEY (`autoId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100082 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.access_privilege_role: ~0 rows (approximately)
+-- Dumping data for table data_process.access_privilege_role: ~61 rows (approximately)
 DELETE FROM `access_privilege_role`;
 INSERT INTO `access_privilege_role` (`autoId`, `accessId`, `roleId`) VALUES
 	(100000, 'ActiveSkillSetList', 'Admin'),
@@ -3884,7 +3884,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`messageId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.messages: ~6 rows (approximately)
+-- Dumping data for table data_process.messages: ~5 rows (approximately)
 DELETE FROM `messages`;
 INSERT INTO `messages` (`messageId`, `message`, `messageName`, `subject`, `media`, `producerId`, `dataMapTemplateName`, `createdDate`, `modifiedDate`, `status`, `textHTML`) VALUES
 	('Create_User_Admin', 'Hi ${user_producerName} <BR> <BR>  User ${user_userName} from ${user_country_countryName} has been created. Pls verify the user. <BR> Please click here <a href="${tokenURL}">Activation Link</a><BR><BR>By<BR> ${user_producerName}.', 'Create_User_Admin', 'Hi ${user_producerName} User Created Info Admin ', 'Email', 'PRD000001', NULL, '2021-01-01 00:00:00', '2021-01-01 00:00:00', b'1', b'1'),
@@ -4412,7 +4412,6 @@ CREATE TABLE IF NOT EXISTS `producersproperty` (
   `autoId` varchar(50) NOT NULL,
   `producerId` varchar(50) NOT NULL,
   `groupName` varchar(50) NOT NULL,
-  `enumKey` varchar(50) NOT NULL,
   `property` varchar(200) NOT NULL,
   `value` mediumtext NOT NULL,
   `status` bit(1) NOT NULL DEFAULT b'1',
@@ -4424,16 +4423,14 @@ CREATE TABLE IF NOT EXISTS `producersproperty` (
   `media` varchar(50) NOT NULL,
   `mediaMode` varchar(50) NOT NULL,
   `mediaType` varchar(50) NOT NULL,
-  PRIMARY KEY (`autoId`)
+  PRIMARY KEY (`autoId`),
+  UNIQUE KEY `property` (`property`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.producersproperty: ~4 rows (approximately)
+-- Dumping data for table data_process.producersproperty: ~1 rows (approximately)
 DELETE FROM `producersproperty`;
-INSERT INTO `producersproperty` (`autoId`, `producerId`, `groupName`, `enumKey`, `property`, `value`, `status`, `createdBy`, `modifiedBy`, `createdDate`, `modifiedDate`, `comments`, `media`, `mediaMode`, `mediaType`) VALUES
-	('1', 'PRD000001', 'Configuration External', 'ConfigurationEmail', 'org.edr.core.beans.model.channel.ConfigurationEmail', '{"protocol":"imaps","socketFactory":"javax.net.ssl.SSLSocketFactory","enablessl":"true","hostAddress":"imap.gmail.com","userName":"eselfguru@gmail.com","password":"ojawauylchlhqzoo","port":"993","ttls":"true","fromId":"eselfguru@gmail.com","fromName":"data_process","source":"Gmail_IMAP","additionalProperties":{},"producerId":"PRD000001","baseFolderPath":"C:/Ananth/data_process_attachments","startDate":"_3_Days","readEvery":"_5_Minutes","reverseStart":false}', b'1', 'Admin', 'Admin', '2021-01-01 00:00:00', '2021-01-01 00:00:00', NULL, 'Email', 'External', 'Primary'),
-	('2', 'PRD000001', 'ConfigurationEmail Internal', 'ConfigurationEmail', 'org.edr.core.beans.model.channel.ConfigurationEmail', '{\r\n   "socketFactory":"javax.net.ssl.SSLSocketFactory",\r\n   "hostAddress":"smtp.gmail.com",\r\n   "port":"587",\r\n   "userName":"anandb.hbs@gmail.com",\r\n   "fromId":"anandb.hbs@gmail.com",\r\n   "fromName":"Anand",\r\n   "password":"anoulgsbddydxjz",\r\n   "source":"Gmail_SMTP",\r\n   "additionalProperties":{\r\n      "mail.smtp.ssl.trust": "smtp.gmail.com",\r\n      "mail.smtp.auth":"true",\r\n      "mail.smtp.starttls.enable":"true"\r\n   }\r\n}', b'1', 'Admin', 'Admin', '2021-01-01 00:00:00', '2021-01-01 00:00:00', NULL, 'Email', 'Internal', 'Primary'),
-	('3', 'PRD000001', 'Configuration Web Upload', 'ConfigurationWebUpload', 'org.edr.core.beans.model.channel.ConfigurationWebUpload', '{\r\n     "baseFolderPath":"C:/DataProcess/Upload/Excel"\r\n}', b'1', 'Admin', 'Admin', '2021-01-01 00:00:00', '2021-01-01 00:00:00', NULL, 'WebUpload', 'External', 'Primary'),
-	('4', 'PRD000001', 'Web Upload User Attachments', 'UserAttachments', 'org.edr.core.beans.model.channel.ConfigurationWebUpload', '{\r\n    "baseFolderPath":"C:/DataProcess/Upload/UserAttachments"\r\n}', b'1', 'Admin', 'Admin', '2021-01-01 00:00:00', '2021-01-01 00:00:00', NULL, 'WebUpload', 'External', 'Primary');
+INSERT INTO `producersproperty` (`autoId`, `producerId`, `groupName`, `property`, `value`, `status`, `createdBy`, `modifiedBy`, `createdDate`, `modifiedDate`, `comments`, `media`, `mediaMode`, `mediaType`) VALUES
+	('1', 'PRD000001', 'Hostinger', 'SupportEmail', '{\r\n    "host": "smtp.hostinger.com",\r\n    "service": "Hostinger",\r\n    "port": 465,\r\n    "secure": true,\r\n    "auth": {\r\n        "displayName" : "Support Team",\r\n        "user": "support-focus@stashook.com",\r\n        "pass": "Stashook@2022"\r\n    }\r\n}', b'1', 'Admin', 'Admin', '2021-01-01 00:00:00', '2021-01-01 00:00:00', NULL, 'Email', 'External', 'Primary');
 
 -- Dumping structure for table data_process.product_support
 CREATE TABLE IF NOT EXISTS `product_support` (
@@ -5000,13 +4997,13 @@ CREATE TABLE IF NOT EXISTS `tix_incident` (
   PRIMARY KEY (`incidentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.tix_incident: ~4 rows (approximately)
+-- Dumping data for table data_process.tix_incident: ~6 rows (approximately)
 DELETE FROM `tix_incident`;
 INSERT INTO `tix_incident` (`incidentId`, `cookId`, `customerId`, `priority`, `supportType`, `description`, `taskStatus`, `taskDuration`, `eventTrack`, `createdBy`, `createdDate`, `modifiedBy`, `modifiedDate`) VALUES
 	('INC1234567890', 'CBK1733061459464', 'CST1735130898518', 'Low', 'Internal', 'Red Light Beep Sound', 'Accepted', NULL, NULL, '15006', '2024-12-25 21:33:23', '15006', '2024-12-25 21:33:24'),
 	('INC1735201490927', 'CBK1733061459464', 'CST1735130898518', 'Low', 'Internal', 'Red Light Beep Sound', 'Accepted', NULL, NULL, '15006', '2024-12-26 13:54:50', '15006', '2024-12-26 13:54:50'),
 	('INC1735203757661', 'CBK1733061459464', 'CST1735130898518', 'Low', 'Internal', 'Red Light Beep Sound', 'Accepted', NULL, NULL, '15006', '2024-12-26 14:32:37', '15006', '2024-12-26 14:32:37'),
-	('INC1735203926295', 'CBK1733061459464', 'CST1735130898518', 'Medium', 'Internal', 'This is Accepted by Client', 'Accepted', 13814, NULL, '15006', '2024-12-26 14:35:26', '15006', '2024-12-30 10:18:52'),
+	('INC1735203926295', 'CBK1733061459464', 'CST1735130898518', 'Medium', 'Internal', 'This is Accepted by Client', 'Accepted', 14438, NULL, '15006', '2024-12-26 14:35:26', '15006', '2024-12-30 20:42:13'),
 	('INC1735533668477', NULL, 'CST1735130898518', 'Low', 'Internal', NULL, 'Open', 0, NULL, '15006', '2024-12-30 10:11:08', '15006', '2024-12-30 10:11:08'),
 	('INC1735533681471', NULL, 'CST1735130898518', 'Low', 'Internal', NULL, 'Open', 0, NULL, '15006', '2024-12-30 10:11:21', '15006', '2024-12-30 10:11:21');
 
@@ -5036,8 +5033,8 @@ CREATE TABLE IF NOT EXISTS `tix_media_group` (
   `mediaType` varchar(50) DEFAULT NULL COMMENT 'Email/SMS/WhatsApp',
   `messageId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Message  Id From Messages Table',
   `toGroup` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-  `ccGroup` mediumtext,
-  `bccGroup` mediumtext,
+  `ccGroup` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `bccGroup` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `status` bit(1) NOT NULL DEFAULT (0x01),
   PRIMARY KEY (`groupId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -5045,7 +5042,7 @@ CREATE TABLE IF NOT EXISTS `tix_media_group` (
 -- Dumping data for table data_process.tix_media_group: ~1 rows (approximately)
 DELETE FROM `tix_media_group`;
 INSERT INTO `tix_media_group` (`groupId`, `groupName`, `mediaType`, `messageId`, `toGroup`, `ccGroup`, `bccGroup`, `status`) VALUES
-	('NTN1234567890', 'IncidentEmailGroup', 'Email', 'CreateIncidentEmail', 'anandb.hbs@gmail.com, soundaravalli2021@gmail.com', 'muthuslm@gmail.com', 'tamils1978@gmail.com', b'1');
+	('NTN1234567890', 'IncidentEmailGroup', 'Email', 'CreateIncidentEmail', '', '', 'anandb.hbs@gmail.com, soundaravalli2021@gmail.com, tamils1978@gmail.com, muthuslm@gmail.com', b'1');
 
 -- Dumping structure for table data_process.tix_question
 CREATE TABLE IF NOT EXISTS `tix_question` (
@@ -5083,7 +5080,7 @@ CREATE TABLE IF NOT EXISTS `tix_ticket` (
   PRIMARY KEY (`ticketId`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table data_process.tix_ticket: ~2 rows (approximately)
+-- Dumping data for table data_process.tix_ticket: ~6 rows (approximately)
 DELETE FROM `tix_ticket`;
 INSERT INTO `tix_ticket` (`ticketId`, `parentTicketId`, `incidentId`, `customerId`, `cookId`, `queueId`, `ticketStatus`, `assignedTo`, `assignedDate`, `processedBy`, `processedDate`, `createdBy`, `createdDate`, `description`) VALUES
 	('T10001', 'T10001', NULL, 'CID10005', 'CB10001', 'Group', 'Open', '10504', '2024-12-28 17:12:15', NULL, '2024-11-27 16:53:28', NULL, '2024-11-27 16:53:25', 'Will Assigned'),
@@ -6190,9 +6187,9 @@ CREATE TABLE IF NOT EXISTS `userslog` (
   `fetchBlock` bit(1) DEFAULT b'0',
   PRIMARY KEY (`autoId`),
   KEY `FK_LogUser_User_idx` (`employeeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=579 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=641 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table data_process.userslog: ~479 rows (approximately)
+-- Dumping data for table data_process.userslog: ~568 rows (approximately)
 DELETE FROM `userslog`;
 INSERT INTO `userslog` (`autoId`, `employeeId`, `userLoginTime`, `userLogoutTime`, `ipAddress`, `fetchBlock`) VALUES
 	(12, '15006', '2024-12-10 10:41:30', '0000-00-00 00:00:00', '0', b'1'),
@@ -6761,7 +6758,69 @@ INSERT INTO `userslog` (`autoId`, `employeeId`, `userLoginTime`, `userLogoutTime
 	(575, '15006', '2024-12-30 10:16:43', '0000-00-00 00:00:00', '0', b'1'),
 	(576, '15006', '2024-12-30 10:18:33', '0000-00-00 00:00:00', '0', b'1'),
 	(577, '15006', '2024-12-30 10:18:52', '0000-00-00 00:00:00', '0', b'1'),
-	(578, '15006', '2024-12-30 10:22:14', '0000-00-00 00:00:00', '0', b'1');
+	(578, '15006', '2024-12-30 10:22:14', '0000-00-00 00:00:00', '0', b'1'),
+	(579, '15006', '2024-12-30 13:02:32', '0000-00-00 00:00:00', '0', b'1'),
+	(580, '15001', '2024-12-30 16:46:52', '0000-00-00 00:00:00', '0', b'1'),
+	(581, '15006', '2024-12-30 16:46:55', '0000-00-00 00:00:00', '0', b'1'),
+	(582, '15006', '2024-12-30 16:49:47', '0000-00-00 00:00:00', '0', b'1'),
+	(583, '15006', '2024-12-30 17:01:45', '0000-00-00 00:00:00', '0', b'1'),
+	(584, '15006', '2024-12-30 17:02:02', '0000-00-00 00:00:00', '0', b'1'),
+	(585, '15006', '2024-12-30 18:50:36', '0000-00-00 00:00:00', '0', b'1'),
+	(586, '15006', '2024-12-30 19:03:04', '0000-00-00 00:00:00', '0', b'1'),
+	(587, '15006', '2024-12-30 19:05:06', '0000-00-00 00:00:00', '0', b'1'),
+	(588, '15006', '2024-12-30 19:05:24', '0000-00-00 00:00:00', '0', b'1'),
+	(589, '15006', '2024-12-30 19:05:58', '0000-00-00 00:00:00', '0', b'1'),
+	(590, '15006', '2024-12-30 19:06:15', '0000-00-00 00:00:00', '0', b'1'),
+	(591, '15006', '2024-12-30 19:08:16', '0000-00-00 00:00:00', '0', b'1'),
+	(592, '15006', '2024-12-30 19:09:13', '0000-00-00 00:00:00', '0', b'1'),
+	(593, '15006', '2024-12-30 19:10:27', '0000-00-00 00:00:00', '0', b'1'),
+	(594, '15006', '2024-12-30 19:11:26', '0000-00-00 00:00:00', '0', b'1'),
+	(595, '15006', '2024-12-30 19:12:15', '0000-00-00 00:00:00', '0', b'1'),
+	(596, '15006', '2024-12-30 19:12:43', '0000-00-00 00:00:00', '0', b'1'),
+	(597, '15006', '2024-12-30 19:14:16', '0000-00-00 00:00:00', '0', b'1'),
+	(598, '15006', '2024-12-30 19:14:27', '0000-00-00 00:00:00', '0', b'1'),
+	(599, '15006', '2024-12-30 19:15:50', '0000-00-00 00:00:00', '0', b'1'),
+	(600, '15006', '2024-12-30 19:15:59', '0000-00-00 00:00:00', '0', b'1'),
+	(601, '15006', '2024-12-30 19:21:05', '0000-00-00 00:00:00', '0', b'1'),
+	(602, '15006', '2024-12-30 19:21:56', '0000-00-00 00:00:00', '0', b'1'),
+	(603, '15006', '2024-12-30 19:22:12', '0000-00-00 00:00:00', '0', b'1'),
+	(604, '15006', '2024-12-30 19:22:55', '0000-00-00 00:00:00', '0', b'1'),
+	(605, '15006', '2024-12-30 19:23:32', '0000-00-00 00:00:00', '0', b'1'),
+	(606, '15006', '2024-12-30 19:24:14', '0000-00-00 00:00:00', '0', b'1'),
+	(607, '15006', '2024-12-30 19:24:43', '0000-00-00 00:00:00', '0', b'1'),
+	(608, '15006', '2024-12-30 19:25:40', '0000-00-00 00:00:00', '0', b'1'),
+	(609, '15006', '2024-12-30 19:27:45', '0000-00-00 00:00:00', '0', b'1'),
+	(610, '15006', '2024-12-30 19:29:08', '0000-00-00 00:00:00', '0', b'1'),
+	(611, '15006', '2024-12-30 19:29:21', '0000-00-00 00:00:00', '0', b'1'),
+	(612, '15006', '2024-12-30 19:30:08', '0000-00-00 00:00:00', '0', b'1'),
+	(613, '15006', '2024-12-30 19:35:42', '0000-00-00 00:00:00', '0', b'1'),
+	(614, '15006', '2024-12-30 19:39:58', '0000-00-00 00:00:00', '0', b'1'),
+	(615, '15006', '2024-12-30 19:40:17', '0000-00-00 00:00:00', '0', b'1'),
+	(616, '15006', '2024-12-30 20:09:02', '0000-00-00 00:00:00', '0', b'1'),
+	(617, '15006', '2024-12-30 20:12:14', '0000-00-00 00:00:00', '0', b'1'),
+	(618, '15006', '2024-12-30 20:13:04', '0000-00-00 00:00:00', '0', b'1'),
+	(619, '15006', '2024-12-30 20:13:48', '0000-00-00 00:00:00', '0', b'1'),
+	(620, '15006', '2024-12-30 20:14:28', '0000-00-00 00:00:00', '0', b'1'),
+	(621, '15006', '2024-12-30 20:19:38', '0000-00-00 00:00:00', '0', b'1'),
+	(622, '15006', '2024-12-30 20:21:03', '0000-00-00 00:00:00', '0', b'1'),
+	(623, '15006', '2024-12-30 20:21:16', '0000-00-00 00:00:00', '0', b'1'),
+	(624, '15006', '2024-12-30 20:22:16', '0000-00-00 00:00:00', '0', b'1'),
+	(625, '15006', '2024-12-30 20:22:39', '0000-00-00 00:00:00', '0', b'1'),
+	(626, '15006', '2024-12-30 20:24:06', '0000-00-00 00:00:00', '0', b'1'),
+	(627, '15006', '2024-12-30 20:27:26', '0000-00-00 00:00:00', '0', b'1'),
+	(628, '15006', '2024-12-30 20:28:35', '0000-00-00 00:00:00', '0', b'1'),
+	(629, '15006', '2024-12-30 20:29:15', '0000-00-00 00:00:00', '0', b'1'),
+	(630, '15006', '2024-12-30 20:29:38', '0000-00-00 00:00:00', '0', b'1'),
+	(631, '15006', '2024-12-30 20:30:24', '0000-00-00 00:00:00', '0', b'1'),
+	(632, '15006', '2024-12-30 20:31:39', '0000-00-00 00:00:00', '0', b'1'),
+	(633, '15006', '2024-12-30 20:34:23', '0000-00-00 00:00:00', '0', b'1'),
+	(634, '15006', '2024-12-30 20:34:56', '0000-00-00 00:00:00', '0', b'1'),
+	(635, '15006', '2024-12-30 20:36:18', '0000-00-00 00:00:00', '0', b'1'),
+	(636, '15006', '2024-12-30 20:36:39', '0000-00-00 00:00:00', '0', b'1'),
+	(637, '15006', '2024-12-30 20:38:03', '0000-00-00 00:00:00', '0', b'1'),
+	(638, '15006', '2024-12-30 20:38:35', '0000-00-00 00:00:00', '0', b'1'),
+	(639, '15006', '2024-12-30 20:41:05', '0000-00-00 00:00:00', '0', b'1'),
+	(640, '15006', '2024-12-30 20:42:13', '0000-00-00 00:00:00', '0', b'1');
 
 -- Dumping structure for table data_process.usersmedia
 CREATE TABLE IF NOT EXISTS `usersmedia` (
