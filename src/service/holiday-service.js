@@ -1,8 +1,7 @@
-const { Connection, JsonUtil, Util } = require('stashook-utils');
+const { Connection, JsonUtil, Util, Logger } = require('stashook-utils');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
 const HolidayModel = require('../model/holiday');
-const Logger = require('../util/logger');
 const xlsx = require('xlsx');
 
 module.exports = {

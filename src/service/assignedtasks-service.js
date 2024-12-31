@@ -1,5 +1,4 @@
-const { JsonUtil, Util, Connection } = require('stashook-utils');
-const Logger = require('../util/logger');
+const { JsonUtil, Util, Connection, Logger } = require('stashook-utils');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
 const UsersAssignedTasksModel = require('../model/assignedtasks');

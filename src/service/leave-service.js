@@ -1,8 +1,7 @@
-const { Util, Connection, JsonUtil } = require('stashook-utils');
+const { Util, Connection, JsonUtil, Logger } = require('stashook-utils');
 const LeaveModel = require('../model/leave');
 const Queries = require('../util/queries');
 const Message = require('../util/message');
-const Logger = require('../util/logger');
 const moment = require('moment');
 
 module.exports = {
