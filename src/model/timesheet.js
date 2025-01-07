@@ -3,7 +3,7 @@ const { Util, JsonUtil, Model } = require('stashook-utils');
 module.exports = new class TimesheetModel extends Model {
 
   constructor() {
-    super('userstimesheet'); // Table Name
+    super('users_timesheet'); // Table Name
   }
 
   createData(attendanceId) {

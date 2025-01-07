@@ -4,7 +4,7 @@ const moment = require('moment');
 module.exports = new class HolidayModel extends Model {
 
   constructor() {
-    super('usersholidayscalendar'); // Table Name
+    super('users_holidays_calendar'); // Table Name
   }
 
   searchExistData(req) {

@@ -8,7 +8,7 @@ moment.createFromInputFallback = function (config) {
 module.exports = new class LeaveModel extends Model {
 
   constructor() {
-    super('usersleavemanagement');// Table Name
+    super('users_leave_management');// Table Name
   }
 
   searchData(result, req) {

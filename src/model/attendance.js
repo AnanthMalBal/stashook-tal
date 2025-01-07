@@ -3,7 +3,7 @@ const {Util, Model} = require('stashook-utils');
 module.exports = new class AttendanceModel extends Model {
 
   constructor() {
-    super('usersattendance');// Table Name
+    super('users_attendance');// Table Name
   }
 
   markData(symbol, attendanceId) {

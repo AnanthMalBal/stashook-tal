@@ -4,7 +4,7 @@ const moment = require('moment');
 module.exports = new class UsersProjectModel extends Model {
 
     constructor() {
-        super('usersresourceproject');// Table Name
+        super('users_resource_project');// Table Name
     }
 
     createData(req) {
