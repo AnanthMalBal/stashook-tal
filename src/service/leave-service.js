@@ -127,10 +127,14 @@ module.exports = {
 
     getLeaveHolidayColor: async (req, res, next) => {
 
-        let employeeId = req.body.employeeId ? JsonUtil.unmaskField(req.body.employeeId) : req.sessionUser.employeeId;
+        // console.log("Check",req.body.employeeId);
+        let employeeId = req.body.employeeId ? req.body.employeeId : req.sessionUser.employeeId;
 
         Connection.query(Queries.SP_HolidayColor, [req.body.selectedDate, employeeId], function (error, results) {
-            if (error || results.length === 0) res.json(Message.HOLIDAY_INVALID_DATE);
+            console.log(results)
+            if (error || results.length === 0) 
+                
+                res.json(Message.HOLIDAY_INVALID_DATE);
             Logger.info("::Queries::getLeaveHolidayColor::: " + JSON.stringify(results));
 
             let finalResult = [];
