@@ -58,7 +58,7 @@ module.exports = {
 
     DeleteUserDailyLog: `DELETE FROM users_daily_log WHERE autoId = ?`,
 
-    ProjectList: `SELECT projectId, projectName FROM tix_project WHERE status = 1 AND divisionId = ? ORDER BY displayOrder ASC`,
+    ProjectList: `SELECT projectId, projectName FROM tix_projects WHERE status = 1 AND divisionId = ? ORDER BY displayOrder ASC`,
 
     ProjectProcessList: `SELECT TP.processId, TP.processName, TP.billType, CAST(TP.billable AS UNSIGNED) AS billable, TP.entryType, TP.minutes FROM timesheet_process TP
     JOIN timesheet_process_project TPP ON TPP.processId = TP.processId WHERE TP.status = 1 AND TPP.projectId = ? ORDER BY TP.displayOrder ASC`,
