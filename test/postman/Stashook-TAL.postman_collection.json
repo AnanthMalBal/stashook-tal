@@ -1779,7 +1779,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"empId\":\"15002\",\r\n   \"empType\":\"Admin\"\r\n}\r\n",
+							"raw": "{\r\n   \r\n   \"empType\":\"emp\",\r\n   \"fromDate\":\"2025-01-23\",\r\n   \"toDate\":\"2025-02-03\"\r\n   \r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1848,7 +1848,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"empId\":\"15002\",\r\n   \"empType\":\"Admin\"\r\n}\r\n",
+							"raw": "{\r\n\r\n   \"empType\":\"Admin\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
