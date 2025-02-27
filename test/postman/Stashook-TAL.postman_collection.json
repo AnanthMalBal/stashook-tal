@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "ba77a6b5-855e-400e-bf03-aeb9c01f83ee",
+		"_postman_id": "d2b4190d-f181-4343-b670-5c75a1e8d648",
 		"name": "Stashook-TAL",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "6436539"
+		"_exporter_id": "6436548"
 	},
 	"item": [
 		{
@@ -1722,6 +1722,149 @@
 							"path": [
 								"stashook",
 								"getOnBehalfUsersList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "Leave Report",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const preRequest = {\r",
+									"    method: 'POST',\r",
+									"    url: pm.environment.get(\"auth-url\"),\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            \"username\":pm.environment.get(\"username\"),\r",
+									"            \"password\":pm.environment.get(\"password\")\r",
+									"        })\r",
+									"    }\r",
+									"};\r",
+									" \r",
+									"// Send the pre-request POST request.\r",
+									"pm.sendRequest(preRequest, (err, response) => {\r",
+									"    if (err) {\r",
+									"        console.error('Error:', err);\r",
+									"    } else {\r",
+									"        //console.log('Pre-request script response:', response.json());\r",
+									"        pm.environment.set(\"token\", response.json().authToken);\r",
+									"        //console.log(pm.environment.get(\"authToken\"));\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"empId\":\"15002\",\r\n   \"empType\":\"Admin\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/leaveReport",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"leaveReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DailyLog Report",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const preRequest = {\r",
+									"    method: 'POST',\r",
+									"    url: pm.environment.get(\"auth-url\"),\r",
+									"    header: 'Content-Type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            \"username\":pm.environment.get(\"username\"),\r",
+									"            \"password\":pm.environment.get(\"password\")\r",
+									"        })\r",
+									"    }\r",
+									"};\r",
+									" \r",
+									"// Send the pre-request POST request.\r",
+									"pm.sendRequest(preRequest, (err, response) => {\r",
+									"    if (err) {\r",
+									"        console.error('Error:', err);\r",
+									"    } else {\r",
+									"        //console.log('Pre-request script response:', response.json());\r",
+									"        pm.environment.set(\"token\", response.json().authToken);\r",
+									"        //console.log(pm.environment.get(\"authToken\"));\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"empId\":\"15002\",\r\n   \"empType\":\"Admin\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9100/stashook/dailylogReport",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"stashook",
+								"dailylogReport"
 							]
 						}
 					},
