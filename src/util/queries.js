@@ -124,6 +124,10 @@ module.exports = {
 
     GetAssignedTasks: `SELECT processInfo FROM usersassignedtasks WHERE employeeId = ?`,
 
-    UpdateAssignedTasks: `UPDATE usersassignedtasks SET processInfo = ? WHERE employeeId = ?`
+    UpdateAssignedTasks: `UPDATE usersassignedtasks SET processInfo = ? WHERE employeeId = ?`,
+
+    SP_LeaveReport: `CALL getLeaveReport(?,?,?,?)`,
+    
+    SP_DailyLogReport: `CALL getDailyLogReport(?,?,?,?)`,
 
 }
